@@ -1,0 +1,5 @@
+Regra dos diretórios: https://medium.com/reactbrasil/react-estruturando-projetos-e-nomeando-componentes-b62ddad69a11
+
+info de vagas: https://www.vagas.com.br/profissoes/c/dicas/
+
+icons: https://react-icons.netlify.com/#/

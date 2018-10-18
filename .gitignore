@@ -19,3 +19,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# sass
+.sass-cache
+
+# IDE
+.idea
