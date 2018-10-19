@@ -7,40 +7,27 @@ export default class InputLabel extends Component {
     constructor(){
         super();
         this.state = {
-            valid: false
+            invalid: '',
         }
     }
 
-    validaCPF = (e)=>{
-        console.log(e);
-        // let strCPF = e.target.value;
-        // let Soma;
-        // let Resto;
-        // Soma = 0;
-        // if (strCPF === "00000000000"){
-        //     this.setState({valid: false})
-        // }
-        //
-        // for (let i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
-        // Resto = (Soma * 10) % 11;
-        //
-        // if ((Resto === 10) || (Resto === 11))  Resto = 0;
-        // if (Resto !== parseInt(strCPF.substring(9, 10)) ){
-        //     this.setState({valid: false})
-        // }
-        //
-        // Soma = 0;
-        // for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
-        // Resto = (Soma * 10) % 11;
-        //
-        // if ((Resto === 10) || (Resto === 11))  Resto = 0;
-        // if (Resto !== parseInt(strCPF.substring(10, 11) ) ){
-        //     this.setState({valid: false})
-        // }else{
-        //     this.setState({valid: true});
-        //     console.log(this.state.valid)
-        // }
+    validaCPF(e) {
+        let strCPF = e.target.value;
+        let valido = this.props.viewCpf(strCPF);
+        !valido ? this.setState({invalid: 'red'}) : this.setState({invalid: ''});
     };
+
+    validaMail(e){
+        let strMail = e.target.value;
+        let valido = this.props.viewMail(strMail);
+        !valido ? this.setState({invalid: 'red'}) : this.setState({invalid: ''});
+    }
+
+    validaSenha(e){
+        let strMail = e.target.value;
+        let different = this.props.viewSenha(this.props.confirm, strMail);
+        different && this.props.confirm ? this.setState({invalid: 'red'}) : this.setState({invalid: ''});
+    }
 
     render() {
         return (
@@ -60,15 +47,17 @@ export default class InputLabel extends Component {
                 </div>
                 {
                     this.props.type ?
-                        <input type={this.props.type} className="form-control"
-                               placeholder={this.props.place} required/>
+                        <input type={this.props.type} className="form-control" style={{borderColor: this.state.invalid}}
+                               placeholder={this.props.place} onBlur={this.props.type === 'email' ? this.validaMail.bind(this) : this.validaSenha.bind(this)} required/>
                     :
                         <MaskedInput
                             mask={[/[0-9]/, /\d/, /\d/, '.', /[0-9]/, /\d/, /\d/, '.', /[0-9]/, /\d/, /\d/, '-', /[0-9]/, /\d/]}
                             className="form-control"
                             placeholder={this.props.place}
-                            guide={false}
-                            onChange={this.validaCPF(this)}
+                            required={true}
+                            guide={true}
+                            style={{borderColor: this.state.invalid}}
+                            onChange={this.validaCPF.bind(this)}
                         />
                 }
             </div>
