@@ -3,3 +3,15 @@ Regra dos diretórios: https://medium.com/reactbrasil/react-estruturando-projeto
 info de vagas: https://www.vagas.com.br/profissoes/c/dicas/
 
 icons: https://react-icons.netlify.com/#/
+
+A era do currículo em papel já chegou ao fim. Hoje é mais vantajoso você criar um currículo virtual que irá servir de ponte de ligação entre você e as empresas do que ficar perdendo tempo no Word.
+
+Diante disso, deixo aqui a dica de um currículo em HTML onde você só necessita baixar o arquivo, editá-lo e colocá-lo em seu servidor:
+
+curriculos: https://themeforest.net/item/tile-resumecvvcardportfolio-html-template/14574420?s_rank=7&_ga=2.73079958.48536590.1539994017-2106927171.1539994017
+
+gostei desse curriculo: http://preview.themeforest.net/item/tile-resumecvvcardportfolio-html-template/full_screen_preview/14574420
+
+http://junaidhira.com/demo/html/tile/index.html
+
+maps: https://www.maps.ie/create-google-map/

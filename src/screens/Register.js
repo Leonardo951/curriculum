@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import InputLabel from "../UI/InputLabel";
+import { Link } from 'react-router-dom';
+// import '../styles/css/bootstrap.min.css';
 
 export default class Register extends Component {
 
@@ -134,7 +136,9 @@ export default class Register extends Component {
                         </div>
                     </div>
                     <div style={{marginTop: "1em"}}>
-                        <button type="button" className="btn btn-primary btn-lg btn-block">Criar meu currículo agora</button>
+                        <Link to={'/curriculo'}>
+                            <button type="button" className="btn btn-primary btn-lg btn-block">Criar meu currículo agora</button>
+                        </Link>
                     </div>
                 </form>
             </div>
