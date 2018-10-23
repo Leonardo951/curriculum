@@ -1486,12 +1486,23 @@ ol.ff-roboto-cn li, ul.ff-roboto-cn li {
   font-size: 14px;
 }
 
+.about-info-add {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #a59d9d;
+  margin-right: 25%;
+}
+
+.about-info-add > span{
+  margin-top: 20px;
+}
+
 .about-data > div:first-of-type {
   margin-top: 30px !important;
 }
 
 .about-data > div > span {
-  width: 80px;
+  width: 130px;
   display: inline-block;
   font-weight: 700;
 }

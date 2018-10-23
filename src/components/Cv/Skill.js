@@ -20,16 +20,16 @@ export default class Skill extends Component {
                             <div
                                 className="cole s12 section-content skill-wrapper w-block shadow-bg pdt-50 pdr-40 pdb-50 pdl-40">
                                 <div className="cole l6 s12 skill-data">
-                                    <SkillProgress howMuch={'80'} colorSelected={this.props.colorSelected}/>
-                                    <SkillProgress howMuch={'98'} colorSelected={this.props.colorSelected}/>
-                                    <SkillProgress howMuch={'45'} colorSelected={this.props.colorSelected}/>
-                                    <SkillProgress howMuch={'51'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={80} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={98} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={45} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={51} colorSelected={this.props.colorSelected}/>
                                 </div>
                                 <div className="cole l6 s12 skill-data skill-data-alt">
-                                    <SkillProgress howMuch={'14'} colorSelected={this.props.colorSelected}/>
-                                    <SkillProgress howMuch={'79'} colorSelected={this.props.colorSelected}/>
-                                    <SkillProgress howMuch={'59'} colorSelected={this.props.colorSelected}/>
-                                    <SkillProgress howMuch={'47'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={14} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={79} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={59} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={47} colorSelected={this.props.colorSelected}/>
                                 </div>
                             </div>
                         </div>

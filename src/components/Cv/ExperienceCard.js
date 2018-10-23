@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaCircle } from 'react-icons/fa';
 
 export default class ExperienceCard extends Component {
     constructor(props){
@@ -37,11 +38,13 @@ export default class ExperienceCard extends Component {
 
     render() {
         return (
-            <li className={this.props.class} data-wow-duration="0.5s" data-wow-delay="0.3s"
-                data-wow-offset="0"
-                style={{visibility: 'visible', animationDuration: '0.5s', animationDelay: '0.3s', animationName: 'fadeIn'}}>
+            <li className={this.props.class}
+                style={{visibility:'visible'  ,  animationDuration: '2s',
+                    animationDelay: this.props.duration,
+                    animationName: 'fadeIn'}} data-wow-duration="2s" data-wow-delay={this.props.duration}
+                data-wow-offset="0">
                 <div className="timeline-badge">
-                    <a style={{color: this.props.colorSelected}}><i className="fa fa-circle"/></a>
+                    <a style={{color: this.props.colorSelected}}><FaCircle/></a>
                 </div>
                 <div className="timeline-panel w-block shadow-bg pd-30">
                     <div className="timeline-tag">

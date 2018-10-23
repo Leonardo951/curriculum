@@ -27,7 +27,7 @@ export default class Footer extends Component {
                     <div className="row-mat">
                         <div className="cole s12 back-to-top-wrapper">
                             <a className="btn-circle waves-effect back-to-top tooltipped animatescroll-link wow zoomIn animated"
-                               href="#0" onMouseOver={this.hoverBoll.bind(this, 'ball')}
+                               href="" onMouseOver={this.hoverBoll.bind(this, 'ball')}
                                onMouseOut={this.hoverBoll.bind(this, 'ball')}
                                style={{visibility: 'visible', animationDuration: '0.7s', animationDelay: '0.3s', animationName: 'zoomIn',
                                    backgroundColor: this.props.colorSelected}}>

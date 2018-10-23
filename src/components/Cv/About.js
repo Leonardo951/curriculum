@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaDownload, FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter, FaGithub, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { COLORS } from '../../constant/CvColors';
 
 export default class About extends Component {
 
@@ -8,30 +9,30 @@ export default class About extends Component {
         this.state = {
             ball: false,
             imgColor: {
-                download: '#ffffff',
-                face: '#ffffff',
-                insta: '#ffffff',
-                github: '#ffffff',
-                pint: '#ffffff',
-                twitter: '#ffffff',
-                gplus: '#ffffff',
-                linkedin: '#ffffff',
-                yt: '#ffffff',
+                download: COLORS.WHITE,
+                face: COLORS.WHITE,
+                insta: COLORS.WHITE,
+                github: COLORS.WHITE,
+                pint: COLORS.WHITE,
+                twitter: COLORS.WHITE,
+                gplus: COLORS.WHITE,
+                linkedin: COLORS.WHITE,
+                yt: COLORS.WHITE,
             },
         }
     }
 
     hoverBoll(info, item){
         const value = {
-            download: item === 'download' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            face: item === 'face' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            insta: item === 'insta' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            github: item === 'github' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            pint: item === 'pint' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            twitter: item === 'twitter' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            gplus: item === 'gplus' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            linkedin: item === 'linkedin' && !this.state.ball ? this.props.colorSelected : '#ffffff',
-            yt: item === 'yt' && !this.state.ball ? this.props.colorSelected : '#ffffff',
+            download: item === 'download' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            face: item === 'face' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            insta: item === 'insta' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            github: item === 'github' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            pint: item === 'pint' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            twitter: item === 'twitter' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            gplus: item === 'gplus' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            linkedin: item === 'linkedin' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            yt: item === 'yt' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
         };
         if(this.state.ball){
             if(info !== 'img') {
@@ -74,19 +75,24 @@ export default class About extends Component {
                                                 <div className="about-section-title">Sobre
                                                 <span className="about-section-title-after" style={{backgroundColor: this.props.colorSelected}}/></div>
                                                 <div className="about-data">
-                                                    <p className="about-description">
-                                                        Lorem Ipsum as their default model text, and a search for 'lorem
-                                                        ipsum' will uncover
-                                                        many web sites still in their infancy. Various versions have evolved
-                                                        over the years,
-                                                        sometimes by accident, sometimes on purpose injected humour and the
-                                                        like.
-                                                    </p>
-                                                    <div><span>Age</span>25</div>
-                                                    <div><span>Address</span>1234 Street, W3 Island</div>
-                                                    <div><span>Email</span>contact@domain.com</div>
-                                                    <div><span>Phone</span>+0123 456 789</div>
+                                                    {/*<p className="about-description">*/}
+                                                        {/*Procuro uma oportunidade para desempenhar de maneira exemplar, todas as tarefas que*/}
+                                                        {/*me forem atribuídas, possuo uma grande disposição para aprender e sei que os*/}
+                                                        {/*obstáculos durante a caminhada profissional são ingredientes fundamentais para o*/}
+                                                        {/*sucesso.*/}
+                                                    {/*</p>*/}
+                                                    <div><span>Nacionalidade</span>Espanhol</div>
+                                                    <div><span>Idade</span>25</div>
+                                                    <div><span>Estado Civil</span>1234 Street, W3 Island</div>
+                                                    <div><span>Endereço</span>contact@domain.com</div>
+                                                    <div><span>Telefone</span>+0123 456 789</div>
+                                                    <div><span>E-mail</span>http://www.envato.com</div>
                                                     <div><span>Website</span>http://www.envato.com</div>
+                                                </div>
+                                                <div className="about-info-add text-center">
+                                                    <span>Procurando novas oportunidades</span>
+                                                    <br/>
+                                                    <span>Disponibilidade para projetos freelancer</span>
                                                 </div>
                                             </div>
                                         </div>

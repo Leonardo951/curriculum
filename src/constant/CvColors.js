@@ -19,5 +19,6 @@ export const COLORS = {
     BEIGE : '#BF9C4F',
     GREEN_FORT : '#33691E',
     BABY_BLUE : '#607D8B',
-    BABY_PINK : '#FF7077'
+    BABY_PINK : '#FF7077',
+    WHITE : '#ffffff'
 };

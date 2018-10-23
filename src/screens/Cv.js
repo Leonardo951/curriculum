@@ -38,8 +38,8 @@ export default class Cv extends Component {
                 {/*<Portfolio colorSelected={this.state.colorSelected}/>*/}
                 <References colorSelected={this.state.colorSelected}/>
                 <Contact colorSelected={this.state.colorSelected}/>
-                <Footer colorSelected={this.state.colorSelected}/>
                 <ColorScheme mudeColor={this.mudeColor.bind(this)} colorSelected={this.state.colorSelected}/>
+                <Footer colorSelected={this.state.colorSelected}/>
             </div>
         );
     }
