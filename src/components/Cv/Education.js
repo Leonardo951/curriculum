@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import EducationCard from "./EducationCard";
+import SkillProgress from "./SkillProgress";
 
 export default class Education extends Component {
     constructor(props){
@@ -21,10 +22,10 @@ export default class Education extends Component {
                             <div className="cole s12 section-content pd-0">
                                 <ul className="timeline">
                                     <p style={{visibility: 'hidden'}}>5454</p>
-                                    <EducationCard class={'wow fadeIn animated'}/>
-                                    <EducationCard class={'timeline-inverted wow fadeIn animated'}/>
-                                    <EducationCard class={'wow fadeIn animated'}/>
-                                    <textarea style={{visibility: 'hidden'}}/>
+                                    <EducationCard class={'wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
+                                    <EducationCard class={'timeline-inverted wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
+                                    <EducationCard class={'wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
+                                    <textarea style={{visibility: 'hidden'}} colorSelected={this.props.colorSelected}/>
                                 </ul>
                             </div>
                         </div>

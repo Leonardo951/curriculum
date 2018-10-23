@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReferenceCard from "./ReferenceCard";
 import Slider from 'react-slick';
+import SkillProgress from "./SkillProgress";
 
 export default class References extends Component {
     constructor(props){
@@ -19,6 +20,7 @@ export default class References extends Component {
             autoplay: true,
             autoplaySpeed: 2000,
             arrows: false,
+            dotsColor: 'red'
         };
 
         return (
@@ -36,8 +38,8 @@ export default class References extends Component {
                                         {/*<div className="owl-wrapper"*/}
                                              {/*style={{width: '4794px', left: '0px', display: 'block', transition: 'all 1000ms ease 0s', transform: 'translate3d(-799px, 0px, 0px)'}}>*/}
                                         <Slider {...settings}>
-                                            <ReferenceCard/>
-                                            <ReferenceCard/>
+                                            <ReferenceCard colorSelected={this.props.colorSelected}/>
+                                            <ReferenceCard colorSelected={this.props.colorSelected}/>
                                         </Slider>
                                         {/*</div>*/}
                                     </div>

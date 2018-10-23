@@ -14,7 +14,7 @@ export default class EducationCard extends Component {
                 data-wow-offset="0"
                 style={{visibility: 'visible', animationDuration: '0.5s', animationDelay: '0.3s', animationName: 'fadeIn'}}>
                 <div className="timeline-badge">
-                    <a><i className="fa fa-circle"/></a>
+                    <a style={{color: this.props.colorSelected}}><i className="fa fa-circle"/></a>
                 </div>
                 <div className="timeline-panel w-block shadow-bg pd-30">
                     <div className="timeline-tag">
@@ -22,8 +22,11 @@ export default class EducationCard extends Component {
                     </div>
                     <div className="timeline-title timeline-title-alt">
                         BS in Computer Science
+                        <span className="timeline-title-after" style={{backgroundColor: this.props.colorSelected}}/>
                     </div>
-                    <div className="timeline-time">2006-2010</div>
+                    <div className="timeline-time" style={{backgroundColor: this.props.colorSelected}}>2006-2010
+                    <span className="timeline-time-before" style={{borderLeftColor: this.props.colorSelected}}/>
+                    </div>
                 </div>
             </li>
         );

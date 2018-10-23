@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ExperienceCard from "./ExperienceCard";
 import EducationCard from "./EducationCard";
+import SkillProgress from "./SkillProgress";
 
 export default class Experience extends Component {
     constructor(props){
@@ -21,10 +22,10 @@ export default class Experience extends Component {
                             <div className="cole s12 section-content pd-0">
                                 <ul className="timeline">
                                     <p style={{visibility: 'hidden'}}>5454</p>
-                                    <ExperienceCard class={'wow fadeIn animated'}/>
-                                    <ExperienceCard class={'timeline-inverted wow fadeIn animated'}/>
-                                    <ExperienceCard class={'wow fadeIn animated'}/>
-                                    <ExperienceCard class={'timeline-inverted wow fadeIn animated'}/>
+                                    <ExperienceCard class={'wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
+                                    <ExperienceCard class={'timeline-inverted wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
+                                    <ExperienceCard class={'wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
+                                    <ExperienceCard class={'timeline-inverted wow fadeIn animated'} colorSelected={this.props.colorSelected}/>
                                     <textarea style={{visibility: 'hidden'}}/>
                                 </ul>
                             </div>

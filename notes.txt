@@ -15,3 +15,5 @@ gostei desse curriculo: http://preview.themeforest.net/item/tile-resumecvvcardpo
 http://junaidhira.com/demo/html/tile/index.html
 
 maps: https://www.maps.ie/create-google-map/
+
+ler dps: https://medium.com/@oieduardorabelo/nunca-mais-escreva-import-react-from-react-gra%C3%A7as-ao-webpack-eb7a7b887ae8

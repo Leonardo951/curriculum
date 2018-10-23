@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SkillProgress from './SkillProgress';
 
 export default class Skill extends Component {
     constructor(props){
@@ -19,88 +20,16 @@ export default class Skill extends Component {
                             <div
                                 className="cole s12 section-content skill-wrapper w-block shadow-bg pdt-50 pdr-40 pdb-50 pdl-40">
                                 <div className="cole l6 s12 skill-data">
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            C
-                                            <span>80%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="80"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '80%'}}/>
-                                        </div>
-                                    </div>
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            C++
-                                            <span>45%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="45"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '45%'}}/>
-                                        </div>
-                                    </div>
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            Python
-                                            <span>85%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="85"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '85%'}}/>
-                                        </div>
-                                    </div>
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            Javascript
-                                            <span>90%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="90"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '90%'}}/>
-                                        </div>
-                                    </div>
+                                    <SkillProgress howMuch={'80'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={'98'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={'45'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={'51'} colorSelected={this.props.colorSelected}/>
                                 </div>
                                 <div className="cole l6 s12 skill-data skill-data-alt">
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            Go
-                                            <span>70%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="70"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '70%'}}/>
-                                        </div>
-                                    </div>
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            React
-                                            <span>85%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="85"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '85%'}}/>
-                                        </div>
-                                    </div>
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            Angular
-                                            <span>90%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="90"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '90%'}}/>
-                                        </div>
-                                    </div>
-                                    <div className="progress-bar-wrapper">
-                                        <p className="progress-text">
-                                            Node
-                                            <span>85%</span>
-                                        </p>
-                                        <div className="progress-bar">
-                                            <span data-percent="85"
-                                                  style={{transition: 'width 1.5s ease 0s', width: '85%'}}/>
-                                        </div>
-                                    </div>
+                                    <SkillProgress howMuch={'14'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={'79'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={'59'} colorSelected={this.props.colorSelected}/>
+                                    <SkillProgress howMuch={'47'} colorSelected={this.props.colorSelected}/>
                                 </div>
                             </div>
                         </div>

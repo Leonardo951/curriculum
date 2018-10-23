@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import '../styles/cv/animate.css';
+import '../styles/cv/magnific-popup.css';
+import '../styles/cv/owl.transitions.css';
+import '../styles/cv/style.css';
+import '../styles/cv/responsive.css';
+import '../styles/cv/materialize.css';
+
 import About from "../components/Cv/About";
 import ColorScheme from "../components/Cv/ColorScheme";
 import Education from "../components/Cv/Education";
@@ -7,35 +14,32 @@ import Skill from "../components/Cv/Skill";
 import Portfolio from "../components/Cv/Portfolio";
 import References from "../components/Cv/References";
 import Contact from "../components/Cv/Contact";
-
-import '../styles/css/animate.css';
-import '../styles/css/magnific-popup.css';
-import '../styles/css/owl.transitions.css';
-import '../styles/css/style.css';
-import '../styles/css/color-1.css';
-import '../styles/css/responsive.css';
-import '../styles/css/owl.carousel.min.css';
-import '../styles/css/owl.theme.default.min.css';
-import '../styles/css/materialize.css';
+import Footer from "../components/Cv/Footer";
 
 export default class Cv extends Component {
     constructor(props){
         super(props);
         this.state = {
-
+            colorSelected: '#0EB57D',
         }
     }
+
+    mudeColor(color){
+        this.setState({colorSelected: color})
+    };
+
     render() {
         return (
             <div>
-                <About/>
-                <Education/>
-                <Experience/>
-                <ColorScheme/>
-                <Skill/>
-                <Portfolio/>
-                <References/>
-                <Contact/>
+                <About colorSelected={this.state.colorSelected}/>
+                <Education colorSelected={this.state.colorSelected}/>
+                <Experience colorSelected={this.state.colorSelected}/>
+                <Skill colorSelected={this.state.colorSelected}/>
+                {/*<Portfolio colorSelected={this.state.colorSelected}/>*/}
+                <References colorSelected={this.state.colorSelected}/>
+                <Contact colorSelected={this.state.colorSelected}/>
+                <Footer colorSelected={this.state.colorSelected}/>
+                <ColorScheme mudeColor={this.mudeColor.bind(this)} colorSelected={this.state.colorSelected}/>
             </div>
         );
     }

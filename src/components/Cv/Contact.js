@@ -4,9 +4,18 @@ export default class Contact extends Component {
     constructor(props){
         super(props);
         this.state = {
-
+            ball: false,
+            imgColor: '#ffffff'
         }
     }
+
+    hoverBoll(){
+        this.state.ball ?
+            this.setState({ball: false, imgColor: '#ffffff'})
+        :
+            this.setState({ball: true, imgColor: this.props.colorSelected})
+    };
+
     render() {
         return (
             <section id="contact-section" className="contact-section">
@@ -39,7 +48,9 @@ export default class Contact extends Component {
                                             <textarea id="message" name="message" className="c-form-input"
                                                       placeholder="Message"/>
                                             <button className="btn-custom waves-effect" type="submit"
-                                                    name="button">Send Message
+                                                    onMouseOut={this.hoverBoll.bind(this)}  onMouseOver={this.hoverBoll.bind(this)}
+                                                    name="button" style={{backgroundColor: this.props.colorSelected, color: this.state.imgColor}}>
+                                                    Send Message
                                             </button>
                                             <span id="c-form-spinner"
                                                   className="fa fa-circle-o-notch "/>
