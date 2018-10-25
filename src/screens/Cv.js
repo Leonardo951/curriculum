@@ -24,7 +24,7 @@ export default class Cv extends Component {
         }
     }
 
-    mudeColor(color){
+    changeColor(color){
         this.setState({colorSelected: color})
     };
 
@@ -38,7 +38,7 @@ export default class Cv extends Component {
                 {/*<Portfolio colorSelected={this.state.colorSelected}/>*/}
                 <References colorSelected={this.state.colorSelected}/>
                 <Contact colorSelected={this.state.colorSelected}/>
-                <ColorScheme mudeColor={this.mudeColor.bind(this)} colorSelected={this.state.colorSelected}/>
+                <ColorScheme changeColor={this.changeColor.bind(this)} colorSelected={this.state.colorSelected}/>
                 <Footer colorSelected={this.state.colorSelected}/>
             </div>
         );

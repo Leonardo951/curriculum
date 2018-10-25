@@ -22,6 +22,7 @@ export default class About extends Component {
         }
     }
 
+    // Control colores for icons social networks
     hoverBoll(info, item){
         const value = {
             download: item === 'download' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,

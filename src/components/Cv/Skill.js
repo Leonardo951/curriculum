@@ -8,6 +8,7 @@ export default class Skill extends Component {
 
         }
     }
+
     render() {
         return (
             <section id="skill-section" className="skill-section">

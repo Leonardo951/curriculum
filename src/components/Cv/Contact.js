@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaInfoCircle, FaCircleNotch, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 
 export default class Contact extends Component {
     constructor(props){
@@ -52,14 +53,13 @@ export default class Contact extends Component {
                                                     name="button" style={{backgroundColor: this.props.colorSelected, color: this.state.imgColor}}>
                                                     Send Message
                                             </button>
-                                            <span id="c-form-spinner"
-                                                  className="fa fa-circle-o-notch "/>
+                                            <FaCircleNotch id="c-form-spinner"/>
                                         </fieldset>
                                     </form>
 
                                     <div className="c-form-alert hero-height" style={{height: '378px'}}>
                                         <div className="alert-content alert-attention w-block">
-                                            <div className="alert-icon"><span className="fa fa-info-circle"/>
+                                            <div className="alert-icon"><FaInfoCircle/>
                                             </div>
                                             <div className="alert-title">Attention</div>
                                             <div className="alert-desc"><p>The name, subject and the message field must
@@ -69,8 +69,7 @@ export default class Contact extends Component {
                                                                             href="#0">Close Me</a>
                                             </div>
                                             <div className="alert-content alert-success w-block">
-                                                <div className="alert-icon alert-icon-success"><span
-                                                    className="fa fa-check-circle"/>
+                                                <div className="alert-icon alert-icon-success"><FaCheckCircle/>
                                                     <div className="alert-title">Success</div>
                                                     <div className="alert-desc"><p>Your message has been received! Thank you for
                                                         writing.</p>
@@ -78,13 +77,13 @@ export default class Contact extends Component {
                                                                                         href="#0">Close Me</a>
                                                         </div>
                                                         <div className="alert-content alert-error w-block">
-                                                            <div className="alert-icon"><span className="fa fa-times-circle"/>
+                                                            <div className="alert-icon"><FaTimesCircle/>
                                                             </div>
                                                             <div className="alert-title">Error</div>
                                                             <div className="alert-desc"><p>Message couldn't be sent due to server
                                                                 problem.</p>
-                                                                <div className="alert-close"><a className="btn-custom waves-effect"
-                                                                                                href="#0">Close Me</a>
+                                                                <div className="alert-close">
+                                                                    <a className="btn-custom waves-effect" href="#0">Close Me</a>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -2201,6 +2201,20 @@ ol.ff-roboto-cn li, ul.ff-roboto-cn li {
   margin-top: 40px;
 }
 
+.add-all {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    margin-top: 40px;
+  }
+
+@media (max-width: 600px) {
+  .ref-card {
+    display: table-cell;
+    width: 100% !important;
+  }
+}
+
 .portfolio-all a span:first-of-type {
   display: inline-block;
   width: 20px;

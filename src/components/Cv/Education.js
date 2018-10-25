@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import EducationCard from "./EducationCard";
 import Waypoint from 'react-waypoint';
-import ExperienceCard from "./ExperienceCard";
 
 export default class Education extends Component {
     constructor(props){
@@ -21,6 +20,7 @@ export default class Education extends Component {
         }
     }
 
+    // When it passes over the title
     cardEnter(){
         this.setState({ready: true})
     }
