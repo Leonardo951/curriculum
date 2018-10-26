@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FaAngleUp } from 'react-icons/fa';
+import ReactTooltip from "react-tooltip";
 
 export default class Footer extends Component {
     constructor(props){

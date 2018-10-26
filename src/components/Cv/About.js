@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FaDownload, FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter, FaGithub, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { COLORS } from '../../constant/CvColors';
+import ReactTooltip from 'react-tooltip';
 
 export default class About extends Component {
 
@@ -45,6 +46,7 @@ export default class About extends Component {
     };
 
     render() {
+        
         return (
             <div>
                 <div className="site-header top-section top-section-home image-bg parallax-section"
@@ -61,12 +63,13 @@ export default class About extends Component {
                                         <div className="cole m5 s12 about-img parallax-layer al-center pd-50 aa">
                                             <div className="about-img-content image-bg shadow-bg layer" data-depth="0.1"
                                                  style={{position: 'relative', display: 'block', left: '0px', top: '0px', transform: 'translate3d(0.769725px, -4.30725px, 0px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', background: 'url(http://www.pngpix.com/wp-content/uploads/2016/10/PNGPIX-COM-Yin-Yang-PNG-Transparent-Image-6-500x500.png) center top / cover no-repeat'}}>
+                                                <ReactTooltip place={'top'} effect={'solid'} />
                                                 <a href=""
-                                                   className="btn-circle tooltipped layer shadow-bg" data-position="top"
-                                                   data-delay="50" data-tooltip="Download Resume" data-depth="0.25"  onMouseOver={this.hoverBoll.bind(this, 'ball', 'download')}
-                                                   data-tooltip-id="1481b9c0-143c-a285-9cff-87745145e410" onMouseOut={this.hoverBoll.bind(this, 'ball', 'download')}
-                                                   style={{position: 'absolute', display: 'block', left: '0px', top: '0px', transform: 'translate3d(3.7375px, -8.05177px, 0px)', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', backgroundColor: this.props.colorSelected, color: this.props.colorSelected}}>
-                                                    <FaDownload style={{color: this.state.imgColor.download}} onMouseOver={this.hoverBoll.bind(this, 'img', 'download')}/></a>
+                                                       className="btn-circle tooltipped layer shadow-bg" data-position="top"
+                                                       data-delay="50" data-tip="Download currículo" data-depth="0.25"  onMouseOver={this.hoverBoll.bind(this, 'ball', 'download')}
+                                                       data-tooltip-id="1481b9c0-143c-a285-9cff-87745145e410" onMouseOut={this.hoverBoll.bind(this, 'ball', 'download')}
+                                                       style={{position: 'absolute', display: 'block', left: '0px', top: '0px', transform: 'translate3d(3.7375px, -8.05177px, 0px)', transformStyle: 'preserve-3d', backfaceisibility: 'hidden', backgroundColor: this.props.colorSelected, color: this.props.colorSelected}}>
+                                                        <FaDownload style={{color: this.state.imgColor.download}} onMouseOver={this.hoverBoll.bind(this, 'img', 'download')}/></a>
                                             </div>
                                             <div className="about-name" style={{color: this.props.colorSelected}}>John Doe</div>
                                             <div className="about-title">Software Engineer</div>

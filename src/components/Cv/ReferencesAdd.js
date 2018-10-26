@@ -40,7 +40,7 @@ export default class ReferencesAdd extends Component {
     // };
 
     focusDiv() {
-        // ReactDOM.findDOMNode(this.refs.theDiv).focus();
+        ReactDOM.findDOMNode(this.refs.theDiv).focus();
     }
 
     altTop(active){
