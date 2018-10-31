@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import InputLabel from "../UI/InputLabel";
 import { Link } from 'react-router-dom';
-// import '../styles/css/bootstrap.min.css';
 
 export default class Register extends Component {
 

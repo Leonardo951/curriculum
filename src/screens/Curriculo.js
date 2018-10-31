@@ -1,17 +1,142 @@
 import React, { Component } from 'react';
-import CreateCurriculo from "../components/Curriculo/CreateCurriculo";
-import ViewCurriculo from "../components/Curriculo/ViewCurriculo";
-// import '../styles/css/bootstrap.min.css';
+import RegisterPersonalData from "../components/Curriculo/RegisterPersonalData";
+import RegisterEducation from "../components/Curriculo/RegisterEducation";
+import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
+import scrollToComponent from "react-scroll-to-component";
+import RegisterExperiences from "../components/Curriculo/RegisterExperiences";
+import RegisterOthersData from "../components/Curriculo/RegisterOthersData";
+import {Link} from "react-router-dom";
 
 export default class Curriculo extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            currentActive: 'activeAbout',
+            actives: [
+                {btn: 'activeAbout', class: 'btn btn-success text-uppercase btn-sm', title: 'Dados pessoais'},
+                {btn: 'activeEducation', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Formação profissional'},
+                {btn: 'activeExperience', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Experiências profissionais'},
+                // {btn: 'activeSkills', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Interesses'},
+                {btn: 'activeOthers', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Informações complementares'},
+                // {btn: 'activeAdditionalInformation', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Informações adicionais'},
+            ]
+        };
+    }
+
+    selectActive(tab){
+        if(this.state.currentActive !== tab){
+            let actives = [
+                {btn: 'activeAbout', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Dados pessoais'},
+                {btn: 'activeEducation', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Formação profissional'},
+                {btn: 'activeExperience', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Experiências profissionais'},
+                {btn: 'activeOthers', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Informações complementares'},
+            ];
+            actives =  actives.filter((tool, index)=> {
+                if(tool.btn === tab){
+                    tool.class = 'btn btn-success text-uppercase btn-sm';
+                }
+                return true
+            });
+            this.setState({currentActive: tab, actives: actives});
+            setTimeout(()=>{
+                scrollToComponent(this.refs.divMain, {offset: 0, align: 'top', duration: 500, ease:'inCirc'});
+            }, 100);
+        }
+    };
+
+    advanceForm = ()=>{
+        let i = null;
+        let advanceFor = '';
+        this.state.actives.filter((tool, index)=> {
+            if(tool.btn === this.state.currentActive){
+                i = index;
+                console.log('i: '+ i)
+            }else if(i !== null && i+1 === index){
+                advanceFor = tool.btn;
+                console.log('advancefor: '+ advanceFor)
+            }
+        });
+        this.selectActive(advanceFor)
+    };
+
+    returnForm = ()=>{
+        let getIn = true;
+        let returnFor = '';
+        this.state.actives.filter((tool, index)=> {
+            if(tool.btn !== this.state.currentActive && getIn){
+                returnFor = tool.btn;
+            }else{
+                getIn = false
+            }
+        });
+        this.selectActive(returnFor)
+    };
+
     render() {
+
         return (
-            <section className="divided clearfix">
-                <div className="row">
-                    <CreateCurriculo/>
-                    <ViewCurriculo/>
+            <div className="container-mat">
+                <div className="row-mat">
+                    <div className="cole s12 section-title" ref={'divMain'}>
+                        <h2 style={{margin: '40px 0 20px 0'}}>Precisamos de alguns dados</h2>
+                    </div>
+                    <div className="cole s12 text-center">
+                        <div className="span3 well text-center">
+                            <div className="well text-center">
+                                {
+                                    this.state.actives.map((tool, index)=>{
+                                        return(
+                                            <button key={index} type={"button"} className={tool.class}
+                                                    onClick={this.selectActive.bind(this, tool.btn)}>
+                                                {tool.title}
+                                            </button>
+                                        )})
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <form className="c-form" action="#0" method="post" className="cole s12"
+                          style={{backgroundColor: '#fff', padding: '20px'}}>
+                        { this.state.currentActive === 'activeAbout' && <RegisterPersonalData /> }
+                        { this.state.currentActive === 'activeEducation' && <RegisterEducation /> }
+                        { this.state.currentActive === 'activeExperience' && <RegisterExperiences /> }
+                        { this.state.currentActive === 'activeOthers' && <RegisterOthersData/> }
+                        <div className={'row-mat'}>
+                            {
+                                this.state.currentActive !== 'activeAbout' &&
+                                <div className="input-field cole s6">
+                                    <button className="btn btn-info text-uppercase btn-sm" type="button" onClick={this.returnForm}>
+                                        <FaChevronLeft/> Retornar
+                                    </button>
+                                </div>
+                            }
+                            {
+                                this.state.currentActive !== 'activeOthers' &&
+                                <div className="input-field cole s6" style={{width: 'auto', float: 'right'}}>
+                                    <button className="btn btn-info text-uppercase btn-sm" type="button" onClick={this.advanceForm}>
+                                        Continuar <FaChevronRight/>
+                                    </button>
+                                </div>
+                            }
+                            <div className="input-field cole s12" style={{margin: '1px'}}>
+                                <Link to={'/cv'}>
+                                    <button className="btn btn-success text-center text-uppercase" type="button" style={{width: '100%'}}>
+                                        Cadastrar
+                                    </button>
+                                </Link>
+                            </div>
+                            <div className="input-field cole s12" style={{margin: '1px'}}>
+                                <Link to={'/'}>
+                                    <button className="btn btn-danger text-center text-uppercase" type="button" style={{width: '100%'}}>
+                                        Cancelar cadastro
+                                    </button>
+                                </Link>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </section>
+            </div>
         );
     }
 }

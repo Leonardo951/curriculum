@@ -19,3 +19,15 @@ maps: https://www.maps.ie/create-google-map/
 ler dps: https://medium.com/@oieduardorabelo/nunca-mais-escreva-import-react-from-react-gra%C3%A7as-ao-webpack-eb7a7b887ae8
 
 ciclo de vida do react: https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1
+
+page admin: http://preview.themeforest.net/item/melo-builder-form-builder-interface-html-template/full_screen_preview/21444581
+
+alerts: https://mdbootstrap.com/react/components/alerts/
+
+numeral usar no node: http://numeraljs.com/
+
+info complementares: https://viacarreira.com/informacoes-adicionais-curriculo-193621/
+
+opção de curtir e compartilhar o curriculo da pessoa
+
+Datepicker.css foi alterado na lib

@@ -24,7 +24,6 @@ export default class ReferencesAdd extends Component {
         }else{
             this.altTop(false);
         }
-
     }
 
     hoverBoll(){
