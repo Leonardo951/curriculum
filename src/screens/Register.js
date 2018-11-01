@@ -106,14 +106,14 @@ export default class Register extends Component {
                         <div className="card-body">
                             <img id="img_sex" className="person-img" alt={'verei'}
                                  src="https://visualpharm.com/assets/217/Life%20Cycle-595b40b75ba036ed117d9ef0.svg"/>
-                            <h2 id="who_message" className="card-title">Quem é você ?</h2>
+                            <h2 id="who_message" className="card-title" style={{fontSize: '35px'}}>Quem é você ?</h2>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-6" style={{padding: "0.5em"}}>
                             <div className="card">
                                 <div className="card-body">
-                                    <h2 className="card-title">Seus dados ?</h2>
+                                    <h2 className="card-title" style={{fontSize: '35px'}}>Seus dados ?</h2>
                                     <InputLabel label={'CPF'} place={"Somente números"} help={helpCpf}
                                                     viewCpf={this.TestaCPF.bind(this)}/>
                                     <small style={{color: 'red', display: this.state.valid}}>O CPF digitado não é válido.</small>
@@ -126,7 +126,7 @@ export default class Register extends Component {
                         <div className="col-md-6"  style={{padding: "0.5em"}}>
                             <div className="card">
                                 <div className="card-body">
-                                    <h2 className="card-title">Proteja sua conta !</h2>
+                                    <h2 className="card-title" style={{fontSize: '35px'}}>Proteja sua conta !</h2>
                                     <InputLabel label={'Senha'} type={'password'} confirm={false} viewSenha={this.ValidPass.bind(this)}/>
                                     <InputLabel label={'Digite sua senha novamente'} confirm={true} type={'password'} viewSenha={this.ValidPass.bind(this)} />
                                     <small style={{color: 'red', display: this.state.pass}}>Ops! As senhas são diferentes.</small>
@@ -136,7 +136,7 @@ export default class Register extends Component {
                     </div>
                     <div style={{marginTop: "1em"}}>
                         <Link to={'/curriculo'}>
-                            <button type="button" className="btn btn-primary btn-lg btn-block">Criar meu currículo agora</button>
+                            <button type="button" className="btn btn-success text-uppercase btn-lg btn-block">Criar meu currículo agora</button>
                         </Link>
                     </div>
                 </form>

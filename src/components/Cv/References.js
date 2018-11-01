@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import ReferenceCard from "./ReferenceCard";
 import Slider from 'react-slick';
 import scrollToComponent from 'react-scroll-to-component';
@@ -13,34 +12,29 @@ export default class References extends Component {
         this.state = {
             imgColor: '#ffffff',
             addActive: false,
-            tes: true
+            activeTop: '-234px',
+            visible: 'hidden'
         }
     }
 
-    addReference(){
+    addReference = ()=> {
         if(this.state.addActive) {
-            this.setState({addActive: false, tes: true});
-
-        }else {
-            this.setState({addActive: true, tes: false})
-        }
-    };
-
-    componentDidUpdate(){
-        if(this.state.tes) {
+            this.setState({addActive: false, activeTop: '-234px', visible: 'hidden'});
             setTimeout(()=>{
                 scrollToComponent(this.refs.refDiv, {offset: 0, align: 'top', duration: 500, ease: 'inCirc'});
             }, 800);
-        }
-    }
-
-    hoverBoll(){
-        if(this.state.imgColor !== '#ffffff'){
-            this.setState({imgColor: '#ffffff'})
         }else{
-            this.setState({imgColor: this.props.colorSelected})
-        }
+            this.setState({addActive: true, activeTop: '40px', visible: 'visible'})}
     };
+
+    // Hover ball not working
+    // hoverBoll(){
+    //     if(this.state.imgColor !== '#ffffff'){
+    //         this.setState({imgColor: '#ffffff'})
+    //     }else{
+    //         this.setState({imgColor: this.props.colorSelected})
+    //     }
+    // };
 
     render() {
 
@@ -70,15 +64,16 @@ export default class References extends Component {
                                     <div className="owl-wrapper-outer">
                                         <Slider {...settings}>
                                             <ReferenceCard colorSelected={this.props.colorSelected}/>
-                                            <ReferenceCard colorSelected={this.props.colorSelected}/>
+                                            {/*<ReferenceCard colorSelected={this.props.colorSelected}/>*/}
                                         </Slider>
                                     </div>
                                 </div>
-                                <ReferencesAdd colorSelected={this.props.colorSelected} addActive={this.state.addActive}/>
+                                <ReferencesAdd colorSelected={this.props.colorSelected} addActive={this.state.addActive}
+                                        activeTop={this.state.activeTop} visible={this.state.visible} />
                             </div>
                         </div>
                         <br/>
-                        <button className="add-all btn-circle waves-effect tooltipped" ref="myBtn" type="button" onClick={ ()=>{this.addReference();}}
+                        <button className="add-all btn-circle waves-effect tooltipped" ref="myBtn" type="button" onClick={this.addReference}
                                 style={{transform: 'translate3d(3.7375px, -8.05177px, 0px)', transformStyle: 'preserve-3d',
                                     backgroundColor: this.props.colorSelected}} >
                             {

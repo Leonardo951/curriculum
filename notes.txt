@@ -31,3 +31,7 @@ info complementares: https://viacarreira.com/informacoes-adicionais-curriculo-19
 opção de curtir e compartilhar o curriculo da pessoa
 
 Datepicker.css foi alterado na lib
+
+serviços do watson pesquisar sobew
+
+minha tea de login: https://codepen.io/login?secure=true

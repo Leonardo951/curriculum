@@ -15,6 +15,8 @@ import Portfolio from "../components/Cv/Portfolio";
 import References from "../components/Cv/References";
 import Contact from "../components/Cv/Contact";
 import Footer from "../components/Cv/Footer";
+import Qualifications from "../components/Cv/Qualifications";
+import AdditionalInformation from "../components/Cv/AdditionalInformation";
 
 export default class Cv extends Component {
     constructor(props){
@@ -37,6 +39,8 @@ export default class Cv extends Component {
                 <Skill colorSelected={this.state.colorSelected}/>
                 {/*<Portfolio colorSelected={this.state.colorSelected}/>*/}
                 <References colorSelected={this.state.colorSelected}/>
+                <Qualifications colorSelected={this.state.colorSelected}/>
+                <AdditionalInformation colorSelected={this.state.colorSelected}/>
                 <Contact colorSelected={this.state.colorSelected}/>
                 <ColorScheme changeColor={this.changeColor.bind(this)} colorSelected={this.state.colorSelected}/>
                 <Footer colorSelected={this.state.colorSelected}/>

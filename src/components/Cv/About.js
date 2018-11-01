@@ -87,14 +87,17 @@ export default class About extends Component {
                                                     {/*</p>*/}
                                                     <div><span>Nacionalidade</span>Espanhol</div>
                                                     <div><span>Idade</span>25</div>
-                                                    <div><span>Estado Civil</span>1234 Street, W3 Island</div>
-                                                    <div><span>Endereço</span>contact@domain.com</div>
+                                                    <div><span>Sexo</span>Masculino</div>
+                                                    <div><span>Estado Civil</span>Casado</div>
+                                                    <div><span>Endereço</span>1234 Street, W3 Island</div>
                                                     <div><span>Telefone</span>+0123 456 789</div>
-                                                    <div><span>E-mail</span>http://www.envato.com</div>
+                                                    <div><span>E-mail</span>teste@mail.com</div>
                                                     <div><span>Website</span>http://www.envato.com</div>
                                                 </div>
                                                 <div className="about-info-add text-center">
                                                     <span>Procurando novas oportunidades</span>
+                                                    <br/>
+                                                    <span>Disponibilidade para viagens e mudanças</span>
                                                     <br/>
                                                     <span>Disponibilidade para projetos freelancer</span>
                                                 </div>

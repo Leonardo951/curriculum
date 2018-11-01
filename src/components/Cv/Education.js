@@ -8,13 +8,13 @@ export default class Education extends Component {
         this.state = {
             array: [
                 {classe: 'wow fadeIn animated',
-                    duration: '0.3s'},
+                    duration: '0.2s'},
                 {classe: 'timeline-inverted wow fadeIn animated',
-                    duration: '0.6s'},
+                    duration: '0.4s'},
                 {classe: 'wow fadeIn animated',
-                    duration: '0.8s'},
+                    duration: '0.6s'},
                 {classe: 'timeline-inverted wow fadeIn animated',
-                    duration: '1.2s'},
+                    duration: '0.8s'},
             ],
             ready: false
         }
