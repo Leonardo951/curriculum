@@ -1815,7 +1815,7 @@ the build process will generate a service worker file, but it will not be
 registered, so it will not take control of your production web app.
 
 In order to opt-in to the offline-first behavior, developers should look for the
-following in their [`src/index.js`](src/index.js) file:
+following in their [`src/index.js`](client/src/index.js) file:
 
 ```js
 // If you want your app to work offline and load faster, you can change
@@ -1859,7 +1859,7 @@ following into account:
    registration will fail, but the rest of your web app will remain functional.
 
 1. Service workers are [not supported](https://jakearchibald.github.io/isserviceworkerready/#moar)
-   in older web browsers. Service worker registration [won't be attempted](src/registerServiceWorker.js)
+   in older web browsers. Service worker registration [won't be attempted](client/src/registerServiceWorker.js)
    on browsers that lack support.
 
 1. The service worker is only enabled in the [production environment](#deployment),
@@ -1882,7 +1882,7 @@ following into account:
    fetched the latest updates that will be available the next time they load the
    page (showing a "New content is available; please refresh." message). Showing
    this messages is currently left as an exercise to the developer, but as a
-   starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](src/registerServiceWorker.js), which
+   starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](client/src/registerServiceWorker.js), which
    demonstrates which service worker lifecycle events to listen for to detect each
    scenario, and which as a default, just logs appropriate messages to the
    JavaScript console.
@@ -1894,11 +1894,11 @@ following into account:
 ### Progressive Web App Metadata
 
 The default configuration includes a web app manifest located at
-[`public/manifest.json`](public/manifest.json), that you can customize with
+[`public/manifest.json`](client/public/manifest.json), that you can customize with
 details specific to your web application.
 
 When a user adds a web app to their homescreen using Chrome or Firefox on
-Android, the metadata in [`manifest.json`](public/manifest.json) determines what
+Android, the metadata in [`manifest.json`](client/public/manifest.json) determines what
 icons, names, and branding colors to use when the web app is displayed.
 [The Web App Manifest guide](https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/)
 provides more context about what each field means, and how your customizations
@@ -2031,7 +2031,7 @@ service worker navigation routing can be configured or disabled by
 and [`navigateFallbackWhitelist`](https://github.com/GoogleChrome/sw-precache#navigatefallbackwhitelist-arrayregexp)
 options of the `SWPreachePlugin` [configuration](../config/webpack.config.prod.js).
 
-When users install your app to the homescreen of their device the default configuration will make a shortcut to `/index.html`. This may not work for client-side routers which expect the app to be served from `/`. Edit the web app manifest at [`public/manifest.json`](public/manifest.json) and change `start_url` to match the required URL scheme, for example:
+When users install your app to the homescreen of their device the default configuration will make a shortcut to `/index.html`. This may not work for client-side routers which expect the app to be served from `/`. Edit the web app manifest at [`public/manifest.json`](client/public/manifest.json) and change `start_url` to match the required URL scheme, for example:
 
 ```js
   "start_url": ".",

@@ -161,13 +161,12 @@ body {
 }
 
 .forgot-password-form {
-  display: none;
   padding: 20px 20px 0 20px;
   position: relative;
   background: #32333B;
+  transition: opacity 1s;
   border-radius: 6px;
   margin: 40px 0 20px 0;
-  overflow: hidden;
 }
 
 .login-form .field {
@@ -282,12 +281,14 @@ body {
   white-space: nowrap;
 }
 
-#forgot-password-link {
+.forgot-password-link {
   text-decoration: none;
   color: #7198d6;
+  background-color: #dedfe0;
   margin: 0;
-  padding: 0;
+  padding: 5px;
   box-sizing: border-box;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -307,7 +308,6 @@ body {
   padding-bottom: 20px;
   margin: 0;
   box-sizing: border-box;
-  display: none;
 }
 
 .labelForgot {
@@ -436,13 +436,13 @@ body {
   display: block;
 }
 
-.twitter-button {
-  background: #60b5f0;
+.linkedin-button {
+  background: #0e76a8;
   color: white;
   text-align: left;
   display: block;
   width: 100%;
-  margin: 10px 0;
+  margin: 14px 0;
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Sans-Serif;
   -webkit-appearance: none;
   font-size: 1rem;
@@ -459,6 +459,12 @@ body {
   text-decoration: none !important;
   font-weight: normal !important;
   box-sizing: border-box;
+  box-shadow: 0 5px 0 #04547a;
+}
+
+.linkedin-button:hover {
+  background: #2183b2;
+  box-shadow: 0 5px 0 #0f5f84;
 }
 
 .social-account-button svg {
@@ -480,13 +486,13 @@ body {
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Sans-Serif;
 }
 
-.github-button {
-  background: #7B7E8C;
+.google-button {
+  background: #d34836;
   color: white;
   text-align: left;
   display: block;
   width: 100%;
-  margin: 10px 0;
+  margin: 14px 0;
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Sans-Serif;
   -webkit-appearance: none;
   font-size: 1rem;
@@ -503,17 +509,23 @@ body {
   text-decoration: none !important;
   font-weight: normal !important;
   box-sizing: border-box;
+  box-shadow: 0 5px 0 #a31806;
+}
+
+.google-button:hover {
+  background: #e05543;
+  box-shadow: 0 5px 0 #c13a28;
 }
 
 .facebook-button {
-  background: #4464a2;
+  background: #3b5998;
   color: white;
   outline: 0;
   padding: 10px 16px 10px 60px;
   text-align: left;
   display: block;
   width: 100%;
-  margin: 10px 0;
+  margin: 14px 0;
   font-family: "Lato", "Lucida Grande", "Lucida Sans Unicode", Tahoma, Sans-Serif;
   -webkit-appearance: none;
   font-size: 1rem;
@@ -528,6 +540,12 @@ body {
   text-decoration: none !important;
   font-weight: normal !important;
   box-sizing: border-box;
+  box-shadow: 0 5px 0 #102f70;
+}
+
+.facebook-button:hover {
+  background: #4867a8;
+  box-shadow: 0 5px 0 #284582;
 }
 
 .span-social {
@@ -546,7 +564,7 @@ body {
 
 .signup-callout > a {
   text-decoration: none;
-  color: #76DAFF;
+  color: #fff;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
