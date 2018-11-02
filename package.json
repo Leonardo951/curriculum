@@ -1,52 +1,37 @@
 {
-  "name": "curriculum",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^3.3.2",
-    "es6-viewpoint": "^0.1.3",
-    "flux": "^3.1.3",
-    "fluxible-addons-react": "^0.2.15",
-    "isotope-layout": "^3.0.6",
-    "jquery": "^3.3.1",
-    "lodash": "^4.17.11",
-    "mdbreact": "^4.8.2",
-    "react": "^16.6.0",
-    "react-bootstrap": "^0.32.4",
-    "react-date-picker": "^7.0.0",
-    "react-dom": "^16.6.0",
-    "react-icons": "^3.2.0",
-    "react-month-picker": "^1.3.8",
-    "react-pure-render": "^1.0.2",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.4",
-    "react-scroll": "^1.7.10",
-    "react-scroll-to-component": "^1.0.2",
-    "react-select": "^2.1.1",
-    "react-slick": "^0.23.2",
-    "react-text-mask": "^5.4.3",
-    "react-tooltip": "^3.9.0",
-    "react-waypoint": "^8.0.3",
-    "react-year-picker": "^0.3.7"
+  "name": "resume",
+  "version": "1.0.0",
+  "description": "Project to control curriculum",
+  "main": "Server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Leonardo951/curriculum"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "sass": "sass --watch src/styles/scss:src/styles/css"
+    "client": "cd client && npm start",
+    "server": "node Server.js",
+    "dev": "nodemon Server.js",
+    "sass": "sass --watch client/src/styles/scss:client/src/styles/css"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.8",
+    "mongoose": "^5.3.8"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
-    "alt-utils": "^2.0.0"
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.18.5"
+  },
+  "keywords": [
+    "currículo",
+    "resume",
+    "curriculum"
+  ],
+  "author": "Leonardo Nascimento",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Leonardo951/curriculum/issues"
   }
 }

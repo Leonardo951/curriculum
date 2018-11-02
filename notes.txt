@@ -35,3 +35,10 @@ Datepicker.css foi alterado na lib
 serviços do watson pesquisar sobew
 
 minha tea de login: https://codepen.io/login?secure=true
+
+MONGODB:
+sudo systemctl status mongodb
+port: 27017
+comands: https://felipetoscano.com.br/primeiros-passos-no-mongodb/
+
+vido.https://www.youtube.com/watch?v=BN_8bCfVp88

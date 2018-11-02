@@ -1,0 +1,9 @@
+// const express = require('express');
+// // const MongoClient = require('mongodb').MongoClient;
+// // const bodyParser = require('body-parser');
+// // const app = express();
+// const router = require('express').Router();
+//
+// router.use('/', require('./register.js'));
+//
+// module.exports = router;
