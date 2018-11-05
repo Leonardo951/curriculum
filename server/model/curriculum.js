@@ -7,6 +7,7 @@ let curriculumSchema = new mongoose.Schema({
     cpf: { type: Number, unique: true, required: true},
     mail: { type: String, unique: true, required: true, lowercase: true},
     password: { type: String, required: true, select: false },
+    dateUpdate: { type: Date, default: Date.now() },
     fullName: String,
     nationality: String,
     dateBirth: String,
@@ -29,8 +30,8 @@ let curriculumSchema = new mongoose.Schema({
 });
 
 //pre serve para fazer algo antes que algo seja chamado, no caso a função save
-curriculumSchema.pre('save', function (next){
-    const hash = bcrypt.hash(this.password, 10);
+curriculumSchema.pre('save', async function (next){
+    const hash = await bcrypt.hash(this.password, 10);
     this.password = hash;
 
     next();
