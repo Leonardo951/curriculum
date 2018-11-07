@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
-import * as colorActions from "../state/actions/colorCv";
+import * as colorActions from "../state/actions/cv/colorCv";
 import { connect } from "react-redux";
 
 class BallColor extends Component {
     constructor(props){
         super(props);
-
-        console.log(props.colorCv)
     }
 
     render() {

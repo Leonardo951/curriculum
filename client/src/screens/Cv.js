@@ -22,28 +22,23 @@ export default class Cv extends Component {
     constructor(props){
         super(props);
         this.state = {
-            colorSelected: '#0EB57D',
         }
     }
-
-    changeColr(color){
-        this.setState({colorSelected: color})
-    };
 
     render() {
         return (
             <div>
-                <About colorSelected={this.state.colorSelected}/>
-                <Education colorSelected={this.state.colorSelected}/>
-                <Experience colorSelected={this.state.colorSelected}/>
-                <Skill colorSelected={this.state.colorSelected}/>
-                {/*<Portfolio colorSelected={this.state.colorSelected}/>*/}
-                <References colorSelected={this.state.colorSelected}/>
-                <Qualifications colorSelected={this.state.colorSelected}/>
-                <AdditionalInformation colorSelected={this.state.colorSelected}/>
-                <Contact colorSelected={this.state.colorSelected}/>
+                <About />
+                <Education />
+                <Experience />
+                <Skill />
+                {/*<Portfolio />*/}
+                <References />
+                <Qualifications />
+                <AdditionalInformation />
+                <Contact />
                 <ColorScheme />
-                <Footer colorSelected={this.state.colorSelected}/>
+                <Footer />
             </div>
         );
     }

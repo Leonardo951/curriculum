@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ExperienceCard from "./ExperienceCard";
 import Waypoint from 'react-waypoint';
+import connect from "react-redux/es/connect/connect";
 
-export default class Experience extends Component {
+class Experience extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -41,7 +42,7 @@ export default class Experience extends Component {
                                     {this.state.ready ?
                                         this.state.array.map((tool, index) => {
                                             return (
-                                                <ExperienceCard class={tool.classe} duration={tool.duration} colorSelected={this.props.colorSelected}/>
+                                                <ExperienceCard class={tool.classe} duration={tool.duration} />
                                             )
                                         })
                                         : <div/>
@@ -56,3 +57,9 @@ export default class Experience extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(Experience);

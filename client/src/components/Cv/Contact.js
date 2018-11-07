@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { FaInfoCircle, FaCircleNotch, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import connect from "react-redux/es/connect/connect";
 
-export default class Contact extends Component {
+class Contact extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -14,7 +15,7 @@ export default class Contact extends Component {
         this.state.ball ?
             this.setState({ball: false, imgColor: '#ffffff'})
         :
-            this.setState({ball: true, imgColor: this.props.colorSelected})
+            this.setState({ball: true, imgColor: this.props.colorCv})
     };
 
     render() {
@@ -50,7 +51,7 @@ export default class Contact extends Component {
                                                       placeholder="Message"/>
                                             <button className="btn-custom waves-effect" type="submit"
                                                     onMouseOut={this.hoverBoll.bind(this)}  onMouseOver={this.hoverBoll.bind(this)}
-                                                    name="button" style={{backgroundColor: this.props.colorSelected, color: this.state.imgColor}}>
+                                                    name="button" style={{backgroundColor: this.props.colorCv, color: this.state.imgColor}}>
                                                     Send Message
                                             </button>
                                             <FaCircleNotch id="c-form-spinner"/>
@@ -101,3 +102,9 @@ export default class Contact extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(Contact);

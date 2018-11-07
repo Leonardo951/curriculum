@@ -12,7 +12,6 @@ class ColorScheme extends Component {
         this.state = {
             right: '-262px'
         };
-        console.log(props.colorCv)
     }
 
     // Define if block of colors stay visible

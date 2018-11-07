@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { FaCircle } from 'react-icons/fa';
+import connect from "react-redux/es/connect/connect";
 
-export default class ExperienceCard extends Component {
+class ExperienceCard extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -44,7 +45,7 @@ export default class ExperienceCard extends Component {
                     animationName: 'fadeIn'}} data-wow-duration="2s" data-wow-delay={this.props.duration}
                 data-wow-offset="0">
                 <div className="timeline-badge">
-                    <a style={{color: this.props.colorSelected}}><FaCircle/></a>
+                    <a style={{color: this.props.colorCv}}><FaCircle/></a>
                 </div>
                 <div className="timeline-panel w-block shadow-bg pd-30">
                     <div className="timeline-tag">
@@ -52,7 +53,7 @@ export default class ExperienceCard extends Component {
                     </div>
                     <div className="timeline-title timeline-title-alt">
                         Software Engineer Intern
-                        <span className="timeline-title-after" style={{background: this.props.colorSelected}}/>
+                        <span className="timeline-title-after" style={{background: this.props.colorCv}}/>
                     </div>
                     <div className="timeline-desc text-center" style={{display: this.state.displayFront}}>
                         {this.state.textModify}
@@ -62,11 +63,17 @@ export default class ExperienceCard extends Component {
                         {this.state.text}
                         <p style={{cursor: 'pointer', color: 'blue'}} onClick={this.mudeDisplay.bind(this)}>Ver menos</p>
                     </div>
-                    <div className="timeline-time" style={{backgroundColor: this.props.colorSelected, display: this.state.back ? 'none' : ''}}>2009-2010
-                        <span className="timeline-time-before" style={{borderLeftColor: this.props.colorSelected}}/>
+                    <div className="timeline-time" style={{backgroundColor: this.props.colorCv, display: this.state.back ? 'none' : ''}}>2009-2010
+                        <span className="timeline-time-before" style={{borderLeftColor: this.props.colorCv}}/>
                     </div>
                 </div>
             </li>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(ExperienceCard);

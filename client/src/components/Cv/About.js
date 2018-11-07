@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { FaDownload, FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter, FaGithub, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { COLORS } from '../../constant/CvColors';
 import ReactTooltip from 'react-tooltip';
+import connect from "react-redux/es/connect/connect";
 
-export default class About extends Component {
+class About extends Component {
 
     constructor(props){
         super(props);
@@ -26,15 +27,15 @@ export default class About extends Component {
     // Control colores for icons social networks
     hoverBoll(info, item){
         const value = {
-            download: item === 'download' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            face: item === 'face' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            insta: item === 'insta' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            github: item === 'github' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            pint: item === 'pint' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            twitter: item === 'twitter' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            gplus: item === 'gplus' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            linkedin: item === 'linkedin' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
-            yt: item === 'yt' && !this.state.ball ? this.props.colorSelected : COLORS.WHITE,
+            download: item === 'download' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            face: item === 'face' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            insta: item === 'insta' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            github: item === 'github' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            pint: item === 'pint' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            twitter: item === 'twitter' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            gplus: item === 'gplus' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            linkedin: item === 'linkedin' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
+            yt: item === 'yt' && !this.state.ball ? this.props.colorCv : COLORS.WHITE,
         };
         if(this.state.ball){
             if(info !== 'img') {
@@ -68,16 +69,16 @@ export default class About extends Component {
                                                        className="btn-circle tooltipped layer shadow-bg" data-position="top"
                                                        data-delay="50" data-tip="Download currículo" data-depth="0.25"  onMouseOver={this.hoverBoll.bind(this, 'ball', 'download')}
                                                        data-tooltip-id="1481b9c0-143c-a285-9cff-87745145e410" onMouseOut={this.hoverBoll.bind(this, 'ball', 'download')}
-                                                       style={{position: 'absolute', display: 'block', left: '0px', top: '0px', transform: 'translate3d(3.7375px, -8.05177px, 0px)', transformStyle: 'preserve-3d', backfaceisibility: 'hidden', backgroundColor: this.props.colorSelected, color: this.props.colorSelected}}>
+                                                       style={{position: 'absolute', display: 'block', left: '0px', top: '0px', transform: 'translate3d(3.7375px, -8.05177px, 0px)', transformStyle: 'preserve-3d', backfaceisibility: 'hidden', backgroundColor: this.props.colorCv, color: this.props.colorCv}}>
                                                         <FaDownload style={{color: this.state.imgColor.download}} onMouseOver={this.hoverBoll.bind(this, 'img', 'download')}/></a>
                                             </div>
-                                            <div className="about-name" style={{color: this.props.colorSelected}}>John Doe</div>
+                                            <div className="about-name" style={{color: this.props.colorCv}}>John Doe</div>
                                             <div className="about-title">Software Engineer</div>
                                         </div>
                                         <div className="cole m7 s12 about-data-wrapper pd-50">
                                             <div className="about-desc pd-0">
                                                 <div className="about-section-title">Sobre
-                                                <span className="about-section-title-after" style={{backgroundColor: this.props.colorSelected}}/></div>
+                                                <span className="about-section-title-after" style={{backgroundColor: this.props.colorCv}}/></div>
                                                 <div className="about-data">
                                                     {/*<p className="about-description">*/}
                                                         {/*Procuro uma oportunidade para desempenhar de maneira exemplar, todas as tarefas que*/}
@@ -103,7 +104,7 @@ export default class About extends Component {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="about-social cole s12 pd-0" style={{backgroundColor: this.props.colorSelected}}>
+                                        <div className="about-social cole s12 pd-0" style={{backgroundColor: this.props.colorCv}}>
                                             <a className="waves-effect waves-light" href="#0" onMouseOver={this.hoverBoll.bind(this, 'ball', 'face')} onMouseOut={this.hoverBoll.bind(this, 'ball', 'face')}>
                                                 <FaFacebookF style={{color: this.state.imgColor.face}} onMouseOver={this.hoverBoll.bind(this, 'img', 'face')}/>
                                             </a>
@@ -139,3 +140,10 @@ export default class About extends Component {
         );
     }
 }
+
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(About);

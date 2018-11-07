@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import EducationCard from "./EducationCard";
 import Waypoint from 'react-waypoint';
+import connect from "react-redux/es/connect/connect";
 
-export default class Education extends Component {
+class Education extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -42,12 +43,12 @@ export default class Education extends Component {
                                     {this.state.ready ?
                                         this.state.array.map((tool, index) => {
                                             return (
-                                                <EducationCard class={tool.classe} duration={tool.duration} colorSelected={this.props.colorSelected}/>
+                                                <EducationCard class={tool.classe} duration={tool.duration} />
                                             )
                                         })
                                         : <div/>
                                     }
-                                    <textarea style={{visibility: 'hidden'}} colorSelected={this.props.colorSelected}/>
+                                    <textarea style={{visibility: 'hidden'}}/>
                                 </ul>
                             </div>
                         </div>
@@ -57,3 +58,9 @@ export default class Education extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(Education);

@@ -4,8 +4,9 @@ import Slider from 'react-slick';
 import scrollToComponent from 'react-scroll-to-component';
 import ReferencesAdd from "./ReferencesAdd";
 import { FaPlus, FaTimes } from 'react-icons/fa';
+import connect from "react-redux/es/connect/connect";
 
-export default class References extends Component {
+class References extends Component {
 
     constructor(props){
         super(props);
@@ -32,7 +33,7 @@ export default class References extends Component {
     //     if(this.state.imgColor !== '#ffffff'){
     //         this.setState({imgColor: '#ffffff'})
     //     }else{
-    //         this.setState({imgColor: this.props.colorSelected})
+    //         this.setState({imgColor: this.props.colorCv})
     //     }
     // };
 
@@ -63,19 +64,18 @@ export default class References extends Component {
                                      style={{opacity: '1', display: 'block' }}>
                                     <div className="owl-wrapper-outer">
                                         <Slider {...settings}>
-                                            <ReferenceCard colorSelected={this.props.colorSelected}/>
-                                            {/*<ReferenceCard colorSelected={this.props.colorSelected}/>*/}
+                                            <ReferenceCard/>
                                         </Slider>
                                     </div>
                                 </div>
-                                <ReferencesAdd colorSelected={this.props.colorSelected} addActive={this.state.addActive}
+                                <ReferencesAdd addActive={this.state.addActive}
                                         activeTop={this.state.activeTop} visible={this.state.visible} />
                             </div>
                         </div>
                         <br/>
                         <button className="add-all btn-circle waves-effect tooltipped" ref="myBtn" type="button" onClick={this.addReference}
                                 style={{transform: 'translate3d(3.7375px, -8.05177px, 0px)', transformStyle: 'preserve-3d',
-                                    backgroundColor: this.props.colorSelected}} >
+                                    backgroundColor: this.props.colorCv}} >
                             {
                                 this.state.addActive ?
                                     <FaTimes style={{fontSize: '20px', color: this.state.imgColor}}/>
@@ -89,3 +89,9 @@ export default class References extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(References);

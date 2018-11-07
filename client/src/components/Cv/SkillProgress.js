@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Waypoint from 'react-waypoint';
+import connect from "react-redux/es/connect/connect";
 
-export default class SkillProgress extends Component {
+class SkillProgress extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -30,10 +31,16 @@ export default class SkillProgress extends Component {
                 </p>
                 <div className="progress-bar">
                     <Waypoint onEnter={this.initProgressBar.bind(this)}>
-                        <span data-percent={this.props.howMuch} style={{transition: 'width 1.5s',  background: this.props.colorSelected, width: this.state.width+'%'}}/>
+                        <span data-percent={this.props.howMuch} style={{transition: 'width 1.5s',  background: this.props.colorCv, width: this.state.width+'%'}}/>
                     </Waypoint>
                 </div>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    colorCv: state.colorCv
+});
+
+export default connect(mapStateToProps, null)(SkillProgress);
