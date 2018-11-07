@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { FaFacebook, FaGooglePlus, FaLinkedin } from 'react-icons/fa';
 import scrollToComponent from "react-scroll-to-component";
 import CardResetPassword from "../components/CardResetPassword";
@@ -20,6 +21,18 @@ export default class Login extends Component {
                 textVisible: 'none'
             }
         }
+    }
+
+    componentDidMount(){
+        // axios.get('/auth/register')
+        //     .then(function (response) {
+        //         // handle success
+        //         console.log(response.data);
+        //     })
+        //     .catch(function (error) {
+        //         // handle error
+        //         console.log(error);
+        //     })
     }
 
     submitEmail = ()=>{
@@ -93,7 +106,7 @@ export default class Login extends Component {
                                     </div>
                                 </form>
                                 <CardResetPassword ref={'reset'} sendReset={this.state.sendReset}
-                                    resetPassword={this.state.resetPassword} submitEmail={this.submitEmail}/>
+                                                   resetPassword={this.state.resetPassword} submitEmail={this.submitEmail}/>
                             </div>
                         </div>
                         <div className="login-divider">

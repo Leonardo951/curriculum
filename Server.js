@@ -10,7 +10,6 @@ app.use(bodyParser.urlencoded({ extended: false}));
 require('./server/controller/authControl')(app);
 require('./server/controller/mainControl')(app);
 
-
 app.listen(port, () => {
     console.log('Server working in http://localhost:' + port);
 });

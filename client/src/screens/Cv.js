@@ -26,7 +26,7 @@ export default class Cv extends Component {
         }
     }
 
-    changeColor(color){
+    changeColr(color){
         this.setState({colorSelected: color})
     };
 
@@ -42,7 +42,7 @@ export default class Cv extends Component {
                 <Qualifications colorSelected={this.state.colorSelected}/>
                 <AdditionalInformation colorSelected={this.state.colorSelected}/>
                 <Contact colorSelected={this.state.colorSelected}/>
-                <ColorScheme changeColor={this.changeColor.bind(this)} colorSelected={this.state.colorSelected}/>
+                <ColorScheme />
                 <Footer colorSelected={this.state.colorSelected}/>
             </div>
         );

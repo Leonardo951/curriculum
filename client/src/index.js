@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './styles/css/index.css';
 import * as serviceWorker from './serviceWorker';
 import ScreensRoot from './screens/Router';
+import { Provider } from 'react-redux';
+import store from './state/store';
 
 
 ReactDOM.render(
-    <ScreensRoot/>,
+    <Provider store={store}>
+        <ScreensRoot/>
+    </Provider>,
     document.getElementById('root')
 );
 

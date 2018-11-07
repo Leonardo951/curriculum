@@ -6,25 +6,26 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/auth');
 
-router.post('/register', async (req, res) =>{
-    const { cpf } = req.body;
-
-    const token = jwt.sign({ id: curriculum.id }, secret, {
-        expiresIn: 86400,
-    });
-
-    try {
-    if(await curriculum.findOne({ cpf }))
-        return res.status(400).send({error: "cpf já cadastrado"});
-
-        const Curriculum = await curriculum.create(req.body);
-
-        Curriculum.password = undefined; //para não mostrar o valor quando voltar.
-
-        return res.send({ Curriculum, token })
-    } catch (err) {
-        return res.status(400).send({ error: 'Failed registration: '+err })
-    }
+router.get('/register', async (req, res) =>{
+    return res.send({ "Ok": "parabens. vc é foda!" })
+    // const { cpf } = req.body;
+    //
+    // const token = jwt.sign({ id: curriculum.id }, secret, {
+    //     expiresIn: 86400,
+    // });
+    //
+    // try {
+    // if(await curriculum.findOne({ cpf }))
+    //     return res.status(400).send({error: "cpf já cadastrado"});
+    //
+    //     const Curriculum = await curriculum.create(req.body);
+    //
+    //     Curriculum.password = undefined; //para não mostrar o valor quando voltar.
+    //
+    //     return res.send({ Curriculum, token })
+    // } catch (err) {
+    //     return res.status(400).send({ error: 'Failed registration: '+err })
+    // }
 });
 
 router.post('/authenticate', async (req, res) =>{
