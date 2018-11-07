@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import InputLabel from "../UI/InputLabel";
 import { Link } from 'react-router-dom';
+import connect from "react-redux/es/connect/connect";
+import { bindActionCreators } from "redux";
+import axios from 'axios';
+import * as authActions from '../state/actions/auth';
 
-export default class Register extends Component {
+class Register extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            valid: 'none',
+            cpfValid: 'none',
             mail: 'none',
             pass: 'none',
             password: '',
-        }
+            cpf: '',
+            email: ''
+        };
     }
 
     TestaCPF(strCPF) {
@@ -29,20 +35,19 @@ export default class Register extends Component {
             strCPF === "77777777777" ||
             strCPF === "88888888888" ||
             strCPF === "99999999999"){
-            this.setState({valid: 'block'});
+            this.setState({cpfValid: 'block'});
             return false;
         }else if(strCPF.length < 11){
-            this.setState({valid: 'none'});
-            return true;
+            this.setState({cpfValid: 'block'});
+            return false;
         }
 
         for (let i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
         Resto = (Soma * 10) % 11;
 
         if ((Resto === 10) || (Resto === 11))  Resto = 0;
-        console.log(parseInt(strCPF.substring(9, 10)));
         if (Resto !== parseInt(strCPF.substring(9, 10)) ){
-            this.setState({valid: 'block'})
+            this.setState({cpfValid: 'block'});
             return false;
         }
 
@@ -52,10 +57,10 @@ export default class Register extends Component {
 
         if ((Resto === 10) || (Resto === 11))  Resto = 0;
         if (Resto !== parseInt(strCPF.substring(10, 11) ) ) {
-            this.setState({valid: 'block'})
+            this.setState({cpfValid: 'block'});
             return false;
         }else{
-            this.setState({valid: 'none'});
+            this.setState({cpfValid: 'none', cpf: strCPF});
             return true;
         }
     }
@@ -73,7 +78,7 @@ export default class Register extends Component {
             (dominio.indexOf(".") >=1)&&
             (dominio.lastIndexOf(".") < dominio.length - 1) || strMail === '')
         {
-            this.setState({mail: 'none'});
+            this.setState({mail: 'none', email: strMail});
             return true;
         }else{
             this.setState({mail: 'block'});
@@ -96,6 +101,17 @@ export default class Register extends Component {
         }
     }
 
+    saveData = ()=>{
+        // verify valid
+        if(this.state.mail === 'none' || this.state.cpfValid === 'none' || this.state.pass === 'block'){
+            this.props.newUser({
+                cpf: this.state.cpf,
+                mail: this.state.email,
+                password: this.state.password,
+            })
+        }
+    };
+
     render() {
         const helpCpf = 'Nós não divulgaremos seu CPF e ele não será inserido em seu currículo, Solicitamos apenas para manter o controle de usuários.';
 
@@ -106,17 +122,21 @@ export default class Register extends Component {
                         <div className="card-body">
                             <img id="img_sex" className="person-img" alt={'verei'}
                                  src="https://visualpharm.com/assets/217/Life%20Cycle-595b40b75ba036ed117d9ef0.svg"/>
-                            <h2 id="who_message" className="card-title" style={{fontSize: '35px'}}>Quem é você ?</h2>
+                            <h2 id="who_message" className="card-title" style={{fontSize: '35px'}}>
+                                Quem é você ?'
+                            </h2>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-md-6" style={{padding: "0.5em"}}>
                             <div className="card">
                                 <div className="card-body">
-                                    <h2 className="card-title" style={{fontSize: '35px'}}>Seus dados ?</h2>
+                                    <h2 className="card-title" style={{fontSize: '35px'}}>
+                                        Seus dados ?
+                                    </h2>
                                     <InputLabel label={'CPF'} place={"Somente números"} help={helpCpf}
-                                                    viewCpf={this.TestaCPF.bind(this)}/>
-                                    <small style={{color: 'red', display: this.state.valid}}>O CPF digitado não é válido.</small>
+                                                viewCpf={this.TestaCPF.bind(this)}/>
+                                    <small style={{color: 'red', display: this.state.cpfValid}}>O CPF digitado não é válido.</small>
                                     <InputLabel label={'E-mail'} type={'email'} place={"example@mail.com"}
                                                 viewMail={this.testaMail.bind(this)}/>
                                     <small style={{color: 'red', display: this.state.mail}}>O e-mail digitado não é válido.</small>
@@ -135,12 +155,24 @@ export default class Register extends Component {
                         </div>
                     </div>
                     <div style={{marginTop: "1em"}}>
-                        <Link to={'/curriculo'}>
-                            <button type="button" className="btn btn-success text-uppercase btn-lg btn-block">Criar meu currículo agora</button>
-                        </Link>
+                        {/*<Link to={'/curriculo'}>*/}
+                        <button type="button" className="btn btn-success text-uppercase btn-lg btn-block"
+                                onClick={this.saveData}>
+                            Criar meu currículo agora
+                        </button>
+                        {/*</Link>*/}
                     </div>
                 </form>
             </div>
         );
     }
 }
+
+const mapStateToProps = state => ({
+    auth: state.auth
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(authActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
