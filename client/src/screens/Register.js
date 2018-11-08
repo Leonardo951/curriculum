@@ -123,7 +123,7 @@ class Register extends Component {
                             <img id="img_sex" className="person-img" alt={'verei'}
                                  src="https://visualpharm.com/assets/217/Life%20Cycle-595b40b75ba036ed117d9ef0.svg"/>
                             <h2 id="who_message" className="card-title" style={{fontSize: '35px'}}>
-                                Quem é você ?'
+                                    Quem é você ?
                             </h2>
                         </div>
                     </div>

@@ -15,13 +15,13 @@ router.post('/register', async (req, res) =>{
 
     try {
     if(await curriculum.findOne({ cpf }))
-        return res.status(400).send({error: "cpf já cadastrado"});
+        return res.status(200).send({error: "CPF já cadastrado"});
 
         req.body.data.key = Math.random().toString(36).slice(-10);
         const { key } = req.body.data;
 
         if(await curriculum.findOne({ key }))
-            return res.status(400).send({error: "Tente novamente!"});
+            return res.status(200).send({error: "Tente novamente!"});
 
         const Curriculum = await curriculum.create(req.body.data);
 

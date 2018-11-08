@@ -1,5 +1,6 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import axios from "axios";
+import { push } from 'connected-react-router';
 
 function setApi(data) {
     return axios.post('/auth/register', {data: data})
@@ -8,9 +9,15 @@ function setApi(data) {
 function* registerUser(action) {
     try {
         const data = yield call(setApi, action.data);
-        yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum, token: data.data.token}});
+        if(data.data.error){
+            yield put({type: 'FAILED_NEW_REGISTER', payload: {error: data.data.error}});
+        }else{
+            yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum, token: data.data.token}});
+            yield put(push("/curriculo"));
+        }
+
     }catch(error){
-        yield put({type: 'FAILED_NEW_REGISTER', payload: {error: 'CPF já cadastrado'}});
+        yield put({type: 'FAILED_NEW_REGISTER', payload: {error: 'Houve um erro inesperado.\n Tente novamente!'}});
     }
 }
 

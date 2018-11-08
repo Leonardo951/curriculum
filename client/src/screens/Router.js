@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import history from './history';
 
 import Navbar from '../components/Navbar';
 import ScreenHomePageHome from "./ScreenHomePageHome";
@@ -9,7 +11,7 @@ import Cv from './Cv';
 import Login from "./Login";
 
 const ScreensRoot = () => (
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
         <div>
             <Navbar/>
             <Switch>
@@ -20,7 +22,7 @@ const ScreensRoot = () => (
                 <Route exact path="/login" component={Login} />
             </Switch>
         </div>
-    </BrowserRouter>
+    </ConnectedRouter>
 );
 
 export default ScreensRoot;
