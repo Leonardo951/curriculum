@@ -3,8 +3,9 @@ import createSagaMiddlware from 'redux-saga';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import root from './middlwares';
 import history from '../screens/history';
-import colorCv from "./reducers/cv/colorCv";
-import auth from './reducers/auth/register';
+import colorCv from "./reducers/colorCv";
+import auth from './reducers/auth';
+import curriculumData from './reducers/curriculum';
 
 const sagaMiddlware = createSagaMiddlware();
 
@@ -15,7 +16,8 @@ const middlwares = [
 
 const rootReducers = combineReducers({
     colorCv,
-    auth
+    auth,
+    curriculumData
 });
 
 const store = createStore(connectRouter(history)(rootReducers),

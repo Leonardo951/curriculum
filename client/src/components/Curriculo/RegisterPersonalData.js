@@ -2,45 +2,36 @@ import React, { Component } from 'react';
 import { FaPlus, FaMinus, FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Select from '@material-ui/core/Select';
 import MaskedInput from "react-text-mask";
-import TextField from '@material-ui/core/TextField';
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import DatePicker from 'react-date-picker';
+import { bindActionCreators } from "redux";
+import * as curriculumActions from '../../state/actions/curriculum';
+import connect from "react-redux/es/connect/connect";
+import { Row, Input } from 'react-materialize';
 
-export default class RegisterPersonalData extends Component {
+class RegisterPersonalData extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            selectedOption: null,
             btnTel: 'block',
             tel1: 'block',
             tel2: 'none',
             tel3: 'none',
-            valPhones: {
-                valPhone1: '',
-                valPhone2: '',
-                valPhone3: '',
-            },
-            date: null,
-            stateCivil: '',
             mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
         }
     }
 
-    handleChangeCivilState = (event) => {
-        this.setState({ stateCivil: event.target.value });
-    };
+    handleChangeDate = date => this.props.changeDateBirth(date);
 
-    changeAddTels = ()=>{
+    changeAddTels = () => {
         if(this.state.tel1 === 'block'){
             this.setState({tel1: 'none', tel2: 'block'})
         }else if(this.state.tel2 === 'block'){
             this.setState({tel3: 'block', tel2: 'none', btnTel: 'none'})
         }
     };
-
-    onChange = date => this.setState({ date });
 
     changeRemoveTel(qnt){
         if(qnt === 3){
@@ -50,24 +41,35 @@ export default class RegisterPersonalData extends Component {
         }
     };
 
+    submitPhone(e){
+        let numberPhone = e.target.value.replace(/[^0-9]/g,'');
+        let obj = this.props.curriculumData.phone;
+        if(e.target.id === 'phone1'){
+            obj.phoneOne = numberPhone;
+        }else if(e.target.id === 'phone2'){
+            obj.phoneTwo = numberPhone;
+        }else{
+            obj.phoneTwo = numberPhone;
+        }
+
+        this.props.changePhone(obj)
+    }
+
     correctCharsPhone(e){
         if(e.type === 'focus'){
             this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]})
         }else{
             let numberPhone = e.target.value;
             numberPhone = numberPhone.replace(/[^0-9]/g,'');
-            console.log(numberPhone);
             if(numberPhone.length > 10){
                 this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/, /\d/]})
             }else{
                 this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/, /\d/]})
             }
         }
-    };
+    }
 
     render() {
-
-        const { selectedOption } = this.state;
 
         const optionsCivil = [
             { value: 'solteiro', label: 'Solteiro(a)' },
@@ -76,44 +78,51 @@ export default class RegisterPersonalData extends Component {
             { value: 'divorciado', label: 'Divorciado(a)' },
             { value: 'viuvo', label: 'Viúvo(a)' }
         ];
+
+        const { name, otherMail, nationality, dateBirth, civilStatus, address, zipCode, city, uf, phone } = this.props.curriculumData;
+
 //CAMPO SEXO
         return (
             <div>
                 <fieldset>
                     <div className="row-mat">
                         <div className="input-field cole s12">
-                            <input type="text" className="c-form-input"
-                                   placeholder="Nome completo"/>
+                            <Row>
+                                <Input label='Nome completo' onChange={(e)=>{this.props.changeName(e.target.value)}}
+                                            value={name}/>
+                            </Row>
+                            {/*<input type="text" className="c-form-input" onChange={(e)=>{this.props.changeName(e.target.value)}}*/}
+                                   {/*placeholder="Nome completo" value={name}/>*/}
                         </div>
                     </div>
                     <div className="row-mat">
                         <div className="input-field cole s12">
-                            <input  type="text" className="c-form-input"
-                                    placeholder="E-mail"/>
+                            <input  type="text" className="c-form-input"  onChange={(e)=>{this.props.changeMail(e.target.value)}}
+                                    placeholder="E-mail" value={otherMail}/>
                         </div>
                     </div>
                     <div className="row-mat">
                         <div className="input-field cole s12">
-                            <input type="text"
-                                   className="c-form-input" placeholder="Nacionalidade"/>
+                            <input type="text"  onChange={(e)=>{this.props.changeNationality(e.target.value)}}
+                                   className="c-form-input" placeholder="Nacionalidade" value={nationality}/>
                         </div>
                     </div>
                     <div className="row-mat">
                         <div className="input-field cole s6" style={{margin: 0}}>
                             <DatePicker
                                 calendarIcon={<FaCalendarAlt/>}
-                                onChange={this.onChange}
+                                onChange={this.handleChangeDate}
                                 required={true}
                                 maxDate={new Date()}
-                                value={this.state.date}
+                                value={dateBirth}
                                 showLeadingZeros={false}
                                 locale={'pt-br'}
                             />
                         </div>
                             <FormControl className={'input-field cole s6'}>
                                 <Select
-                                    value={this.state.stateCivil}
-                                    onChange={this.handleChangeCivilState}
+                                    value={civilStatus}
+                                    onChange={(e)=>{this.props.changeCivilStatus(e.target.value)}}
                                     name="age"
                                     displayEmpty
                                     style={{height: '55px', fontSize: '16px'}}
@@ -133,18 +142,19 @@ export default class RegisterPersonalData extends Component {
                     </div>
                     <div className="row-mat">
                         <div className="input-field cole s12">
-                            <input type="text"
-                                   className="c-form-input" placeholder="Endereço completo"/>
+                            <input type="text" onChange={(e)=>{this.props.changeAddress(e.target.value)}}
+                                   className="c-form-input" placeholder="Endereço completo" value={address}/>
                         </div>
                     </div>
                     <div className="row-mat">
                         <div className="input-field cole s6">
-                            <input placeholder="Cidade" type="text" className="validate"/>
+                            <input placeholder="Cidade" type="text"  onChange={(e)=>{this.props.changeCity(e.target.value)}}
+                                   className="validate" value={city}/>
                         </div>
                         <FormControl className={'input-field cole s6'}>
                             <Select
-                                value={this.state.stateCivil}
-                                onChange={this.handleChangeCivilState}
+                                value={uf}
+                                onChange={(e)=>{this.props.changeUF(e.target.value)}}
                                 displayEmpty
                                 style={{height: '50px', fontSize: '16px'}}
                             >
@@ -163,8 +173,8 @@ export default class RegisterPersonalData extends Component {
                     </div>
                     <div className="row-mat">
                         <div className="input-field cole s12">
-                            <input type="text"
-                                   className="c-form-input" placeholder="CEP"/>
+                            <input type="text" value={zipCode} onChange={(e)=>{this.props.changeZipCode(e.target.value)}}
+                                   className="c-form-input" placeholder="CEP" />
                         </div>
                     </div>
                     <div className="row-mat">
@@ -175,6 +185,9 @@ export default class RegisterPersonalData extends Component {
                                 placeholder={"(XX) XXXXX-XXXX"}
                                 required={true}
                                 guide={true}
+                                id={'phone1'}
+                                value={phone.phoneOne}
+                                onChange={this.submitPhone.bind(this)}
                                 onBlur={this.correctCharsPhone.bind(this)}
                                 onFocus={this.correctCharsPhone.bind(this)}
                             />
@@ -187,7 +200,10 @@ export default class RegisterPersonalData extends Component {
                                     className="c-form-input"
                                     placeholder={"(XX) XXXXX-XXXX"}
                                     required={true}
+                                    id={'phone1'}
+                                    value={phone.phoneOne}
                                     guide={true}
+                                    onChange={this.submitPhone.bind(this)}
                                     onBlur={this.correctCharsPhone.bind(this)}
                                     onFocus={this.correctCharsPhone.bind(this)}
                                 />
@@ -200,6 +216,9 @@ export default class RegisterPersonalData extends Component {
                                     placeholder={"(XX) XXXXX-XXXX"}
                                     required={true}
                                     guide={true}
+                                    id={'phone2'}
+                                    value={phone.phoneTwo}
+                                    onChange={this.submitPhone.bind(this)}
                                     onBlur={this.correctCharsPhone.bind(this)}
                                     onFocus={this.correctCharsPhone.bind(this)}
                                 />
@@ -207,13 +226,16 @@ export default class RegisterPersonalData extends Component {
                             </div>
                         </div>
                         <div style={{display: this.state.tel3}}>
-                            <div className={'input-field cole s'}>
+                            <div className={'input-field cole s4'}>
                                 <MaskedInput
                                     mask={this.state.mask}
                                     className="c-form-input"
                                     placeholder={"(XX) XXXXX-XXXX"}
                                     required={true}
                                     guide={true}
+                                    id={'phone1'}
+                                    value={phone.phoneOne}
+                                    onChange={this.submitPhone.bind(this)}
                                     onBlur={this.correctCharsPhone.bind(this)}
                                     onFocus={this.correctCharsPhone.bind(this)}
                                 />
@@ -225,7 +247,10 @@ export default class RegisterPersonalData extends Component {
                                     className="c-form-input"
                                     placeholder={"(XX) XXXXX-XXXX"}
                                     required={true}
+                                    id={'phone2'}
+                                    value={phone.phoneTwo}
                                     guide={true}
+                                    onChange={this.submitPhone.bind(this)}
                                     onBlur={this.correctCharsPhone.bind(this)}
                                     onFocus={this.correctCharsPhone.bind(this)}
                                 />
@@ -238,6 +263,9 @@ export default class RegisterPersonalData extends Component {
                                     placeholder={"(XX) XXXXX-XXXX"}
                                     required={true}
                                     guide={true}
+                                    id={'phone3'}
+                                    value={phone.phoneThree}
+                                    onChange={this.submitPhone.bind(this)}
                                     onBlur={this.correctCharsPhone.bind(this)}
                                     onFocus={this.correctCharsPhone.bind(this)}
                                 />
@@ -255,3 +283,14 @@ export default class RegisterPersonalData extends Component {
         );
     }
 }
+
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    curriculumData: state.curriculumData
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(curriculumActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPersonalData);

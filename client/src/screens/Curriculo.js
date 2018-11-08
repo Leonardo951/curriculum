@@ -6,8 +6,11 @@ import scrollToComponent from "react-scroll-to-component";
 import RegisterExperiences from "../components/Curriculo/RegisterExperiences";
 import RegisterOthersData from "../components/Curriculo/RegisterOthersData";
 import {Link} from "react-router-dom";
+import {bindActionCreators} from "redux";
+import * as colorActions from "../state/actions/cv/colorCv";
+import connect from "react-redux/es/connect/connect";
 
-export default class Curriculo extends Component {
+class Curriculo extends Component {
 
     constructor(props){
         super(props);
@@ -96,7 +99,7 @@ export default class Curriculo extends Component {
                             </div>
                         </div>
                     </div>
-                    <form className="c-form" action="#0" method="post" className="cole s12"
+                    <form className="c-form" className="cole s12"
                           style={{backgroundColor: '#fff', padding: '20px'}}>
                         { this.state.currentActive === 'activeAbout' && <RegisterPersonalData /> }
                         { this.state.currentActive === 'activeEducation' && <RegisterEducation /> }
@@ -120,18 +123,14 @@ export default class Curriculo extends Component {
                                 </div>
                             }
                             <div className="input-field cole s12" style={{margin: '1px'}}>
-                                <Link to={'/cv'}>
-                                    <button className="btn btn-success text-center text-uppercase" type="button" style={{width: '100%'}}>
-                                        Cadastrar
-                                    </button>
-                                </Link>
+                                <button className="btn btn-success text-center text-uppercase" type="button" style={{width: '100%'}}>
+                                    Cadastrar
+                                </button>
                             </div>
                             <div className="input-field cole s12" style={{margin: '1px'}}>
-                                <Link to={'/'}>
-                                    <button className="btn btn-danger text-center text-uppercase" type="button" style={{width: '100%'}}>
-                                        Cancelar cadastro
-                                    </button>
-                                </Link>
+                                <button className="btn btn-danger text-center text-uppercase" type="button" style={{width: '100%'}}>
+                                    Cancelar cadastro
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -140,3 +139,13 @@ export default class Curriculo extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    curriculum: state.curriculum
+});
+
+// const mapDispatchToProps = dispatch =>
+//     bindActionCreators(curriculumActions, dispatch);
+
+export default connect(mapStateToProps, null)(Curriculo);
