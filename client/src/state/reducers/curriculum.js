@@ -28,6 +28,16 @@ const initial_state = {
             period: ''
         },
     ],
+    experience: [
+        {
+            job: null,
+            company: null,
+            initials: null,
+            periodWork: {from: {year: 2018, month: 0}, to: {year: 2018, month: 0}},
+            current: false,
+            mainAct: []
+        },
+    ]
 };
 
 const curriculumData = (state = initial_state, action) => {
@@ -91,7 +101,7 @@ const curriculumData = (state = initial_state, action) => {
                     }
                 }
             });
-        case 'CHANGE_DATEEND':
+        case 'CHANGE_DATE_END':
             return update(state, {
                 formation: {
                     [action.index]: {
@@ -99,7 +109,7 @@ const curriculumData = (state = initial_state, action) => {
                     }
                 }
             });
-        case 'CHANGE_SEMORYEAR':
+        case 'CHANGE_SEM_OR_YEAR':
             return update(state, {
                 formation: {
                     [action.index]: {
@@ -107,11 +117,51 @@ const curriculumData = (state = initial_state, action) => {
                     }
                 }
             });
-        case 'CHANGE_PERIOD':
+        case 'CHANGE_JOB':
             return update(state, {
-                formation: {
+                experience: {
                     [action.index]: {
-                        period: {$set: action.data}
+                        job: {$set: action.data}
+                    }
+                }
+            });
+        case 'CHANGE_COMPANY':
+            return update(state, {
+                experience: {
+                    [action.index]: {
+                        company: {$set: action.data}
+                    }
+                }
+            });
+        case 'CHANGE_PERIOD_WORK':
+            return update(state, {
+                experience: {
+                    [action.index]: {
+                        periodWork: {$set: action.data}
+                    }
+                }
+            });
+        case 'CHANGE_CURRENT':
+            return update(state, {
+                experience: {
+                    [action.index]: {
+                        current: {$set: action.data}
+                    }
+                }
+            });
+        case 'CHANGE_MAIN_ACTIVITIES':
+            return update(state, {
+                experience: {
+                    [action.index]: {
+                        mainAct: {$set: action.data}
+                    }
+                }
+            });
+        case 'CHANGE_INITIALS_EXP':
+            return update(state, {
+                experience: {
+                    [action.index]: {
+                        initials: {$set: action.data}
                     }
                 }
             });

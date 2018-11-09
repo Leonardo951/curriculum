@@ -1,62 +1,51 @@
 import React, { Component } from 'react';
 import AddExperience from './AddExperience';
 import {FaChevronLeft, FaChevronRight, FaMinus, FaPlus} from "react-icons/fa";
+import {bindActionCreators} from "redux";
+import * as curriculumActions from "../../state/actions/curriculum";
+import connect from "react-redux/es/connect/connect";
 
-export default class RegisterExperiences extends Component {
+class RegisterExperiences extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            experience: [
-                {f: 1},
-            ]
         };
     }
 
     addExperience = ()=>{
-        let formations = this.state.experience;
-        formations.push({f: this.state.experience.length+1});
-        this.setState({experience : formations})
-    };
-
-    removeExperience = ()=>{
-        let formations = this.state.experience;
-        formations =  formations.filter((tool, index)=> {
-            if(tool.f !== this.state.experience.length)   {
-                return true
-            }
+        let newExperience = this.props.curriculumData.experience;
+        newExperience.push({
+            job: null,
+            company: null,
+            initials: null,
+            periodWork: {from: {year: 2018, month: 0}, to: {year: 2018, month: 0}},
+            current: false,
+            mainAct: []
         });
-        this.setState({experience : formations})
+        this.props.changeExperience(newExperience);
     };
 
     removeEspecificExperience(number){
-        let formations = this.state.experience;
-        formations =  formations.filter((tool, index)=> {
-            if(tool.f !== number)   {
+        let updateExperience = this.props.curriculumData.experience;
+        updateExperience =  updateExperience.filter((tool, index)=> {
+            if(index !== number)   {
                 return true
             }
         });
-        this.setState({experience : formations})
+        this.props.changeExperience(updateExperience);
     };
 
     render() {
-        const counter = this.state.experience.length;
 
         return (
             <div>
                 {
-                    this.state.experience.map((tool, index)=>{
-                        if(counter === tool.f){
-                            return (
-                                <AddExperience key={index} number={tool.f} focus={counter !== 1 ? true : false}
-                                              remove={this.removeEspecificExperience.bind(this, tool.f)}/>
-                            );
-                        }else{
-                            return (
-                                <AddExperience key={index} number={tool.f} focus={false} remove={this.removeEspecificExperience.bind(this, tool.f)}/>
-                            );
-                        }
-                    })
+                    this.props.curriculumData.experience.map((tool, index)=>{
+                        return (
+                            <AddExperience key={index} index={index}
+                                          remove={this.removeEspecificExperience.bind(this, index)}/>
+                        )})
                 }
                 <fieldset>
                     <div className="row-mat">
@@ -67,15 +56,13 @@ export default class RegisterExperiences extends Component {
                             </button>
                         </div>
                         {
-                            counter > 1 ?
+                            this.props.curriculumData.experience.length > 1 &&
                                 <div className="input-field cole s6" style={{width: 'auto', float: 'right'}}>
                                     <button className="btn btn-secondary text-uppercase btn-sm" type="button"
-                                            onClick={this.removeExperience}>
+                                            onClick={this.removeEspecificExperience.bind(this, this.props.curriculumData.experience.length-1)}>
                                         <FaMinus/> Remover experiência
                                     </button>
                                 </div>
-                                :
-                                <div/>
                         }
                     </div>
                 </fieldset>
@@ -83,3 +70,12 @@ export default class RegisterExperiences extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    curriculumData: state.curriculumData
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(curriculumActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterExperiences);

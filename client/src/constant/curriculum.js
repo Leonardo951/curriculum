@@ -81,6 +81,7 @@ export const OPTIONS_STATUS = [
 
 export  const PICKERLANG = {
     months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    from: 'Início:', to: 'Fim:',
 };
 
 export const OPTIONS_UNIFINISHED = [

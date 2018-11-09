@@ -1,3 +1,4 @@
+// Change in personal data
 export function changeName(data) {
     return {
         type: 'CHANGE_NAME',
@@ -68,6 +69,7 @@ export function changeDeficient(data) {
         data
     }
 }
+// CHange in formations
 export function changeFormation(data) {
     return {
         type: 'CHANGE_FORMATION',
@@ -104,14 +106,14 @@ export function changeStatus(data, index) {
 }
 export function changeDateEnd(data, index) {
     return {
-        type: 'CHANGE_DATEEND',
+        type: 'CHANGE_DATE_END',
         data,
         index
     }
 }
 export function changeSemOrYear(data, index) {
     return {
-        type: 'CHANGE_SEMORYEAR',
+        type: 'CHANGE_SEM_OR_YEAR',
         data,
         index
     }
@@ -119,6 +121,55 @@ export function changeSemOrYear(data, index) {
 export function changePeriod(data, index) {
     return {
         type: 'CHANGE_PERIOD',
+        data,
+        index
+    }
+}
+// Change in experiences
+export function changeExperience(data) {
+    return {
+        type: 'CHANGE_EXPERIENCE',
+        data
+    }
+}
+export function changeJob(data, index) {
+    return {
+        type: 'CHANGE_JOB',
+        data,
+        index
+    }
+}
+export function changeCompany(data, index) {
+    return {
+        type: 'CHANGE_COMPANY',
+        data,
+        index
+    }
+}
+export function changePeriodWork(data, index) {
+    return {
+        type: 'CHANGE_PERIOD_WORK',
+        data,
+        index
+    }
+}
+export function changeCurrentJob(data, index) {
+    return {
+        type: 'CHANGE_CURRENT',
+        data,
+        index
+    }
+}
+export function changeMainAct(data, index) {
+    return {
+        type: 'CHANGE_MAIN_ACTIVITIES',
+        data,
+        index
+    }
+}
+export function changeInitialsforExp(data, index) {
+    return {
+        type: 'CHANGE_INITIALS_EXP',
         data,
         index
     }

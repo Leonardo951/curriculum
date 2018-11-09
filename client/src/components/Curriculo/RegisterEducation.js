@@ -56,15 +56,13 @@ class RegisterEducation extends Component {
                             </button>
                         </div>
                         {
-                            this.props.curriculumData.formation.length > 1 ?
+                            this.props.curriculumData.formation.length > 1 &&
                                 <div className="input-field cole s6" style={{width: 'auto', float: 'right'}}>
                                     <button className="btn btn-secondary text-uppercase btn-sm" type="button"
                                             onClick={this.removeEspecificFormation.bind(this, this.props.curriculumData.formation.length-1)}>
                                         <FaMinus/> Remover formação
                                     </button>
                                 </div>
-                                :
-                                <div/>
                         }
                     </div>
                 </fieldset>

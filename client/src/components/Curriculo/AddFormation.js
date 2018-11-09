@@ -38,9 +38,9 @@ class AddFormation extends Component {
 
     render() {
 
-        const indexCard = this.props.index;
+        const indexForm = this.props.index;
 
-        const { course, locale, initials, status, dateEnd, semOrYear, period } = this.props.curriculumData.formation[indexCard];
+        const { course, locale, initials, status, dateEnd, semOrYear, period } = this.props.curriculumData.formation[indexForm];
 
         const makeText = m => {
             if (m && m.year && m.month) return (PICKERLANG.months[m.month-1] + '/' + m.year);
@@ -49,10 +49,10 @@ class AddFormation extends Component {
 
         return (
             <fieldset className="fieldset-border" ref={this.refPage}>
-                <legend className="legend-border">Formação {indexCard+1}</legend>
+                <legend className="legend-border">Formação {indexForm+1}</legend>
                 <div className="row-mat" style={{margin: '1px'}}>
                     {
-                        indexCard !== 0 &&
+                        indexForm !== 0 &&
                         <button className={'btn btn-default text-uppercase btn-sm btnHover'} type={'button'}
                                 style={{padding: '1px', width: 'auto', float: 'right'}} title={'Remover formação'}
                                 onClick={this.props.remove}>
@@ -62,25 +62,25 @@ class AddFormation extends Component {
                 </div>
                 <div className="form-group">
                     <label>Curso</label>
-                    <input type={"text"} id={'course'} className={"form-control"} onChange={e => this.props.changeCourse(e.target.value, indexCard)}
+                    <input type={"text"} id={'course'} className={"form-control"} onChange={e => this.props.changeCourse(e.target.value, indexForm)}
                            value={course} placeholder={'Curso'}/>
                 </div>
                 <div className={'row'}>
                     <div className="form-group col-md-10">
-                        <label>Local</label>
-                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeLocale(e.target.value, indexCard)}
+                       * <label>Local</label>
+                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeLocale(e.target.value, indexForm)}
                                value={locale} placeholder={'Local'}/>
                     </div>
                     <div className="form-group col-md-2">
                         <label>Sigla, se houver</label>
-                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeInitials(e.target.value, indexCard)}
-                               value={initials} placeholder={'Sigla'}/>
+                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeInitials(e.target.value, indexForm)}
+                               value={initials} placeholder={'Sigla'}  maxLength={6} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="form-group col-md-6">
                         <label>Status</label>
-                        <select className={"form-control"} defaultValue={status} onChange={e => this.props.changeStatus(e.target.value, indexCard)}>
+                        <select className={"form-control"} defaultValue={status} onChange={e => this.props.changeStatus(e.target.value, indexForm)}>
                             <option value={''} disabled>Selecione...</option>
                             {
                                 OPTIONS_STATUS.map((tool, index)=>{
@@ -104,7 +104,7 @@ class AddFormation extends Component {
                                 theme="dark"
                                 lang={PICKERLANG.months}
                                 onChange={this.handleAMonthChange}
-                                onDismiss={val => this.props.changeDateEnd(val, indexCard)}
+                                onDismiss={val => this.props.changeDateEnd(val, indexForm)}
                             >
                                 <MonthBox value={dateEnd.month === 0 ? 'Selecione...' : makeText(dateEnd)}
                                           onClick={this.handleClickMonthBox}/>
@@ -115,7 +115,7 @@ class AddFormation extends Component {
                         status === 'incompleto' &&
                         <div className="form-group col-md-6">
                             <label>Motivo</label>
-                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexCard)}>
+                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexForm)}>
                                 <option value={''} disabled>Selecione...</option>
                                 {
                                     OPTIONS_UNIFINISHED.map((tool, index)=>{
@@ -133,7 +133,7 @@ class AddFormation extends Component {
                     <div className="row">
                         <div className="form-group col-md-6">
                             <label>Semestre ou ano</label>
-                            <select className={"form-control"} defaultValue={semOrYear} onChange={e => this.props.changeSemOrYear(e.target.value, indexCard)}>
+                            <select className={"form-control"} defaultValue={semOrYear} onChange={e => this.props.changeSemOrYear(e.target.value, indexForm)}>
                                 <option value={''} disabled={true}>Selecione...</option>
                                 <option disabled>Ano</option>
                                 {
@@ -155,7 +155,7 @@ class AddFormation extends Component {
                         </div>
                         <div className="form-group col-md-6">
                             <label>Período</label>
-                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexCard)}>
+                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexForm)}>
                                 <option value={''} disabled>Selecione...</option>
                                 {
                                     OPTIONS_PERIOD.map((tool, index)=>{
