@@ -1,62 +1,51 @@
 import React, { Component } from 'react';
 import AddFormation from './AddFormation';
 import {FaChevronLeft, FaChevronRight, FaMinus, FaPlus} from "react-icons/fa";
+import {bindActionCreators} from "redux";
+import * as curriculumActions from "../../state/actions/curriculum";
+import connect from "react-redux/es/connect/connect";
 
-export default class RegisterEducation extends Component {
+class RegisterEducation extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            formation: [
-                {f: 1},
-            ]
         };
     }
 
     addFormation = ()=>{
-          let formations = this.state.formation;
-          formations.push({f: this.state.formation.length+1});
-          this.setState({formation : formations})
-    };
-
-    removeFormation = ()=>{
-        let formations = this.state.formation;
-        formations =  formations.filter((tool, index)=> {
-            if(tool.f !== this.state.formation.length)   {
-                return true
-            }
-        });
-        this.setState({formation : formations})
+        let newFormation = this.props.curriculumData.formation;
+        newFormation.push({
+                course: null,
+                locale: null,
+                initials: null,
+                status: '',
+                initialEnd: {year: 2018, month: 0},
+                semOrYear: '',
+                period: '',
+            });
+        this.props.changeFormation(newFormation);
     };
 
     removeEspecificFormation(number){
-        let formations = this.state.formation;
-        formations =  formations.filter((tool, index)=> {
-            if(tool.f !== number)   {
+        let updateFormation = this.props.curriculumData.formation;
+        updateFormation =  updateFormation.filter((tool, index)=> {
+            if(index !== number)   {
                 return true
             }
         });
-        this.setState({formation : formations})
+        this.props.changeFormation(updateFormation);
     };
 
     render() {
-        const counter = this.state.formation.length;
 
         return (
             <div>
                 {
-                    this.state.formation.map((tool, index)=>{
-                        if(counter === tool.f){
-                            return (
-                                <AddFormation key={index} number={tool.f} focus={counter !== 1 ? true : false}
-                                                remove={this.removeEspecificFormation.bind(this, tool.f)}/>
-                            );
-                        }else{
-                            return (
-                                <AddFormation key={index} number={tool.f} focus={false} remove={this.removeEspecificFormation.bind(this, tool.f)}/>
-                            );
-                        }
-                    })
+                    this.props.curriculumData.formation.map((tool, index)=>{
+                        return (
+                            <AddFormation key={index} remove={this.removeEspecificFormation.bind(this, index)} index={index}/>
+                        )})
                 }
                 <fieldset>
                     <div className="row-mat">
@@ -67,10 +56,10 @@ export default class RegisterEducation extends Component {
                             </button>
                         </div>
                         {
-                            counter > 1 ?
+                            this.props.curriculumData.formation.length > 1 ?
                                 <div className="input-field cole s6" style={{width: 'auto', float: 'right'}}>
                                     <button className="btn btn-secondary text-uppercase btn-sm" type="button"
-                                            onClick={this.removeFormation}>
+                                            onClick={this.removeEspecificFormation.bind(this, this.props.curriculumData.formation.length-1)}>
                                         <FaMinus/> Remover formação
                                     </button>
                                 </div>
@@ -83,3 +72,12 @@ export default class RegisterEducation extends Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    curriculumData: state.curriculumData
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(curriculumActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterEducation);

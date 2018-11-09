@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { FaPlus, FaMinus, FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import Select from '@material-ui/core/Select';
 import MaskedInput from "react-text-mask";
-import FormControl from "@material-ui/core/FormControl";
-import MenuItem from "@material-ui/core/MenuItem";
 import DatePicker from 'react-date-picker';
 import { bindActionCreators } from "redux";
 import * as curriculumActions from '../../state/actions/curriculum';
 import connect from "react-redux/es/connect/connect";
-import { Row, Input } from 'react-materialize';
+import Datetime from 'react-datetime';
+import '../../styles/cv/datetime.css';
+import { OPTIONS_CIVIL_STATUS, OPTIONS_STATES_OF_BRAZIL } from "../../constant/curriculum";
 
 class RegisterPersonalData extends Component {
 
@@ -71,114 +70,148 @@ class RegisterPersonalData extends Component {
 
     render() {
 
-        const optionsCivil = [
-            { value: 'solteiro', label: 'Solteiro(a)' },
-            { value: 'casado', label: 'Casado(a)' },
-            { value: 'separado', label: 'Separado(a)' },
-            { value: 'divorciado', label: 'Divorciado(a)' },
-            { value: 'viuvo', label: 'Viúvo(a)' }
-        ];
-
         const { name, otherMail, nationality, dateBirth, civilStatus, address, zipCode, city, uf, phone } = this.props.curriculumData;
 
 //CAMPO SEXO
         return (
             <div>
                 <fieldset>
-                    <div className="row-mat">
-                        <div className="input-field cole s12">
-                            <Row>
-                                <Input label='Nome completo' onChange={(e)=>{this.props.changeName(e.target.value)}}
-                                            value={name}/>
-                            </Row>
-                            {/*<input type="text" className="c-form-input" onChange={(e)=>{this.props.changeName(e.target.value)}}*/}
-                                   {/*placeholder="Nome completo" value={name}/>*/}
-                        </div>
+                    <div className="form-group">
+                        <label>Nome completo</label>
+                        <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeName(e.target.value)}}
+                               value={name} placeholder={'Nome completo'}/>
                     </div>
-                    <div className="row-mat">
-                        <div className="input-field cole s12">
-                            <input  type="text" className="c-form-input"  onChange={(e)=>{this.props.changeMail(e.target.value)}}
-                                    placeholder="E-mail" value={otherMail}/>
-                        </div>
+                    <div className="form-group">
+                        <label>E-mail</label>
+                        <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeMail(e.target.value)}}
+                               value={otherMail} placeholder={'E-mail'}/>
                     </div>
-                    <div className="row-mat">
-                        <div className="input-field cole s12">
-                            <input type="text"  onChange={(e)=>{this.props.changeNationality(e.target.value)}}
-                                   className="c-form-input" placeholder="Nacionalidade" value={nationality}/>
-                        </div>
+                    <div className="form-group">
+                        <label>Nacionalidade</label>
+                        <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeNationality(e.target.value)}}
+                               value={nationality} placeholder={'Nacionalidade'}/>
                     </div>
-                    <div className="row-mat">
-                        <div className="input-field cole s6" style={{margin: 0}}>
-                            <DatePicker
-                                calendarIcon={<FaCalendarAlt/>}
-                                onChange={this.handleChangeDate}
-                                required={true}
-                                maxDate={new Date()}
-                                value={dateBirth}
-                                showLeadingZeros={false}
-                                locale={'pt-br'}
-                            />
+                    <div className="row">
+                        <div className="col">
+                            <label>Data de nascimento</label>
+                            <Datetime timeFormat={false} value={dateBirth} onChange={this.handleChangeDate} input={true}
+                                      required={true} locale="pt-br" disableCloseOnClickOutside={false}/>
+                            {/*<DatePicker*/}
+                                {/*calendarIcon={<FaCalendarAlt/>}*/}
+                                {/*onChange={this.handleChangeDate}*/}
+                                {/*required={true}*/}
+                                {/*maxDate={new Date()}*/}
+                                {/*value={dateBirth}*/}
+                                {/*showLeadingZeros={false}*/}
+                                {/*locale={'pt-br'}*/}
+                            {/*/>*/}
                         </div>
-                            <FormControl className={'input-field cole s6'}>
-                                <Select
-                                    value={civilStatus}
-                                    onChange={(e)=>{this.props.changeCivilStatus(e.target.value)}}
-                                    name="age"
-                                    displayEmpty
-                                    style={{height: '55px', fontSize: '16px'}}
-                                >
-                                    <MenuItem value="" disabled>
-                                        Estado civil
-                                    </MenuItem>
-                                    {
-                                        optionsCivil.map((tool, index)=>{
-                                            return (
-                                                <MenuItem key={index} value={tool.value}>{tool.label}</MenuItem>
-                                            )
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
-                    </div>
-                    <div className="row-mat">
-                        <div className="input-field cole s12">
-                            <input type="text" onChange={(e)=>{this.props.changeAddress(e.target.value)}}
-                                   className="c-form-input" placeholder="Endereço completo" value={address}/>
-                        </div>
-                    </div>
-                    <div className="row-mat">
-                        <div className="input-field cole s6">
-                            <input placeholder="Cidade" type="text"  onChange={(e)=>{this.props.changeCity(e.target.value)}}
-                                   className="validate" value={city}/>
-                        </div>
-                        <FormControl className={'input-field cole s6'}>
-                            <Select
-                                value={uf}
-                                onChange={(e)=>{this.props.changeUF(e.target.value)}}
-                                displayEmpty
-                                style={{height: '50px', fontSize: '16px'}}
-                            >
-                                <MenuItem value="" disabled>
-                                    UF (colocar)
-                                </MenuItem>
+                        <div className="col">
+                            <label>Estado civil</label>
+                            <select className={"form-control"} defaultValue={civilStatus} onChange={(e)=>{this.props.changeCivilStatus(e.target.value)}}>
+                                <option selected>Selecione...</option>
                                 {
-                                    optionsCivil.map((tool, index)=>{
+                                    OPTIONS_CIVIL_STATUS.map((tool, index)=>{
                                         return (
-                                            <MenuItem key={index} value={tool.value}>{tool.label}</MenuItem>
+                                            <option key={index} value={tool.value}>{tool.label}</option>
                                         )
                                     })
                                 }
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className="row-mat">
-                        <div className="input-field cole s12">
-                            <input type="text" value={zipCode} onChange={(e)=>{this.props.changeZipCode(e.target.value)}}
-                                   className="c-form-input" placeholder="CEP" />
+                            </select>
                         </div>
                     </div>
-                    <div className="row-mat">
-                        <div className={'input-field cole s10'} style={{display: this.state.tel1}}>
+                    <div className="form-group">
+                        <label>Endereço completo</label>
+                        <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeAddress(e.target.value)}}
+                               value={address} placeholder={'Endereço'}/>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <label>Cidade</label>
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeCity(e.target.value)}}
+                                   value={city} placeholder={'Cidade'}/>
+                        </div>
+                        <div className="col">
+                            <label>UF</label>
+                            <select className={"form-control"} defaultValue={uf} onChange={(e)=>{this.props.changeUF(e.target.value)}}>
+                                <option selected>Selecione...</option>
+                                {
+                                    OPTIONS_STATES_OF_BRAZIL.map((tool, index)=>{
+                                        return (
+                                            <option key={index} value={tool.estado}>{tool.uf}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>CEP</label>
+                        <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeZipCode(e.target.value)}}
+                               value={zipCode} placeholder={'XXXXX-XXX'}/>
+                    </div>
+                    <div className="form-row">
+                        <div className={'form-group col-md-11'} style={{display: this.state.tel1}}>
+                            <div className={'form-group'}>
+                                <label>Telefone ou celular</label>
+                                <MaskedInput
+                                    mask={this.state.mask}
+                                    className="form-control"
+                                    placeholder={"(XX) XXXXX-XXXX"}
+                                    required={true}
+                                    guide={true}
+                                    id={'phone1'}
+                                    value={phone.phoneOne}
+                                    onChange={this.submitPhone.bind(this)}
+                                    onBlur={this.correctCharsPhone.bind(this)}
+                                    onFocus={this.correctCharsPhone.bind(this)}
+                                />
+                            </div>
+                        </div>
+                        <div className={'form-group col-md-1 text-center'} style={{display: this.state.tel1}}>
+                            <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
+                            <button className={'btn btn-secondary text-uppercase btn-sm form-control'} type={'button'} onClick={this.changeAddTels}>
+                                <FaPlus/>
+                            </button>
+                        </div>
+                        <div className="form-group col-md-6" style={{display: this.state.tel2}}>
+                            <label htmlFor="phone1">Telefone ou celular</label>
+                            <MaskedInput
+                                mask={this.state.mask}
+                                className="form-control"
+                                placeholder={"(XX) XXXXX-XXXX"}
+                                required={true}
+                                id={'phone1'}
+                                value={phone.phoneOne}
+                                guide={true}
+                                onChange={this.submitPhone.bind(this)}
+                                onBlur={this.correctCharsPhone.bind(this)}
+                                onFocus={this.correctCharsPhone.bind(this)}
+                            />
+                        </div>
+                        <div className="form-group col-md-5" style={{display: this.state.tel2}}>
+                            <label htmlFor="phone2"><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 2)}/></label>
+                            <MaskedInput
+                                mask={this.state.mask}
+                                className="form-control"
+                                placeholder={"(XX) XXXXX-XXXX"}
+                                required={true}
+                                guide={true}
+                                id={'phone2'}
+                                value={phone.phoneTwo}
+                                onChange={this.submitPhone.bind(this)}
+                                onBlur={this.correctCharsPhone.bind(this)}
+                                onFocus={this.correctCharsPhone.bind(this)}
+                            />
+                        </div>
+                        <div className="form-group col-md-1" style={{display: this.state.tel2}}>
+                            <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
+                            <button className={'btn btn-secondary text-uppercase btn-sm form-control'} type={'button'} onClick={this.changeAddTels}>
+                                <FaPlus/>
+                            </button>
+                        </div>
+                        <div className="form-group col-md-4" style={{display: this.state.tel3}}>
+                            <label>Telefone ou celular</label>
                             <MaskedInput
                                 mask={this.state.mask}
                                 className="form-control"
@@ -191,91 +224,36 @@ class RegisterPersonalData extends Component {
                                 onBlur={this.correctCharsPhone.bind(this)}
                                 onFocus={this.correctCharsPhone.bind(this)}
                             />
-                            <label className={'active'}>Telefone ou celular</label>
                         </div>
-                        <div style={{display: this.state.tel2}}>
-                            <div className={'input-field cole s5'}>
-                                <MaskedInput
-                                    mask={this.state.mask}
-                                    className="c-form-input"
-                                    placeholder={"(XX) XXXXX-XXXX"}
-                                    required={true}
-                                    id={'phone1'}
-                                    value={phone.phoneOne}
-                                    guide={true}
-                                    onChange={this.submitPhone.bind(this)}
-                                    onBlur={this.correctCharsPhone.bind(this)}
-                                    onFocus={this.correctCharsPhone.bind(this)}
-                                />
-                                <label className={'active'}>Telefone ou celular</label>
-                            </div>
-                            <div className={'input-field cole s5'}>
-                                <MaskedInput
-                                    mask={this.state.mask}
-                                    className="c-form-input"
-                                    placeholder={"(XX) XXXXX-XXXX"}
-                                    required={true}
-                                    guide={true}
-                                    id={'phone2'}
-                                    value={phone.phoneTwo}
-                                    onChange={this.submitPhone.bind(this)}
-                                    onBlur={this.correctCharsPhone.bind(this)}
-                                    onFocus={this.correctCharsPhone.bind(this)}
-                                />
-                                <label className={'active'} title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 2)}/></label>
-                            </div>
+                        <div className="form-group col-md-4" style={{display: this.state.tel3}}>
+                            <label title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 3)}/></label>
+                            <MaskedInput
+                                mask={this.state.mask}
+                                className="form-control"
+                                placeholder={"(XX) XXXXX-XXXX"}
+                                required={true}
+                                id={'phone2'}
+                                value={phone.phoneTwo}
+                                guide={true}
+                                onChange={this.submitPhone.bind(this)}
+                                onBlur={this.correctCharsPhone.bind(this)}
+                                onFocus={this.correctCharsPhone.bind(this)}
+                            />
                         </div>
-                        <div style={{display: this.state.tel3}}>
-                            <div className={'input-field cole s4'}>
-                                <MaskedInput
-                                    mask={this.state.mask}
-                                    className="c-form-input"
-                                    placeholder={"(XX) XXXXX-XXXX"}
-                                    required={true}
-                                    guide={true}
-                                    id={'phone1'}
-                                    value={phone.phoneOne}
-                                    onChange={this.submitPhone.bind(this)}
-                                    onBlur={this.correctCharsPhone.bind(this)}
-                                    onFocus={this.correctCharsPhone.bind(this)}
-                                />
-                                <label className={'active'}>Telefone ou celular</label>
-                            </div>
-                            <div className={'input-field cole s4'}>
-                                <MaskedInput
-                                    mask={this.state.mask}
-                                    className="c-form-input"
-                                    placeholder={"(XX) XXXXX-XXXX"}
-                                    required={true}
-                                    id={'phone2'}
-                                    value={phone.phoneTwo}
-                                    guide={true}
-                                    onChange={this.submitPhone.bind(this)}
-                                    onBlur={this.correctCharsPhone.bind(this)}
-                                    onFocus={this.correctCharsPhone.bind(this)}
-                                />
-                                <label className={'active'} title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 3)}/></label>
-                            </div>
-                            <div className={'input-field cole s4'}>
-                                <MaskedInput
-                                    mask={this.state.mask}
-                                    className="c-form-input"
-                                    placeholder={"(XX) XXXXX-XXXX"}
-                                    required={true}
-                                    guide={true}
-                                    id={'phone3'}
-                                    value={phone.phoneThree}
-                                    onChange={this.submitPhone.bind(this)}
-                                    onBlur={this.correctCharsPhone.bind(this)}
-                                    onFocus={this.correctCharsPhone.bind(this)}
-                                />
-                                <label className={'active'} title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 3)}/></label>
-                            </div>
-                        </div>
-                        <div className="input-field cole s2" style={{display: this.state.btnTel}}>
-                            <button className={'btn btn-secondary text-uppercase btn-sm'} type={'button'} onClick={this.changeAddTels}>
-                                <FaPlus/>
-                            </button>
+                        <div className="form-group col-md-4" style={{display: this.state.tel3}}>
+                            <label title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 3)}/></label>
+                            <MaskedInput
+                                mask={this.state.mask}
+                                className="form-control"
+                                placeholder={"(XX) XXXXX-XXXX"}
+                                required={true}
+                                guide={true}
+                                id={'phone3'}
+                                value={phone.phoneThree}
+                                onChange={this.submitPhone.bind(this)}
+                                onBlur={this.correctCharsPhone.bind(this)}
+                                onFocus={this.correctCharsPhone.bind(this)}
+                            />
                         </div>
                     </div>
                 </fieldset>
@@ -283,7 +261,6 @@ class RegisterPersonalData extends Component {
         );
     }
 }
-
 
 const mapStateToProps = state => ({
     auth: state.auth,

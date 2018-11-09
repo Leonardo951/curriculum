@@ -68,3 +68,58 @@ export function changeDeficient(data) {
         data
     }
 }
+export function changeFormation(data) {
+    return {
+        type: 'CHANGE_FORMATION',
+        data
+    }
+}
+export function changeCourse(data, index) {
+    return {
+        type: 'CHANGE_COURSE',
+        data,
+        index
+    }
+}
+export function changeLocale(data, index) {
+    return {
+        type: 'CHANGE_LOCALE',
+        data,
+        index
+    }
+}
+export function changeInitials(data, index) {
+    return {
+        type: 'CHANGE_INITIALS',
+        data,
+        index
+    }
+}
+export function changeStatus(data, index) {
+    return {
+        type: 'CHANGE_STATUS',
+        data,
+        index
+    }
+}
+export function changeDateEnd(data, index) {
+    return {
+        type: 'CHANGE_DATEEND',
+        data,
+        index
+    }
+}
+export function changeSemOrYear(data, index) {
+    return {
+        type: 'CHANGE_SEMORYEAR',
+        data,
+        index
+    }
+}
+export function changePeriod(data, index) {
+    return {
+        type: 'CHANGE_PERIOD',
+        data,
+        index
+    }
+}

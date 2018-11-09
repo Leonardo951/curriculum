@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import {FaPlus, FaTimes} from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import scrollToComponent from "react-scroll-to-component";
 import Picker from 'react-month-picker';
 import 'react-month-picker/css/month-picker.css';
 import MonthBox from '../../UI/MonthBox';
+import { OPTIONS_SELECT_SEMESTER_OR_YEAR, PICKERLANG, OPTIONS_PERIOD, OPTIONS_STATUS, OPTIONS_UNIFINISHED } from '../../constant/curriculum';
+import {bindActionCreators} from "redux";
+import * as curriculumActions from "../../state/actions/curriculum";
+import connect from "react-redux/es/connect/connect";
 
-export default class AddFormation extends Component {
+class AddFormation extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            age: '',
-            mtext: true,
-            mvalue: {year: 2018, month: 0},
-            statusSelected: 'invalid'
         };
         this.refPage = React.createRef();
 
-        if(this.props.focus){
-            setTimeout(()=>{
-                scrollToComponent(this.refPage.current, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
-            }, 100);
-        }
+        this.props.index !== 0 &&
+        setTimeout(()=>{
+            scrollToComponent(this.refPage.current, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
+        }, 100);
+
         this.handleAMonthChange = this.handleAMonthChange.bind(this);
         this.handleClickMonthBox = this.handleClickMonthBox.bind(this);
-        this.handleAMonthDissmis = this.handleAMonthDissmis.bind(this)
     }
 
     //Event fired to open datepicker
@@ -40,137 +36,147 @@ export default class AddFormation extends Component {
         this.refs.pickAMonth.show()
     }
 
-    handleAMonthDissmis(value) {
-        this.setState( {mvalue: value, mtext: false} )
-    }
-
-    handleChangeSelect = (event) => {
-        this.setState({ age: event.target.value });
-    };
-
-    handleChangeStatus = (event) => {
-        this.setState({ statusSelected: event.target.value });
-    };
-
     render() {
 
-        const pickerLang = {
-            months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        };
-        const mvalue = this.state.mvalue;
+        const indexCard = this.props.index;
+
+        const { course, locale, initials, status, dateEnd, semOrYear, period } = this.props.curriculumData.formation[indexCard];
 
         const makeText = m => {
-            if (m && m.year && m.month) return (pickerLang.months[m.month-1] + '/' + m.year);
+            if (m && m.year && m.month) return (PICKERLANG.months[m.month-1] + '/' + m.year);
             return '?'
         };
 
-        const status = [
-            {value: 'incompleto', label: 'Incompleto'},
-            {value: 'cursando', label: 'Cursando'},
-            {value: 'completo', label: 'Concluído'}
-        ];
-
         return (
             <fieldset className="fieldset-border" ref={this.refPage}>
-                <legend className="legend-border">Formação {this.props.number}</legend>
+                <legend className="legend-border">Formação {indexCard+1}</legend>
                 <div className="row-mat" style={{margin: '1px'}}>
                     {
-                        this.props.number !== 1 ?
-                            <button className={'btn btn-default text-uppercase btn-sm btnHover'} type={'button'}
-                                    style={{padding: '1px', width: 'auto', float: 'right'}} title={'Remover formação'}
-                                    onClick={this.props.remove}>
-                                <FaTimes style={{color: '#fff'}}/>
-                            </button>
-                            :
-                            <div/>
+                        indexCard !== 0 &&
+                        <button className={'btn btn-default text-uppercase btn-sm btnHover'} type={'button'}
+                                style={{padding: '1px', width: 'auto', float: 'right'}} title={'Remover formação'}
+                                onClick={this.props.remove}>
+                            <FaTimes style={{color: '#fff'}}/>
+                        </button>
                     }
                 </div>
-                <div className="row-mat">
-                    <div className="input-field cole s12">
-                        <input type="text" className="c-form-input"
-                               placeholder="Curso"/>
+                <div className="form-group">
+                    <label>Curso</label>
+                    <input type={"text"} id={'course'} className={"form-control"} onChange={e => this.props.changeCourse(e.target.value, indexCard)}
+                           value={course} placeholder={'Curso'}/>
+                </div>
+                <div className={'row'}>
+                    <div className="form-group col-md-10">
+                        <label>Local</label>
+                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeLocale(e.target.value, indexCard)}
+                               value={locale} placeholder={'Local'}/>
+                    </div>
+                    <div className="form-group col-md-2">
+                        <label>Sigla, se houver</label>
+                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeInitials(e.target.value, indexCard)}
+                               value={initials} placeholder={'Sigla'}/>
                     </div>
                 </div>
-                <div className={'row-mat'}>
-                    <div className="input-field cole s8">
-                        <input type="text" className="c-form-input"
-                               placeholder="Local"/>
-                    </div>
-                    <div className="input-field cole s4">
-                        <input type="text" className="c-form-input"
-                               placeholder="Sigla" />
-                    </div>
-                </div>
-                <div className={'row-mat'}>
-                    <FormControl className={'input-field cole s6'}>
-                        <Select
-                            value={this.state.statusSelected}
-                            onChange={this.handleChangeStatus}
-                            name="age"
-                            displayEmpty
-                            style={{height: '50px', fontSize: '16px'}}
-                        >
-                            <MenuItem value="invalid" disabled>Status</MenuItem>
+                <div className="row">
+                    <div className="form-group col-md-6">
+                        <label>Status</label>
+                        <select className={"form-control"} defaultValue={status} onChange={e => this.props.changeStatus(e.target.value, indexCard)}>
+                            <option value={''} disabled>Selecione...</option>
                             {
-                                status.map((tool, index) => {
+                                OPTIONS_STATUS.map((tool, index)=>{
                                     return (
-                                        <MenuItem key={index} value={tool.value}>{tool.label}</MenuItem>
+                                        <option key={index} value={tool.value}>{tool.label}</option>
                                     )
                                 })
                             }
-                        </Select>
-                    </FormControl>
-                    <div className="input-field cole s6" style={{margin: 0}} onClick={this.state.statusSelected === 'completo' && this.handleClickMonthBox}>
-                        <Picker
-                            className={"c-form-input"}
-                            ref="pickAMonth"
-                            years={{min: 1960}}
-                            value={mvalue}
-                            theme="dark"
-                            lang={pickerLang.months}
-                            onChange={this.handleAMonthChange}
-                            onDismiss={this.handleAMonthDissmis}
-                        >
-                            <MonthBox value={this.state.mtext || this.state.statusSelected !== 'completo'? 'Selecione a data de conclusão do curso' : makeText(mvalue)} onClick={this.state.statusSelected === 'completo' && this.handleClickMonthBox} />
-                        </Picker>
+                        </select>
                     </div>
+                    {
+                        status === 'completo' &&
+                        <div className="form-group col-md-6" style={{margin: 0}}
+                             onClick={this.handleClickMonthBox}>
+                            <label>Finalizado em:</label>
+                            <Picker
+                                className={"form-control"}
+                                ref="pickAMonth"
+                                years={{min: 1960}}
+                                value={dateEnd}
+                                theme="dark"
+                                lang={PICKERLANG.months}
+                                onChange={this.handleAMonthChange}
+                                onDismiss={val => this.props.changeDateEnd(val, indexCard)}
+                            >
+                                <MonthBox value={dateEnd.month === 0 ? 'Selecione...' : makeText(dateEnd)}
+                                          onClick={this.handleClickMonthBox}/>
+                            </Picker>
+                        </div>
+                    }
+                    {
+                        status === 'incompleto' &&
+                        <div className="form-group col-md-6">
+                            <label>Motivo</label>
+                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexCard)}>
+                                <option value={''} disabled>Selecione...</option>
+                                {
+                                    OPTIONS_UNIFINISHED.map((tool, index)=>{
+                                        return (
+                                            <option key={index} value={tool.value}>{tool.label}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                    }
                 </div>
-                <div className="row-mat">
-                    <FormControl className={'input-field cole s6'}>
-                        <Select
-                            value={this.state.age}
-                            onChange={this.handleChangeSelect}
-                            name="age"
-                            disabled={this.state.statusSelected !== 'cursando' && true}
-                            displayEmpty
-                            style={{height: '50px', fontSize: '16px'}}
-                        >
-                            <MenuItem value="" disabled>
-                                Semestre ou ano
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl className={'input-field cole s6'}>
-                        <Select
-                            value={this.state.age}
-                            disabled={this.state.statusSelected !== 'cursando' && true}
-                            onChange={this.handleChangeSelect}
-                            name="age"
-                            displayEmpty
-                            style={{height: '50px', fontSize: '16px'}}
-                        >
-                            <MenuItem value="" disabled>
-                                Período
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
+                {
+                    status === 'cursando' && status !== '' &&
+                    <div className="row">
+                        <div className="form-group col-md-6">
+                            <label>Semestre ou ano</label>
+                            <select className={"form-control"} defaultValue={semOrYear} onChange={e => this.props.changeSemOrYear(e.target.value, indexCard)}>
+                                <option value={''} disabled={true}>Selecione...</option>
+                                <option disabled>Ano</option>
+                                {
+                                    OPTIONS_SELECT_SEMESTER_OR_YEAR.year.map((tool, index)=>{
+                                        return (
+                                            <option key={index} value={tool.value}>{tool.label}</option>
+                                        )
+                                    })
+                                }
+                                <option disabled={true}>Semestre</option>
+                                {
+                                    OPTIONS_SELECT_SEMESTER_OR_YEAR.semester.map((tool, index)=>{
+                                        return (
+                                            <option key={index} value={tool.value}>{tool.label}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group col-md-6">
+                            <label>Período</label>
+                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexCard)}>
+                                <option value={''} disabled>Selecione...</option>
+                                {
+                                    OPTIONS_PERIOD.map((tool, index)=>{
+                                        return (
+                                            <option key={index} value={tool.value}>{tool.label}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
+                    </div>
+                }
             </fieldset>
         )}
 }
+
+const mapStateToProps = state => ({
+    curriculumData: state.curriculumData
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(curriculumActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddFormation);

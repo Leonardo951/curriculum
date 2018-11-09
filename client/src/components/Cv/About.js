@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FaDownload, FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter, FaGithub, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
-import { COLORS } from '../../constant/CvColors';
+import { COLORS } from '../../constant/cv';
 import ReactTooltip from 'react-tooltip';
 import connect from "react-redux/es/connect/connect";
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {COLORS} from '../../constant/CvColors';
+import {COLORS} from '../../constant/cv';
 import { FaCog } from 'react-icons/fa';
 import BallColor from '../../UI/BallColor';
 import { bindActionCreators } from 'redux';

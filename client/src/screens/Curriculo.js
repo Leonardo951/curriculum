@@ -79,8 +79,8 @@ class Curriculo extends Component {
     render() {
 
         return (
-            <div className="container-mat">
-                <div className="row-mat">
+            <div className="container">
+                {/*<div className="row">*/}
                     <div className="cole s12 section-title" ref={'divMain'}>
                         <h2 style={{margin: '40px 0 20px 0'}}>Precisamos de alguns dados</h2>
                     </div>
@@ -99,7 +99,7 @@ class Curriculo extends Component {
                             </div>
                         </div>
                     </div>
-                    <form className="c-form" className="cole s12"
+                    <form className="c-form cole s12"
                           style={{backgroundColor: '#fff', padding: '20px'}}>
                         { this.state.currentActive === 'activeAbout' && <RegisterPersonalData /> }
                         { this.state.currentActive === 'activeEducation' && <RegisterEducation /> }
@@ -134,7 +134,7 @@ class Curriculo extends Component {
                             </div>
                         </div>
                     </form>
-                </div>
+                {/*</div>*/}
             </div>
         );
     }
