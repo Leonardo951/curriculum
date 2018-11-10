@@ -14,25 +14,12 @@ class AddExperience extends Component {
     constructor(props){
         super(props);
         this.state = {
-            mainActivities: [
-                {atv: 'Trabalhar com controle de horas'},
-                {atv: 'Cordenar os indicadores organizacionais'},
-                {atv: 'Gerenciar controle de documentos e registros internos e externos'},
-                {atv: 'Apoiar o gerenciamentos de projetos de TI'},
-                {atv: 'Auxilio à área  da Qualidade'},
-                {atv: 'Apoiar RH em atividades de treinamento e desenvolvimento de equipes e liderança'},
-                {atv: 'Correção de bugs e desenvolvimento de novas funcionalidades em JavaScript'},
-                {atv: 'Supervisionar o controle das ações corretivas, preventivas e de melhorias em curso'},
-            ],
             viewMore: false,
-            actualJob: '',
-            mrange: {from: {year: 2018, month: 0}, to: {year: 2018, month: 0}},
-            mtext: true,
         };
 
         this.refPage = React.createRef();
 
-        if(this.props.focus){
+        if(this.props.index !== 0){
             setTimeout(()=>{
                 scrollToComponent(this.refPage.current, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
             }, 100);
@@ -40,7 +27,6 @@ class AddExperience extends Component {
 
         this.handleRangeChange = this.handleRangeChange.bind(this);
         this._handleClickRangeBox = this._handleClickRangeBox.bind(this);
-        this.handleRangeDissmis = this.handleRangeDissmis.bind(this)
     }
 
     removeLine(key){
@@ -55,29 +41,24 @@ class AddExperience extends Component {
     addLine(e){
         if(e.key === 'Enter' && this.inputAtv.value !== '' || e.type === 'click' && this.inputAtv.value !== ''){
             let newActivities = this.props.curriculumData.experience[this.props.index].mainAct;
-            newActivities.push(this.inputAtv.value);
+            newActivities = newActivities.concat(this.inputAtv.value).reverse();
             this.inputAtv.value = "";
             this.props.changeMainAct(newActivities, this.props.index);
         }
     };
 
     viewMore = ()=>{
-        const more = this.state.viewMore && false;
-        if(more){
+        if(!this.state.viewMore){
             setTimeout(()=>{
                 scrollToComponent(this.refs.bodyTable, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
             }, 100);
+        }else{
+            setTimeout(()=>{
+                scrollToComponent(this.refPage.current, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
+            }, 100);
         }
-        this.setState({viewMore: more});
+        this.setState({viewMore: !this.state.viewMore});
     };
-
-    // Event fired to close datepicker
-    handleRangeDissmis(value) {
-        if(this.state.actualJob === 'checked'){
-            value.to = {year: 2018, month: 10};
-        }
-        this.setState( {mrange: value, mtext: false} )
-    }
 
     //Event fired to open datepicker
     handleRangeChange(year, month, listIndex) {
@@ -88,12 +69,6 @@ class AddExperience extends Component {
     _handleClickRangeBox(e) {
         this.refs.pickRange.show()
     }
-
-    handleActualJob = ()=>{
-        let newMrange = this.state.mrange;
-        newMrange.to = {year: 2018, month: 10};
-        this.state.actualJob === 'checked' ? this.setState({actualJob: ''}) : this.setState({actualJob: 'checked', mrange: newMrange})
-    };
 
     render() {
 
@@ -120,8 +95,8 @@ class AddExperience extends Component {
                             <button className={'btn btn-default text-uppercase btn-sm btnHover'} type={'button'}
                                     style={{padding: '1px', width: 'auto', float: 'right'}} title={'Remover experiência'}
                                     onClick={this.props.remove}>
-                                <FaTimes style={{color: '#fff'}}/>
-                            </button>
+                                 <FaTimes style={{color: '#fff'}}/>
+                             </button>
                     }
                 </div>
                 <div className="form-group">
@@ -137,7 +112,7 @@ class AddExperience extends Component {
                     </div>
                     <div className="form-group col-md-2">
                         <label>Sigla, se houver</label>
-                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeInitialsForExp(e.target.value, indexExp)}
+                        <input type={"text"} className={"form-control"} onChange={e => this.props.changeInitialsforExp(e.target.value, indexExp)}
                                value={initials} placeholder={'Sigla, se houver'}  maxLength={6} />
                     </div>
                 </div>
@@ -154,7 +129,8 @@ class AddExperience extends Component {
                             onChange={this.handleRangeChange}
                             onDismiss={val => this.props.changePeriodWork(val, indexExp)}
                         >
-                            <MonthBox value={periodWork.from.month === 0 && periodWork.to.month === 0 ? 'Início - FIm' : makeText(periodWork.from) + ' ~ ' + makeTextp2(periodWork.to)} onClick={this._handleClickRangeBox} />
+                            <MonthBox value={periodWork.from.month === 0 && periodWork.to.month === 0 ? 'Início - FIm' : makeText(periodWork.from) + ' ~ ' + makeTextp2(periodWork.to)}
+                                      onClick={this._handleClickRangeBox} />
                         </Picker>
                     </div>
                     <div className="form-group col-md-6">
@@ -183,11 +159,11 @@ class AddExperience extends Component {
                         </thead>
                         <tbody ref={'bodyTable'}>
                         {
-                            mainAct.map((mainAct, index)=> {
+                            this.props.curriculumData.experience[this.props.index].mainAct.map((tool, index)=> {
                                 if (index < 3) {
                                     return (
-                                        <tr>
-                                            <td>{mainAct[index]}</td>
+                                        <tr key={index}>
+                                            <td>{tool}</td>
                                             <td className={'text-center'}>
                                                 <FaTrash style={{cursor: 'pointer'}} title={'Remover linha'}
                                                          onClick={this.removeLine.bind(this, index)}/>
@@ -196,8 +172,8 @@ class AddExperience extends Component {
                                     )
                                 } else if (this.state.viewMore) {
                                     return (
-                                        <tr>
-                                            <td>{mainAct[index]}</td>
+                                        <tr key={index}>
+                                            <td>{tool}</td>
                                             <td className={'text-center'}>
                                                 <FaTrash style={{cursor: 'pointer'}} title={'Remover linha'}
                                                          onClick={this.removeLine.bind(this, index)}/>
@@ -208,7 +184,7 @@ class AddExperience extends Component {
                             })
                         }
                         {
-                            mainAct.length > 3 && !this.state.viewMore &&
+                            this.props.curriculumData.experience[this.props.index].mainAct.length > 3 && !this.state.viewMore &&
                                 <tr style={{borderRadius: '5px'}}>
                                     <td className={'text-center'} style={{backgroundColor: '#efefef', fontWeight: 'bold', borderRadius: '3px'}} colSpan={2}>
                                         <a href="" onClick={(e)=>{e.preventDefault(); this.viewMore();}}>Ver todas as atividades</a>

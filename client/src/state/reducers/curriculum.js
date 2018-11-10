@@ -117,6 +117,8 @@ const curriculumData = (state = initial_state, action) => {
                     }
                 }
             });
+        case 'CHANGE_EXPERIENCE':
+            return {...state, experience: action.data};
         case 'CHANGE_JOB':
             return update(state, {
                 experience: {
