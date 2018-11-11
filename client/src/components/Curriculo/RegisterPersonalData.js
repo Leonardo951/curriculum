@@ -8,6 +8,7 @@ import connect from "react-redux/es/connect/connect";
 import Datetime from 'react-datetime';
 import '../../styles/cv/datetime.css';
 import { OPTIONS_CIVIL_STATUS, OPTIONS_STATES_OF_BRAZIL } from "../../constant/curriculum";
+import scrollToComponent from "react-scroll-to-component";
 
 class RegisterPersonalData extends Component {
 
@@ -21,7 +22,7 @@ class RegisterPersonalData extends Component {
             mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
             otherMail: props.curriculumData.otherMail && true,
             btnMail: true
-        }
+        };
     }
 
     handleChangeDate = date => this.props.changeDateBirth(date);

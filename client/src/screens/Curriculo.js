@@ -25,7 +25,16 @@ class Curriculo extends Component {
                 // {btn: 'activeAdditionalInformation', class: 'btn btn-secondary text-uppercase btn-sm', title: 'Informações adicionais'},
             ]
         };
+        this.refMain = React.createRef();
+        this.goFocustTop()
     }
+
+    goFocustTop = () => {
+        this.state.currentActive === 'activeAbout' &&
+        setTimeout(()=>{
+            scrollToComponent(this.refMain.current, {offset: 0, align: 'top', duration: 500, ease:'inCirc'});
+        }, 100);
+    };
 
     selectActive(tab){
         if(this.state.currentActive !== tab){
@@ -46,6 +55,7 @@ class Curriculo extends Component {
                 scrollToComponent(this.refs.divMain, {offset: 0, align: 'top', duration: 500, ease:'inCirc'});
             }, 100);
         }
+        this.goFocustTop()
     };
 
     advanceForm = ()=>{
@@ -81,7 +91,7 @@ class Curriculo extends Component {
         return (
             <div className="container">
                 {/*<div className="row">*/}
-                    <div className="cole s12 section-title" ref={'divMain'}>
+                    <div className="cole s12 section-title" ref={this.refMain}>
                         <h2 style={{margin: '40px 0 20px 0'}}>Precisamos de alguns dados</h2>
                     </div>
                     <div className="cole s12 text-center">

@@ -14,28 +14,16 @@ class AddComplementary extends Component {
         };
     }
 
-    removeLine = line => {
-        let updateAdditionalInfo = this.props.curriculumData.additionalInfo;
-        updateAdditionalInfo = updateAdditionalInfo.filter((tool, index)=>{
-            if(index !== line){
-                return true;
-            }
-        });
-        this.props.changeadditionalInfo(updateAdditionalInfo);
-    };
-
     editLine = line => {
         this.inputCompl.value = this.props.curriculumData.additionalInfo[line];
         this.inputCompl.focus();
-        this.removeLine(line);
+        this.props.removeAdditionalInfo(line);
     };
 
     addLine = e => {
         if(e.key === 'Enter' && this.inputCompl.value !== '' || e.type === 'click' && this.inputCompl.value !== ''){
-            let newAdditionalInfo = this.props.curriculumData.additionalInfo;
-            newAdditionalInfo = newAdditionalInfo.concat(this.inputCompl.value).reverse();
+            this.props.addAdditionalInfo(this.inputCompl.value);
             this.inputCompl.value = "";
-            this.props.changeadditionalInfo(newAdditionalInfo);
         }
     };
 
@@ -78,7 +66,7 @@ class AddComplementary extends Component {
                                         <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
                                                 title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
                                         <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
-                                                 title={'Remover linha'} onClick={this.removeLine.bind(this, index)}/>
+                                                 title={'Remover linha'} onClick={e => this.props.removeAdditionalInfo(index)}/>
                                     </td>
                                 </tr>
                             )
@@ -90,7 +78,7 @@ class AddComplementary extends Component {
                                         <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
                                                 title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
                                         <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
-                                                 title={'Remover linha'} onClick={this.removeLine.bind(this, index)}/>
+                                                 title={'Remover linha'} onClick={e => this.props.removeAdditionalInfo(index)}/>
                                     </td>
                                 </tr>
                             )

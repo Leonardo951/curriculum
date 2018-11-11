@@ -19,7 +19,8 @@ class Addskills extends Component {
     }
 
     editLine = line => {
-        this.setState({ text: this.props.curriculumData.skills[line].text });
+        const { text, percent } = this.props.curriculumData.skills[line];
+        this.setState({ text: text, width: percent });
         this.inputSkill.focus();
         this.props.removeSkill(line);
     };
@@ -30,7 +31,7 @@ class Addskills extends Component {
                 text: this.state.text,
                 percent: this.state.width
             };
-            this.props.changeSkills(newSkill);
+            this.props.addSkills(newSkill);
             this.setState({ text: '', width: 50 });
             this.inputSkill.focus();
         }
@@ -54,14 +55,18 @@ class Addskills extends Component {
                     <th>
                         <div className="form-group" style={{margin: '1px', top: '15px'}}>
                             <input type="text" className="form-control" onChange={e => this.setState({ text: e.target.value })}
-                                   placeholder="Digite aqui"  value={this.state.text} ref={el => this.inputSkill = el}/>
+                                   placeholder={this.props.curriculumData.skills.length < 8 ? 'Escolha 8 habilidades' : '8 habilidades já adicionadas'}
+                                   value={this.state.text} ref={el => this.inputSkill = el}
+                                    disabled={this.props.curriculumData.skills.length >= 8 && true}/>
                         </div>
                     </th>
                     <th>
                         <div className="form-group" style={{margin: '1px', top: '15px'}}>
-                            <Typography id="label">Nível de entendimento: {this.state.width}%</Typography>
+                            <Typography id="label">
+                                Nível de entendimento: {this.props.curriculumData.skills.length < 8 ? this.state.width : 0}%
+                            </Typography>
                             <Slider
-                                value={this.state.width}
+                                value={this.props.curriculumData.skills.length < 8 ? this.state.width : 0}
                                 aria-labelledby="label"
                                 min={0}
                                 max={100}
@@ -71,7 +76,9 @@ class Addskills extends Component {
                         </div>
                     </th>
                     <th className={'text-center'}>
-                        <button className={'btn btn-success text-uppercase btn-sm'} type={'button'} onClick={this.addLine.bind(this)}>Adicionar</button>
+                        <button className={'btn btn-success text-uppercase btn-sm'} type={'button'}
+                                disabled={this.props.curriculumData.skills.length >= 8 && true}
+                                onClick={this.props.curriculumData.skills.length < 8 && this.addLine.bind(this)}>Adicionar</button>
                     </th>
                 </tr>
                 </thead>
@@ -95,7 +102,7 @@ class Addskills extends Component {
                             return(
                                 <tr key={index}>
                                     <td>{tool.text}</td>
-                                    <td> className={'text-center'}</td>
+                                    <td className={'text-center'}>{tool.percent}%</td>
                                     <td className={'text-center'}>
                                         <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
                                                 title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>

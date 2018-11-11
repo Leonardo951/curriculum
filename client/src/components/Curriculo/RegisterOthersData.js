@@ -73,7 +73,7 @@ export default class RegisterOthersData extends Component {
 
                 <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
                     <ExpansionPanelSummary className={'text-uppercase'} expandIcon={<FaAngleDown />}>
-                        <Typography style={{fontSize: '15px'}}> Meus Interesses</Typography>
+                        <Typography style={{fontSize: '15px'}}> Minhas habilidades</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={{display: 'block'}} ref={'panel3'}>
                         <Typography>

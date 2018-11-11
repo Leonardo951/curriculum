@@ -175,21 +175,33 @@ export function changeInitialsforExp(data, index) {
     }
 }
 // Change in other informations
-export function changeQualifications(data) {
+export function addQualifications(data) {
     return {
-        type: 'CHANGE_QUALIFICATIONS',
+        type: 'ADD_QUALIFICATIONS',
         data
     }
 }
-export function changeadditionalInfo(data) {
+export function removeQualifications(index) {
     return {
-        type: 'CHANGE_INFO_ADDITIONAL',
+        type: 'REMOVE_QUALIFICATION',
+        index
+    }
+}
+export function addAdditionalInfo(data) {
+    return {
+        type: 'ADD_INFO_ADDITIONAL',
         data
     }
 }
-export function changeSkills(data) {
+export function removeAdditionalInfo(index) {
     return {
-        type: 'CHANGE_SKILLS',
+        type: 'REMOVE_QUALIFICATIONS',
+        index
+    }
+}
+export function addSkills(data) {
+    return {
+        type: 'ADD_SKILLS',
         data
     }
 }

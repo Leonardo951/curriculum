@@ -172,23 +172,35 @@ const curriculumData = (state = initial_state, action) => {
                     }
                 }
             });
-        case 'CHANGE_QUALIFICATIONS':
-            return update(state, {
-                qualifications: {$set: action.data}
-            });
-        case 'CHANGE_INFO_ADDITIONAL':
-            return update(state, {
-                additionalInfo: {$set: action.data}
-            });
+        case 'ADD_QUALIFICATIONS':
+            return {
+                ...state,
+                qualifications: [action.data, ...state.qualifications]
+            };
+        case 'REMOVE_QUALIFICATION':
+            return {
+                ...state,
+                qualifications: state.qualifications.filter((tool, index) => index !== action.index),
+            };
+        case 'ADD_INFO_ADDITIONAL':
+            return {
+                ...state,
+                additionalInfo: [action.data, ...state.additionalInfo]
+            };
+        case 'REMOVE_QUALIFICATIONS':
+            return {
+                ...state,
+                additionalInfo: state.additionalInfo.filter((tool, index) => index !== action.index),
+            };
+        case 'ADD_SKILLS':
+            return {
+                ...state,
+                skills: [action.data, ...state.skills]
+            };
         case 'REMOVE_SKILL':
             return {
                 ...state,
                 skills: state.skills.filter((tool, index) => index !== action.index),
-            };
-        case 'CHANGE_SKILLS':
-            return {
-                ...state,
-                skills: [action.data, ...state.skills]
             };
         default:
             return state;

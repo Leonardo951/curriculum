@@ -14,29 +14,17 @@ class AddQualifications extends Component {
         };
     }
 
-    removeLine = line => {
-        let updateQualification = this.props.curriculumData.qualifications;
-        updateQualification = updateQualification.filter((tool, index)=>{
-            if(index !== line){
-                return true;
-            }
-        });
-        this.props.changeQualifications(updateQualification);
-    };
-
     editLine = line => {
         this.inputQua.value = this.props.curriculumData.qualifications[line];
         this.inputQua.focus();
-        this.removeLine(line);
+        this.props.removeQualifications(line);
     };
 
     addLine = e => {
         if(e.key === 'Enter' && this.inputQua.value !== '' || e.type === 'click' && this.inputQua.value !== ''){
-            let newQualificaton = this.props.curriculumData.qualifications;
-            newQualificaton = newQualificaton.concat(this.inputQua.value).reverse();
+            this.props.addQualifications(this.inputQua.value);
             this.inputQua.value = "";
-            this.props.changeQualifications(newQualificaton);
-            }
+        }
     };
 
     viewMore = () => {
@@ -62,7 +50,7 @@ class AddQualifications extends Component {
                         </div>
                     </th>
                     <th className={'text-center'}>
-                        <button className={'btn btn-primary text-uppercase btn-sm'} type={'button'}
+                        <button className={'btn btn-success text-uppercase btn-sm'} type={'button'}
                                 onClick={this.addLine.bind(this)}>Adicionar</button>
                     </th>
                 </tr>
@@ -78,7 +66,7 @@ class AddQualifications extends Component {
                                         <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
                                                 title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
                                         <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
-                                                 title={'Remover linha'} onClick={this.removeLine.bind(this, index)}/>
+                                                 title={'Remover linha'} onClick={e => this.props.removeQualifications(index)}/>
                                     </td>
                                 </tr>
                             )
@@ -90,7 +78,7 @@ class AddQualifications extends Component {
                                         <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
                                                 title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
                                         <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
-                                                 title={'Remover linha'} onClick={this.removeLine.bind(this, index)}/>
+                                                 title={'Remover linha'} onClick={e => this.props.removeQualifications(index)}/>
                                     </td>
                                 </tr>
                             )
