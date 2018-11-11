@@ -44,36 +44,46 @@ export default class RegisterOthersData extends Component {
 
         return (
             <div style={{width: '100%'}}>
+
                 <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
                     <ExpansionPanelSummary className={'text-uppercase'} expandIcon={<FaAngleDown />}>
                         <Typography style={{fontSize: '15px'}}>Qualificações e Diferenciais</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={{display: 'block'}} ref={'panel1'}>
                         <Typography>
+
                             <AddQualifications/>
+
                         </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+
                 <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
                     <ExpansionPanelSummary className={'text-uppercase'} expandIcon={<FaAngleDown />}>
                         <Typography style={{fontSize: '15px'}}>Informações adicionais</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={{display: 'block'}} ref={'panel2'}>
                         <Typography>
+
                             <AddComplementary/>
+
                         </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+
                 <ExpansionPanel expanded={expanded === 'panel3'} onChange={this.handleChange('panel3')}>
                     <ExpansionPanelSummary className={'text-uppercase'} expandIcon={<FaAngleDown />}>
                         <Typography style={{fontSize: '15px'}}> Meus Interesses</Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails style={{display: 'block'}} ref={'panel3'}>
                         <Typography>
+
                             <AddSkills/>
+
                         </Typography>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
+
             </div>
         )}
 }

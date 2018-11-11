@@ -19,6 +19,8 @@ class RegisterPersonalData extends Component {
             tel2: 'none',
             tel3: 'none',
             mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+            otherMail: props.curriculumData.otherMail && true,
+            btnMail: true
         }
     }
 
@@ -30,6 +32,11 @@ class RegisterPersonalData extends Component {
         }else if(this.state.tel2 === 'block'){
             this.setState({tel3: 'block', tel2: 'none', btnTel: 'none'})
         }
+    };
+
+    otherMail = () => {
+        const _new = !this.state.otherMail;
+        this.setState({ otherMail:  _new })
     };
 
     changeRemoveTel(qnt){
@@ -66,7 +73,16 @@ class RegisterPersonalData extends Component {
                 this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/, /\d/]})
             }
         }
-    }
+    };
+
+    submitMail = e => {
+        if(e.target.value.length > 0){
+            this.setState({ btnMail:  false })
+        }else{
+            this.setState({ btnMail:  true })
+        }
+        this.props.changeMail(e.target.value)
+    };
 
     render() {
 
@@ -81,11 +97,35 @@ class RegisterPersonalData extends Component {
                         <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeName(e.target.value)}}
                                value={name} placeholder={'Nome completo'}/>
                     </div>
-                    <div className="form-group">
-                        <label>E-mail</label>
-                        <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeMail(e.target.value)}}
-                               value={otherMail} placeholder={'E-mail'}/>
+                    <div className={'row'}>
+                        <div className="form-group col-md-11">
+                            <label>E-mail</label>
+                            <input type={"email"} disabled={!this.state.otherMail} className={"form-control"}
+                                   value={this.state.otherMail ? otherMail : this.props.auth.mail}
+                                   placeholder={'example@mail.com'} onChange={this.state.otherMail && this.submitMail.bind(this)}/>
+                        </div>
+                        <div className="form-group col-md-1" style={{display: this.state.btnMail ? 'block' : 'none'}}>
+                            <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
+                            <button className={'btn btn-default text-uppercase btn-sm form-control'}
+                                    type={'button'} onClick={this.otherMail} style={{background: '#e0dbdb'}}>
+                                {
+                                    this.state.otherMail ?
+                                        <FaMinus/>
+                                        :
+                                        <FaPlus/>
+                                }
+                            </button>
+                        </div>
                     </div>
+                    {
+                        this.state.otherMail &&
+                        <div className="form-group col-md-12">
+                            {/*<label>E-mail</label>*/}
+                            <input type={"email"} className={"form-control"}
+                                   disabled={true} placeholder={'example@mail.com'}
+                                   value={this.props.auth.mail} />
+                        </div>
+                    }
                     <div className="form-group">
                         <label>Nacionalidade</label>
                         <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeNationality(e.target.value)}}
@@ -170,7 +210,8 @@ class RegisterPersonalData extends Component {
                         </div>
                         <div className={'form-group col-md-1 text-center'} style={{display: this.state.tel1}}>
                             <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
-                            <button className={'btn btn-secondary text-uppercase btn-sm form-control'} type={'button'} onClick={this.changeAddTels}>
+                            <button className={'btn btn-default text-uppercase btn-sm form-control'} style={{background: '#e0dbdb'}}
+                                    type={'button'} onClick={this.changeAddTels}>
                                 <FaPlus/>
                             </button>
                         </div>
@@ -206,7 +247,8 @@ class RegisterPersonalData extends Component {
                         </div>
                         <div className="form-group col-md-1" style={{display: this.state.tel2}}>
                             <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
-                            <button className={'btn btn-secondary text-uppercase btn-sm form-control'} type={'button'} onClick={this.changeAddTels}>
+                            <button className={'btn btn-default text-uppercase btn-sm form-control'} style={{background: '#e0dbdb'}}
+                                    type={'button'} onClick={this.changeAddTels}>
                                 <FaPlus/>
                             </button>
                         </div>

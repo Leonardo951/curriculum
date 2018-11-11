@@ -1,61 +1,48 @@
 import React, { Component } from 'react';
-import {FaPlus, FaTimes, FaTrash} from "react-icons/fa";
+import {FaEdit, FaPlus, FaTimes, FaTrash} from "react-icons/fa";
 import scrollToComponent from "react-scroll-to-component";
+import {bindActionCreators} from "redux";
+import * as curriculumActions from "../../state/actions/curriculum";
+import connect from "react-redux/es/connect/connect";
+import Typography from '@material-ui/core/Typography';
+import Slider from '../../UI/Slider';
 
-export default class AddSkills extends Component {
+class Addskills extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            mainActivities: [
-                {atv: 'Trabalhar com controle de horas'},
-                {atv: 'oordenar os indicadores organizacionais'},
-                {atv: 'Gerenciar controle de documentos e registros internos e externos'},
-                {atv: 'Apoiar o gerenciamentos de projetos de TI'},
-                {atv: 'Auxilio à área  da Qualidade'},
-                {atv: 'Apoiar RH em atividades de treinamento e desenvolvimento de equipes e liderança'},
-                {atv: 'Correção de bugs e desenvolvimento de novas funcionalidades em JavaScript'},
-                {atv: 'Supervisionar o controle das ações corretivas, preventivas e de melhorias em curso'},
-            ],
-            viewMore: false
+            viewMore: false,
+            text: '',
+            width: 50
         };
-
-        // this.refPage = React.createRef();
-        //
-        // if(this.props.focus){
-        //     setTimeout(()=>{
-        //         scrollToComponent(this.refPage.current, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
-        //     }, 100);
-        // }
     }
 
-    removeLine(key){
-        let newActivities = this.state.mainActivities.filter((tool, index)=>{
-            if(index !== key){
-                return true
-            }
-        });
-        this.setState({mainActivities: newActivities})
+    editLine = line => {
+        this.setState({ text: this.props.curriculumData.skills[line].text });
+        this.inputSkill.focus();
+        this.props.removeSkill(line);
     };
 
-    addLine(e){
-        if(e.key === 'Enter' && this.inputAtv.value !== '' || e.type === 'click' && this.inputAtv.value !== ''){
-            let newActivities = this.state.mainActivities;
-            let newValue = this.inputAtv.value;
-            newActivities.unshift({atv: newValue});
-            this.inputAtv.value = "";
-            this.setState({mainActivities: newActivities});
+    addLine = () => {
+        if(this.state.text !== ''){
+            let newSkill = {
+                text: this.state.text,
+                percent: this.state.width
+            };
+            this.props.changeSkills(newSkill);
+            this.setState({ text: '', width: 50 });
+            this.inputSkill.focus();
         }
     };
 
-    viewMore = ()=>{
-        const more = this.state.viewMore ? false : true;
-        if(more){
+    viewMore = () => {
+        if(!this.state.viewMore){
             setTimeout(()=>{
                 scrollToComponent(this.refs.bodyTable, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
             }, 100);
         }
-        this.setState({viewMore: more});
+        this.setState({viewMore: !this.state.viewMore});
     };
 
     render() {
@@ -65,36 +52,55 @@ export default class AddSkills extends Component {
                 <thead>
                 <tr>
                     <th>
-                        <div className="input-field cole s12" style={{margin: '1px', top: '15px'}}>
-                            <input type="text" className="c-form-input" onKeyPress={this.addLine.bind(this)}
-                                   placeholder="Digite e aperte o enter para adicionar" ref={el => this.inputAtv = el}/>
+                        <div className="form-group" style={{margin: '1px', top: '15px'}}>
+                            <input type="text" className="form-control" onChange={e => this.setState({ text: e.target.value })}
+                                   placeholder="Digite aqui"  value={this.state.text} ref={el => this.inputSkill = el}/>
+                        </div>
+                    </th>
+                    <th>
+                        <div className="form-group" style={{margin: '1px', top: '15px'}}>
+                            <Typography id="label">Nível de entendimento: {this.state.width}%</Typography>
+                            <Slider
+                                value={this.state.width}
+                                aria-labelledby="label"
+                                min={0}
+                                max={100}
+                                step={1}
+                                onChange={(event, val) => this.setState({ width: val })}
+                            />
                         </div>
                     </th>
                     <th className={'text-center'}>
-                        <button className={'btn btn-primary text-uppercase btn-sm'} type={'button'} onClick={this.addLine.bind(this)}>Adicionar</button>
+                        <button className={'btn btn-success text-uppercase btn-sm'} type={'button'} onClick={this.addLine.bind(this)}>Adicionar</button>
                     </th>
                 </tr>
                 </thead>
                 <tbody ref={'bodyTable'}>
                 {
-                    this.state.mainActivities.map((tool, index)=>{
+                    this.props.curriculumData.skills.map((tool, index)=>{
                         if(index < 5){
                             return(
-                                <tr>
-                                    <td>{tool.atv}</td>
-                                    <td className={'text-center'} key={index}>
-                                        <FaTrash style={{cursor: 'pointer'}}  title={'Remover linha'}
-                                                 onClick={this.removeLine.bind(this, index)}/>
+                                <tr key={index}>
+                                    <td>{tool.text}</td>
+                                    <td className={'text-center'}>{tool.percent}%</td>
+                                    <td className={'text-center'}>
+                                        <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
+                                                title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
+                                        <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
+                                                 title={'Remover linha'} onClick={e => this.props.removeSkill(index)}/>
                                     </td>
                                 </tr>
                             )
                         }else if(this.state.viewMore){
                             return(
-                                <tr>
-                                    <td>{tool.atv}</td>
-                                    <td className={'text-center'} key={index}>
-                                        <FaTrash style={{cursor: 'pointer'}}  title={'Remover linha'}
-                                                 onClick={this.removeLine.bind(this, index)}/>
+                                <tr key={index}>
+                                    <td>{tool.text}</td>
+                                    <td> className={'text-center'}</td>
+                                    <td className={'text-center'}>
+                                        <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
+                                                title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
+                                        <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
+                                                 title={'Remover linha'} onClick={e => this.props.removeSkill(index)}/>
                                     </td>
                                 </tr>
                             )
@@ -102,9 +108,9 @@ export default class AddSkills extends Component {
                     })
                 }
                 {
-                    this.state.mainActivities.length > 5 && !this.state.viewMore ?
+                    this.props.curriculumData.skills.length > 5 && !this.state.viewMore ?
                         <tr style={{borderRadius: '5px'}}>
-                            <td className={'text-center'} style={{backgroundColor: '#efefef', fontWeight: 'bold', borderRadius: '3px'}} colSpan={2}>
+                            <td className={'text-center'} style={{backgroundColor: '#efefef', fontWeight: 'bold', borderRadius: '3px'}} colSpan={3}>
                                 <a href="" onClick={(e)=>{e.preventDefault(); this.viewMore();}}>Ver todas</a>
                             </td>
                         </tr>
@@ -114,7 +120,7 @@ export default class AddSkills extends Component {
                 {
                     this.state.viewMore ?
                         <tr style={{borderRadius: '5px'}}>
-                            <td className={'text-center'} style={{backgroundColor: '#efefef', fontWeight: 'bold'}} colSpan={2}>
+                            <td className={'text-center'} style={{backgroundColor: '#efefef', fontWeight: 'bold'}} colSpan={3}>
                                 <a href="" onClick={(e)=>{e.preventDefault(); this.viewMore();}}>Ver menos</a>
                             </td>
                         </tr>
@@ -122,9 +128,9 @@ export default class AddSkills extends Component {
                         <div/>
                 }
                 {
-                    this.state.mainActivities.length === 0 ?
+                    this.props.curriculumData.skills.length === 0 ?
                         <tr style={{borderRadius: '5px'}}>
-                            <td className={'text-center'} colSpan={2} style={{backgroundColor: '#efefef', fontWeight: 'bold'}}>
+                            <td className={'text-center'} colSpan={3} style={{backgroundColor: '#efefef', fontWeight: 'bold'}}>
                                     Digite acima para adicionar</td>
                         </tr>
                         :
@@ -134,3 +140,12 @@ export default class AddSkills extends Component {
             </table>
         )}
 }
+
+const mapStateToProps = state => ({
+    curriculumData: state.curriculumData
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(curriculumActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Addskills);

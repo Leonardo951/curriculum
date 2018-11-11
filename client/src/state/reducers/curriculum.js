@@ -37,7 +37,12 @@ const initial_state = {
             current: false,
             mainAct: []
         },
-    ]
+    ],
+    qualifications: [],
+    additionalInfo: [],
+    skills: [
+
+    ],
 };
 
 const curriculumData = (state = initial_state, action) => {
@@ -167,6 +172,24 @@ const curriculumData = (state = initial_state, action) => {
                     }
                 }
             });
+        case 'CHANGE_QUALIFICATIONS':
+            return update(state, {
+                qualifications: {$set: action.data}
+            });
+        case 'CHANGE_INFO_ADDITIONAL':
+            return update(state, {
+                additionalInfo: {$set: action.data}
+            });
+        case 'REMOVE_SKILL':
+            return {
+                ...state,
+                skills: state.skills.filter((tool, index) => index !== action.index),
+            };
+        case 'CHANGE_SKILLS':
+            return {
+                ...state,
+                skills: [action.data, ...state.skills]
+            };
         default:
             return state;
     }

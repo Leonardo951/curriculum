@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {FaPlus, FaTimes, FaTrash} from "react-icons/fa";
+import {FaEdit, FaTimes, FaTrash} from "react-icons/fa";
 import scrollToComponent from "react-scroll-to-component";
 import Picker from 'react-month-picker';
 import 'react-month-picker/css/month-picker.css';
@@ -29,16 +29,23 @@ class AddExperience extends Component {
         this._handleClickRangeBox = this._handleClickRangeBox.bind(this);
     }
 
-    removeLine(key){
-        let newActivities = this.state.mainActivities.filter((tool, index)=>{
-            if(index !== key){
-                return true
+    removeLine = line => {
+        let updateActivities = this.props.curriculumData.experience[this.props.index].mainAct;
+        updateActivities = updateActivities.filter((tool, index)=>{
+            if(index !== line){
+                return true;
             }
         });
-        this.setState({mainActivities: newActivities})
+        this.props.changeMainAct(updateActivities, this.props.index);
     };
 
-    addLine(e){
+    editLine = line => {
+          this.inputAtv.value = this.props.curriculumData.experience[this.props.index].mainAct[line];
+          this.inputAtv.focus();
+          this.removeLine(line);
+    };
+
+    addLine = e => {
         if(e.key === 'Enter' && this.inputAtv.value !== '' || e.type === 'click' && this.inputAtv.value !== ''){
             let newActivities = this.props.curriculumData.experience[this.props.index].mainAct;
             newActivities = newActivities.concat(this.inputAtv.value).reverse();
@@ -47,7 +54,7 @@ class AddExperience extends Component {
         }
     };
 
-    viewMore = ()=>{
+    viewMore = () => {
         if(!this.state.viewMore){
             setTimeout(()=>{
                 scrollToComponent(this.refs.bodyTable, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
@@ -66,9 +73,9 @@ class AddExperience extends Component {
     }
 
     // Open tbe datepicker
-    _handleClickRangeBox(e) {
+    _handleClickRangeBox = e => {
         this.refs.pickRange.show()
-    }
+    };
 
     render() {
 
@@ -153,7 +160,7 @@ class AddExperience extends Component {
                                 </div>
                             </th>
                             <th className={'text-center'}>
-                                <button className={'btn btn-primary text-uppercase btn-sm'} type={'button'} onClick={this.addLine.bind(this)}>Adicionar</button>
+                                <button className={'btn btn-success text-uppercase btn-sm'} type={'button'} onClick={this.addLine.bind(this)}>Adicionar</button>
                             </th>
                         </tr>
                         </thead>
@@ -165,8 +172,10 @@ class AddExperience extends Component {
                                         <tr key={index}>
                                             <td>{tool}</td>
                                             <td className={'text-center'}>
-                                                <FaTrash style={{cursor: 'pointer'}} title={'Remover linha'}
-                                                         onClick={this.removeLine.bind(this, index)}/>
+                                                <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
+                                                         title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
+                                                <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
+                                                         title={'Remover linha'} onClick={this.removeLine.bind(this, index)}/>
                                             </td>
                                         </tr>
                                     )
@@ -175,8 +184,10 @@ class AddExperience extends Component {
                                         <tr key={index}>
                                             <td>{tool}</td>
                                             <td className={'text-center'}>
-                                                <FaTrash style={{cursor: 'pointer'}} title={'Remover linha'}
-                                                         onClick={this.removeLine.bind(this, index)}/>
+                                                <FaEdit style={{cursor: 'pointer', marginRight: '10px', fontSize: '19px', color: 'mediumblue'}}
+                                                        title={'Editar linha'} onClick={this.editLine.bind(this, index)}/>
+                                                <FaTrash style={{cursor: 'pointer', marginLeft: '10px', fontSize: '17px', color: '#962b2b'}}
+                                                         title={'Remover linha'} onClick={this.removeLine.bind(this, index)}/>
                                             </td>
                                         </tr>
                                     )

@@ -101,7 +101,7 @@ class AddFormation extends Component {
                                 ref="pickAMonth"
                                 years={{min: 1960}}
                                 value={dateEnd}
-                                theme="dark"
+                                theme="light"
                                 lang={PICKERLANG.months}
                                 onChange={this.handleAMonthChange}
                                 onDismiss={val => this.props.changeDateEnd(val, indexForm)}
