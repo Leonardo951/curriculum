@@ -1,5 +1,6 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
-import axios from "axios";
+import axios from 'axios';
+import { registerValidator } from '../../services/auth';
 import { push } from 'connected-react-router';
 
 function setApi(data) {
@@ -12,7 +13,8 @@ function* registerUser(action) {
         if(data.data.error){
             yield put({type: 'FAILED_NEW_REGISTER', payload: {error: data.data.error}});
         }else{
-            yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum, token: data.data.token}});
+            yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum}});
+            yield put(registerValidator(data.data.token));
             yield put(push("/curriculo"));
         }
 

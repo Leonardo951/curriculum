@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import * as colorActions from "../state/actions/cv/colorCv";
 import connect from "react-redux/es/connect/connect";
+import * as curriculumActions from "../state/actions/curriculum";
 
 class Curriculo extends Component {
 
@@ -133,12 +134,14 @@ class Curriculo extends Component {
                                 </div>
                             }
                             <div className="input-field cole s12" style={{margin: '1px'}}>
-                                <button className="btn btn-success text-center text-uppercase" type="button" style={{width: '100%'}}>
+                                <button className="btn btn-success text-center text-uppercase" type="button" style={{width: '100%'}}
+                                            onClick={e => this.props.registerCurriculum(this.props.curriculumData)}>
                                     Cadastrar
                                 </button>
                             </div>
                             <div className="input-field cole s12" style={{margin: '1px'}}>
-                                <button className="btn btn-danger text-center text-uppercase" type="button" style={{width: '100%'}}>
+                                <button className="btn btn-danger text-center text-uppercase" type="button" style={{width: '100%'}}
+                                        onClick={this.props.cancelRegister()}>
                                     Cancelar cadastro
                                 </button>
                             </div>
@@ -152,10 +155,10 @@ class Curriculo extends Component {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    curriculum: state.curriculum
+    curriculumData: state.curriculumData
 });
 
-// const mapDispatchToProps = dispatch =>
-//     bindActionCreators(curriculumActions, dispatch);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(curriculumActions, dispatch);
 
-export default connect(mapStateToProps, null)(Curriculo);
+export default connect(mapStateToProps, mapDispatchToProps)(Curriculo);

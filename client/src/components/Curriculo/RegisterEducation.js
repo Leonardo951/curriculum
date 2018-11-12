@@ -20,7 +20,7 @@ class RegisterEducation extends Component {
                 locale: null,
                 initials: null,
                 status: '',
-                initialEnd: {year: 2018, month: 0},
+                dateEnd: {year: 2018, month: 0},
                 semOrYear: '',
                 period: '',
             });

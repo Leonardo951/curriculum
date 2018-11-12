@@ -9,8 +9,7 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-require('./server/controller/authControl')(app);
-require('./server/controller/mainControl')(app);
+require('./server/controller/index')(app);
 
 const route = router.get('/', (req, res, next)=>{
     res.status(200).send({

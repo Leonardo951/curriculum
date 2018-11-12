@@ -77,21 +77,31 @@ class AddExperience extends Component {
         this.refs.pickRange.show()
     };
 
+    hadleCurrent(e){
+        const val = !this.props.curriculumData.experience[this.props.index].current;
+        const periodWork = this.props.curriculumData.experience[this.props.index].periodWork;
+        this.props.changeCurrentJob(val, this.props.index);
+        this.makeText(periodWork.from);
+        this.makeTextp2(periodWork.to);
+        console.log(val)
+    }
+
+    makeTextp2 = m => {
+        const current = this.props.curriculumData.experience[this.props.index].current;
+        if (m && m.year && m.month) return (current ? 'Atual' : PICKERLANG.months[m.month-1] + '/' + m.year);
+        return current ? 'Atual' : '?'
+    };
+
+    makeText = m => {
+        if (m && m.year && m.month) return (PICKERLANG.months[m.month-1] + '/' + m.year);
+        return '?'
+    };
+
     render() {
 
         const indexExp = this.props.index;
 
-        const { job, company, initials, periodWork, current, mainAct } = this.props.curriculumData.experience[indexExp];
-
-        const makeText = m => {
-            if (m && m.year && m.month) return (PICKERLANG.months[m.month-1] + '/' + m.year);
-            return '?'
-        };
-
-        const makeTextp2 = m => {
-            if (m && m.year && m.month) return (current ? 'Atual' : PICKERLANG.months[m.month-1] + '/' + m.year);
-            return current ? 'Atual' : '?'
-        };
+        const { job, company, initials, periodWork, current, mainAct } = this.props.curriculumData.experience[indexExp];;
 
         return (
             <fieldset className="fieldset-border" ref={this.refPage}>
@@ -136,15 +146,16 @@ class AddExperience extends Component {
                             onChange={this.handleRangeChange}
                             onDismiss={val => this.props.changePeriodWork(val, indexExp)}
                         >
-                            <MonthBox value={periodWork.from.month === 0 && periodWork.to.month === 0 ? 'Início - FIm' : makeText(periodWork.from) + ' ~ ' + makeTextp2(periodWork.to)}
+                            <MonthBox value={periodWork.from.month === 0 && periodWork.to.month === 0 ? 'Início - FIm' :
+                                this.makeText(periodWork.from) + ' ~ ' + this.makeTextp2(periodWork.to)}
                                       onClick={this._handleClickRangeBox} />
                         </Picker>
                     </div>
                     <div className="form-group col-md-6">
                         <br/><br/>
                         <label>
-                            <input type="checkbox" className="filled-in" value={!current} checked={current}
-                                    onClick={e => this.props.changeCurrentJob(e.target.value, indexExp)}/>
+                            <input type="checkbox" className="filled-in" checked={current ? 'checked' : false}
+                                    onChange={this.hadleCurrent.bind(this)}/>
                             <span>Ainda estou neste emprego</span>
                         </label>
                     </div>

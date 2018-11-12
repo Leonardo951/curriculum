@@ -104,11 +104,12 @@ class Register extends Component {
     saveData = ()=>{
         // verify valid
         if(this.state.mail === 'none' || this.state.cpfValid === 'none' || this.state.pass === 'block'){
-            this.props.newUser({
+            const obj = {
                 cpf: this.state.cpf,
                 mail: this.state.email,
                 password: this.state.password,
-            })
+            };
+            this.props.newUser(Object.assign(obj, this.props.curriculumData));
         }
     };
 
@@ -169,7 +170,7 @@ class Register extends Component {
 }
 
 const mapStateToProps = state => ({
-    auth: state.auth
+    curriculumData: state.curriculumData
 });
 
 const mapDispatchToProps = dispatch =>

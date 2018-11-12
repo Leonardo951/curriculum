@@ -1,7 +1,7 @@
 module.exports = (req, res, next)=>{
   const authHeader = req.headers.authorization;
   const jwt = require('jsonwebtoken');
-  const { secret } = require('../config/auth');
+  const { secretLogged } = require('../config/auth');
 
   if(!authHeader)
       return res.status(401).send({ error: 'No token provider' });
@@ -16,7 +16,7 @@ module.exports = (req, res, next)=>{
   if(!/^Bearer$/i.test(scheme))
       return res.status(401).send({ error: 'Token malformatted' });
 
-  jwt.verify(token, secret, (err, decoded) =>{
+  jwt.verify(token, secretLogged, (err, decoded) =>{
       if(err)
           return res.status(401).send({ error: 'Token invalid'});
 

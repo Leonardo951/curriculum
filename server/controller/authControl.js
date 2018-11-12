@@ -1,21 +1,18 @@
 const express = require('express');
-
 const curriculum = require('../model/curriculum');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const { secret } = require('../config/auth');
+const { secretRegister } = require('../config/auth');
 
 router.post('/register', async (req, res) =>{
     const { cpf } = req.body.data;
 
-    const token = jwt.sign({ id: curriculum.id }, secret, {
-        expiresIn: 86400,
-    });
-
     try {
     if(await curriculum.findOne({ cpf }))
         return res.status(200).send({error: "CPF já cadastrado"});
+
+        // forEach()
 
         req.body.data.key = Math.random().toString(36).slice(-10);
         const { key } = req.body.data;
@@ -25,7 +22,11 @@ router.post('/register', async (req, res) =>{
 
         const Curriculum = await curriculum.create(req.body.data);
 
-        Curriculum.password = undefined; //para não mostrar o valor quando voltar.
+        const token = jwt.sign({ id: Curriculum.id }, secretRegister, {
+            expiresIn: 3600,
+        });
+
+        Curriculum.password = undefined; //Para não mostrar o valor quando voltar.
 
         return res.status(200).send({ Curriculum, token })
     } catch (err) {

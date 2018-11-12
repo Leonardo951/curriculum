@@ -1,27 +1,27 @@
 import update from 'immutability-helper';
 
 const initial_state = {
-    name: null,
-    otherMail: null,
-    nationality: null,
-    dateBirth: null,
+    name: '',
+    otherMail: '',
+    nationality: '',
+    dateBirth: '',
     civilStatus: '',
-    address: null,
-    city: null,
-    zipCode: null,
+    address: '',
+    city: '',
+    zipCode: '',
     uf: '',
     phone: {
-        phoneOne: null,
-        phoneTwo: null,
-        phoneThree: null
+        phoneOne: '',
+        phoneTwo: '',
+        phoneThree: ''
     },
-    sex: null,
-    deficient: null,
+    sex: 'M',
+    deficient: false,
     formation: [
         {
-            course: null,
-            locale: null,
-            initials: null,
+            course: '',
+            locale: '',
+            initials: '',
             status: '',
             dateEnd: {year: 2018, month: 0},
             semOrYear: '',
@@ -30,9 +30,9 @@ const initial_state = {
     ],
     experience: [
         {
-            job: null,
-            company: null,
-            initials: null,
+            job: '',
+            company: '',
+            initials: '',
             periodWork: {from: {year: 2018, month: 0}, to: {year: 2018, month: 0}},
             current: false,
             mainAct: []
@@ -40,9 +40,8 @@ const initial_state = {
     ],
     qualifications: [],
     additionalInfo: [],
-    skills: [
-
-    ],
+    skills: [],
+    socialNetworks: []
 };
 
 const curriculumData = (state = initial_state, action) => {
@@ -201,6 +200,32 @@ const curriculumData = (state = initial_state, action) => {
             return {
                 ...state,
                 skills: state.skills.filter((tool, index) => index !== action.index),
+            };
+        case 'UPDATE_CURRICULUM':
+            return {
+                ...state,
+                name: action.payload.curriculum.name,
+                otherMail: action.payload.curriculum.otherMail,
+                nationality: action.payload.curriculum.nationality,
+                dateBirth: action.payload.curriculum.dateBirth,
+                civilStatus: action.payload.curriculum.civilStatus,
+                address: action.payload.curriculum.address,
+                city: action.payload.curriculum.city,
+                zipCode: action.payload.curriculum.zipCode,
+                uf: action.payload.curriculum.uf,
+                phone: {
+                    phoneOne: action.payload.curriculum.phone.phoneOne,
+                    phoneTwo: action.payload.curriculum.phone.phoneTwo,
+                    phoneThree: action.payload.curriculum.phone.phoneThree
+                },
+                sex: action.payload.curriculum.sex,
+                deficient: action.payload.curriculum.deficient,
+                formation: action.payload.curriculum.formation,
+                experience: action.payload.curriculum.experience,
+                qualifications: action.payload.curriculum.qualifications,
+                additionalInfo: action.payload.curriculum.additionalInfo,
+                skills: action.payload.curriculum.skills,
+                socialNetworks: action.payload.curriculum.socialNetworks
             };
         default:
             return state;

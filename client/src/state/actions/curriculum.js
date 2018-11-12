@@ -211,3 +211,16 @@ export function removeSkill(index) {
         index
     }
 }
+//Register curriclum
+export function registerCurriculum(data) {
+    return {
+        type: 'LOADING_REGISTER_CURRICULUM',
+        data
+    }
+}
+// Cancel register
+export function cancelRegister() {
+    return {
+        type: 'CANCEL_REGISTER_CURRICULUM'
+    }
+}

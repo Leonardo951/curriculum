@@ -1,32 +1,35 @@
 let mongoose = require('../database');
 
-const bcrypt = require('bcryptjs'); //ver mais. serve para encriptar uma senha ou gerar autmaticamente
+const bcrypt = require('bcryptjs'); //ver mais. serve para encriptar uma senha
 
 let curriculumSchema = new mongoose.Schema({
     key: { type: String, unique: true, required: true},
     cpf: { type: String, unique: true, required: true},
-    mail: { type: String, unique: false, required: true, lowercase: true},
-    password: { type: String, required: true, select: false },
-    dateUpdate: { type: Date, default: Date.now() },
-    fullName: String,
-    nationality: String,
-    dateBirth: String,
-    civilStatus: String,
-    adress: String,
-    uf: String,
-    cep: Number,
-    phone: [],
-    formation: [
-        {resume: String, local: String, initials: String, status: String, dateConclusion: String, half: String, period: String}
-    ],
-    experience: [
-        {office: String, company: String, nitials: String, startDate: String, endDate: String, working: Boolean, activities: []}
-    ],
-    interests: [],
-    additional: [],
-    qualifications: [
-        {title: String, description: String, date: String}
-    ]
+    mail: { type: String, unique: true, lowercase: true, required: true},
+    password: { type: String, select: false, required: true},
+    dateUpdate: { type: Date, default: Date.now(), required: true},
+    name: { type: String, lowercase: true},
+    otherMail: { type: String, lowercase: true},
+    nationality: { type: String },
+    dateBirth: { type: String},
+    civilStatus: { type: String},
+    address: { type: String, lowercase: true},
+    city: { type: String, lowercase: true},
+    zipCode: { type: String },
+    uf: { type: String, uppercase: true},
+    phone: {
+        phoneOne: { type: String},
+        phoneTwo: { type: String },
+        phoneThree: { type: String }
+    },
+    sex: { type: String, enum: ['M', 'F', 'I']},
+    deficient: { type: Boolean},
+    formation: { type: Array},
+    experience: { type: Array},
+    qualifications: { type: Array},
+    additionalInfo: { type: Array},
+    skills: { type: Array},
+    socialNetworks: { type: Array},
 });
 
 //pre serve para fazer algo antes que algo seja chamado, no caso a função save

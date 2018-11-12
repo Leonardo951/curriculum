@@ -135,17 +135,17 @@ class RegisterPersonalData extends Component {
                     <div className="row">
                         <div className="col">
                             <label>Data de nascimento</label>
-                            <Datetime timeFormat={false} value={dateBirth} onChange={this.handleChangeDate} input={true}
-                                      required={true} locale="pt-br" disableCloseOnClickOutside={false}/>
-                            {/*<DatePicker*/}
-                                {/*calendarIcon={<FaCalendarAlt/>}*/}
-                                {/*onChange={this.handleChangeDate}*/}
-                                {/*required={true}*/}
-                                {/*maxDate={new Date()}*/}
-                                {/*value={dateBirth}*/}
-                                {/*showLeadingZeros={false}*/}
-                                {/*locale={'pt-br'}*/}
-                            {/*/>*/}
+                            {/*<Datetime timeFormat={false} value={dateBirth} onChange={this.handleChangeDate} input={true}*/}
+                            {/*required={true} locale="pt-br" disableCloseOnClickOutside={false}/>*/}
+                            <DatePicker
+                                calendarIcon={<FaCalendarAlt/>}
+                                onChange={this.handleChangeDate}
+                                required={true}
+                                maxDate={new Date()}
+                                value={dateBirth}
+                                showLeadingZeros={false}
+                                locale={'pt-br'}
+                            />
                         </div>
                         <div className="col">
                             <label>Estado civil</label>

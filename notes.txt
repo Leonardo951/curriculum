@@ -41,4 +41,6 @@ sudo systemctl status mongodb
 port: 27017
 comands: https://felipetoscano.com.br/primeiros-passos-no-mongodb/
 
-vido.https://www.youtube.com/watch?v=BN_8bCfVp88
+video.https://www.youtube.com/watch?v=BN_8bCfVp88
+
+https://blog.rocketseat.com.br/reactjs-autenticacao/

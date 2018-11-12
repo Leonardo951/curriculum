@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { FaFacebook, FaGooglePlus, FaLinkedin } from 'react-icons/fa';
 import scrollToComponent from "react-scroll-to-component";
 import CardResetPassword from "../components/CardResetPassword";
@@ -132,7 +132,7 @@ export default class Login extends Component {
                         </div>
                     </div>
                     <div className="signup-callout" style={{color: '#fff'}}>
-                        Ainda não tem uma conta?   Cadastre-se já!
+                        Ainda não tem uma conta?   <Link to={'/register'} style={{cursor: 'pointer'}}>Cadastre-se já!</Link>
                     </div>
                 </div>
             </div>
