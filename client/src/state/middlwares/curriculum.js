@@ -11,14 +11,10 @@ export default function* requestRegisterCurriculum() {
 
 function* registerCurriculum(action) {
     try {
-        const data = yield call(dateForString, action.data);
-        const res = yield call(setApi, data);
-        if(res.data.add){
-            yield put({ type: 'UPDATE_CURRICULUM', payload: { curriculum: res.data.Curriculum } });
-            yield put(login(res.data.token));
-            yield put(push("/cv"));
-        }
-
+        const res = yield call(setApi, action.data);
+        yield put({ type: 'UPDATE_CURRICULUM', payload: { curriculum: res.data.Curriculum } });
+        yield put(login(res.data.token));
+        yield put(push("/cv"));
     }catch(error){
         yield [console.log(error)];
         yield put({type: 'FAILED_NEW_CURRICULUM', payload: {error: 'Houve um erro inesperado.\n Tente novamente!'}});
