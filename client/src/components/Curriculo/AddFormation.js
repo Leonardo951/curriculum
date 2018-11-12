@@ -40,7 +40,7 @@ class AddFormation extends Component {
 
         const indexForm = this.props.index;
 
-        const { course, locale, initials, status, dateEnd, semOrYear, period } = this.props.curriculumData.formation[indexForm];
+        const { course, locale, initials, status, dateEnd, semOrYear, period, reason } = this.props.curriculumData.formation[indexForm];
 
         const makeText = m => {
             if (m && m.year && m.month) return (PICKERLANG.months[m.month-1] + '/' + m.year);
@@ -115,7 +115,7 @@ class AddFormation extends Component {
                         status === 'incompleto' &&
                         <div className="form-group col-md-6">
                             <label>Motivo</label>
-                            <select className={"form-control"} defaultValue={period} onChange={e => this.props.changePeriod(e.target.value, indexForm)}>
+                            <select className={"form-control"} defaultValue={reason} onChange={e => this.props.changeReason(e.target.value, indexForm)}>
                                 <option value={''} disabled>Selecione...</option>
                                 {
                                     OPTIONS_UNIFINISHED.map((tool, index)=>{

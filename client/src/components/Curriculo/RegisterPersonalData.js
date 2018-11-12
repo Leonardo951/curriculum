@@ -210,7 +210,7 @@ class RegisterPersonalData extends Component {
                             </div>
                         </div>
                         <div className={'form-group col-md-1 text-center'} style={{display: this.state.tel1}}>
-                            <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
+                            <label style={{visibility: 'hidden'}}>Ignore it</label>
                             <button className={'btn btn-default text-uppercase btn-sm form-control'} style={{background: '#e0dbdb'}}
                                     type={'button'} onClick={this.changeAddTels}>
                                 <FaPlus/>

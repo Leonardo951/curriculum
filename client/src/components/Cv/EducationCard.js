@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FaCircle } from 'react-icons/fa';
 import connect from "react-redux/es/connect/connect";
+import { OPTIONS_STATUS,OPTIONS_UNIFINISHED, OPTIONS_SELECT_SEMESTER_OR_YEAR } from '../../constant/curriculum';
 
 class EducationCard extends Component {
     constructor(props){
@@ -10,25 +11,61 @@ class EducationCard extends Component {
         }
     }
 
+    formatDate = () => {
+        const mouth = this.props.dateEnd.month;
+        const year = this.props.dateEnd.month;
+        return mouth + '/' + year;
+    };
+
     render() {
+
+        const { colorCv, locale, initials, status, course, semOrYear, duration, nameClass } = this.props;
+
         return (
-            <li className={this.props.class} style={{visibility:'visible'  ,  animationDuration: '2s',
-                animationDelay: this.props.duration,
-                animationName: 'fadeIn'}} data-wow-duration="2s" data-wow-delay={this.props.duration}
+            <li className={nameClass} style={{visibility:'visible'  ,  animationDuration: '2s',
+                animationDelay: duration,
+                animationName: 'fadeIn'}} data-wow-duration="2s" data-wow-delay={duration}
                 data-wow-offset="0">
                 <div className="timeline-badge">
-                    <a style={{color: this.props.colorCv}}><FaCircle/></a>
+                    <a href="" style={{color: colorCv}}>
+                        <FaCircle/>
+                    </a>
                 </div>
                 <div className="timeline-panel w-block shadow-bg pd-30">
                     <div className="timeline-tag">
-                        Stackford University
+                        { locale }
+                        { initials !== '' && ' - ' + initials}
                     </div>
                     <div className="timeline-title timeline-title-alt">
-                        BS in Computer Science
-                        <span className="timeline-title-after" style={{backgroundColor: this.props.colorCv}}/>
+                        { course }
+                        <span className="timeline-title-after" style={{backgroundColor: colorCv}}/>
                     </div>
-                    <div className="timeline-time" style={{backgroundColor: this.props.colorCv}}>2006-2010
-                    <span className="timeline-time-before" style={{borderLeftColor: this.props.colorCv}}/>
+                    <div className="timeline-time" style={{backgroundColor: colorCv}}>
+                        {
+                            OPTIONS_STATUS.map((tool, index) => {
+                                if(tool.value === status){
+                                    return tool.label
+                                }
+                                if(index === 2){
+                                    return ' - ' + this.formatDate()
+                                }
+                            })
+                        }
+                        {
+                            OPTIONS_SELECT_SEMESTER_OR_YEAR.year.map((tool, index)=>{
+                                if(tool.value === status){
+                                    return ' - '+ tool.label
+                                }
+                            })
+                        }
+                        {
+                            OPTIONS_SELECT_SEMESTER_OR_YEAR.semester.map((tool, index)=>{
+                                if(tool.value === status){
+                                    return ' - '+ tool.label
+                                }
+                            })
+                        }
+                    <span className="timeline-time-before" style={{borderLeftColor: colorCv}}/>
                     </div>
                 </div>
             </li>
@@ -37,7 +74,7 @@ class EducationCard extends Component {
 }
 
 const mapStateToProps = state => ({
-    colorCv: state.colorCv
+    colorCv: state.colorCv,
 });
 
 export default connect(mapStateToProps, null)(EducationCard);

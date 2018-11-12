@@ -2,14 +2,16 @@ import update from 'immutability-helper';
 
 const initial_state = {
     name: '',
+    jobMain: '',
+    website: '',
     otherMail: '',
     nationality: '',
-    dateBirth: '',
+    dateBirth: null,
     civilStatus: '',
     address: '',
     city: '',
     zipCode: '',
-    uf: '',
+    state: '',
     phone: {
         phoneOne: '',
         phoneTwo: '',
@@ -25,7 +27,8 @@ const initial_state = {
             status: '',
             dateEnd: {year: 2018, month: 0},
             semOrYear: '',
-            period: ''
+            period: '',
+            reason: ''
         },
     ],
     experience: [
@@ -41,7 +44,16 @@ const initial_state = {
     qualifications: [],
     additionalInfo: [],
     skills: [],
-    socialNetworks: []
+    socialNetworks: {
+        Facebook: {use: false, link: ''},
+        GPlus: {use: false, link: ''},
+        Linkedin: {use: false, link: ''},
+        Twitter: {use: false, link: ''},
+        Github: {use: false, link: ''},
+        Pinterest: {use: false, link: ''},
+        Youtube: {use: false, link: ''},
+        Instagram: {use: false, link: ''},
+    }
 };
 
 const curriculumData = (state = initial_state, action) => {
@@ -118,6 +130,14 @@ const curriculumData = (state = initial_state, action) => {
                 formation: {
                     [action.index]: {
                         semOrYear: {$set: action.data}
+                    }
+                }
+            });
+        case 'CHANGE_REASON':
+            return update(state, {
+                formation: {
+                    [action.index]: {
+                        reason: {$set: action.data}
                     }
                 }
             });

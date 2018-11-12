@@ -7,17 +7,8 @@ class Education extends Component {
     constructor(props){
         super(props);
         this.state = {
-            array: [
-                {classe: 'wow fadeIn animated',
-                    duration: '0.2s'},
-                {classe: 'timeline-inverted wow fadeIn animated',
-                    duration: '0.4s'},
-                {classe: 'wow fadeIn animated',
-                    duration: '0.6s'},
-                {classe: 'timeline-inverted wow fadeIn animated',
-                    duration: '0.8s'},
-            ],
-            ready: false
+            ready: false,
+            duration: 2
         }
     }
 
@@ -39,14 +30,17 @@ class Education extends Component {
                         <div className="cole s12">
                             <div className="cole s12 section-content pd-0">
                                 <ul className="timeline">
-                                    <p style={{visibility: 'hidden'}}>5454</p>
-                                    {this.state.ready ?
-                                        this.state.array.map((tool, index) => {
+                                    <p style={{visibility: 'hidden'}}>Ignore it</p>
+                                    {this.state.ready &&
+                                        this.props.curriculumData.formation.map((tool, index) => {
                                             return (
-                                                <EducationCard class={tool.classe} duration={tool.duration} />
+                                                <EducationCard nameClass={index % 2 === 0 ? 'wow fadeIn animated' : 'timeline-inverted wow fadeIn animated'}
+                                                               duration={index === 0 ? '0.'+this.state.duration+'s' : '0.'+(index+this.state.duration)+'s'}
+                                                               period={tool.period} key={index}
+                                                               course={tool.course} locale={tool.locale} initials={tool.initials}
+                                                               status={tool.status} dateEnd={tool.dateEnd} semOrYear={tool.semOrYear}/>
                                             )
                                         })
-                                        : <div/>
                                     }
                                     <textarea style={{visibility: 'hidden'}}/>
                                 </ul>
@@ -60,7 +54,8 @@ class Education extends Component {
 }
 
 const mapStateToProps = state => ({
-    colorCv: state.colorCv
+    colorCv: state.colorCv,
+    curriculumData: state.curriculumData
 });
 
 export default connect(mapStateToProps, null)(Education);
