@@ -31,20 +31,28 @@ class ReferencesAdd extends Component {
 
     render() {
         return (
-            <form id="c-form" ref="theDiv" className="c-form" action="#0" method="post" style={{marginTop: this.props.activeTop,
+            <form ref="theDiv" className="c-form" style={{marginTop: this.props.activeTop,
                             transition: 'margin-top 0.8s', borderTop: this.props.activeTop === '40px' ? '1px solid '+this.props.colorCv : '0'}}>
                 <fieldset>
-                    <input id="subject" type="text" name="subject"
-                           className="c-form-input" placeholder="Subject" style={{visibility: this.props.visible,
-                                                    transition: this.props.addActive && 'visibility 0.8s'}}/>
-                    <textarea id="message" name="message" className=""
-                              placeholder="Message" style={{height: '104px', marginTop: '10px', visibility: this.props.visible,
-                                                            transition: this.props.addActive && 'visibility 0.8s'}}/>
+                    <br/>
+                    <select className={"form-control"} style={{visibility: this.props.visible,
+                        transition: this.props.addActive && 'visibility 0.8s'}}>
+                        <option selected>Onde atuou com está pessoa?</option>
+                        {
+                            this.props.curriculumData.experience.map((tool, index)=>{
+                                return (
+                                    <option key={index} value={tool.company}>{tool.company}</option>
+                                )
+                            })
+                        }
+                    </select>
+                    <textarea className="c-form-input" placeholder="Sua referência"
+                              style={{height: '104px', marginTop: '10px', visibility: this.props.visible, transition: this.props.addActive && 'visibility 0.8s'}}/>
                     <button className="btn-custom waves-effect" type="submit"
                             onMouseOut={this.hoverBoll.bind(this)}  onMouseOver={this.hoverBoll.bind(this)}
                             name="button" style={{backgroundColor: this.props.colorCv, color: this.state.imgColor, visibility: this.props.visible,
                                                     transition: this.props.addActive && 'visibility 0.8s'}}>
-                        Send Message
+                        Adicionar
                     </button>
                     <FaCircleNotch id="c-form-spinner"/>
                 </fieldset>
@@ -55,7 +63,8 @@ class ReferencesAdd extends Component {
 
 
 const mapStateToProps = state => ({
-    colorCv: state.colorCv
+    colorCv: state.colorCv,
+    curriculumData: state.curriculumData
 });
 
 export default connect(mapStateToProps, null)(ReferencesAdd);

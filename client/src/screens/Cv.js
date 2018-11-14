@@ -32,10 +32,9 @@ export default class Cv extends Component {
                 <Education />
                 <Experience />
                 <Skill />
-                {/*<Portfolio />*/}
-                <References />
                 <Qualifications />
                 <AdditionalInformation />
+                <References />
                 <Contact />
                 <ColorScheme />
                 <Footer />

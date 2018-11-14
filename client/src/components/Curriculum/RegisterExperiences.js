@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AddExperience from './AddExperience';
 import {FaChevronLeft, FaChevronRight, FaMinus, FaPlus} from "react-icons/fa";
 import {bindActionCreators} from "redux";
-import * as curriculumActions from "../../state/actions/curriculum";
+import * as curriculumActions from "../../state/actions/curriculumAction";
 import connect from "react-redux/es/connect/connect";
 
 class RegisterExperiences extends Component {

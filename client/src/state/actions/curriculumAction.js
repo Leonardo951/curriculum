@@ -125,13 +125,6 @@ export function changePeriod(data, index) {
         index
     }
 }
-export function changeReason(data, index) {
-    return {
-        type: 'CHANGE_REASON',
-        data,
-        index
-    }
-}
 // Change in experiences
 export function changeExperience(data) {
     return {

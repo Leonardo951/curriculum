@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import connect from "react-redux/es/connect/connect";
 import { bindActionCreators } from "redux";
 import axios from 'axios';
-import * as authActions from '../state/actions/auth';
+import * as authActions from '../state/actions/authAction';
 
 class Register extends Component {
 

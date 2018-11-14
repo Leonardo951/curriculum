@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {FaEdit, FaPlus, FaTimes, FaTrash} from "react-icons/fa";
 import scrollToComponent from "react-scroll-to-component";
 import {bindActionCreators} from "redux";
-import * as curriculumActions from "../../state/actions/curriculum";
+import * as curriculumActions from "../../state/actions/curriculumAction";
 import connect from "react-redux/es/connect/connect";
 import Typography from '@material-ui/core/Typography';
 import Slider from '../../UI/Slider';

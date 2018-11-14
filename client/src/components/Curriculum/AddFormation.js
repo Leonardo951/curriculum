@@ -4,9 +4,9 @@ import scrollToComponent from "react-scroll-to-component";
 import Picker from 'react-month-picker';
 import 'react-month-picker/css/month-picker.css';
 import MonthBox from '../../UI/MonthBox';
-import { OPTIONS_SELECT_SEMESTER_OR_YEAR, PICKERLANG, OPTIONS_PERIOD, OPTIONS_STATUS, OPTIONS_UNIFINISHED } from '../../constant/curriculum';
+import { OPTIONS_SELECT_SEMESTER_OR_YEAR, PICKERLANG, OPTIONS_PERIOD, OPTIONS_STATUS } from '../../constant/curriculum';
 import {bindActionCreators} from "redux";
-import * as curriculumActions from "../../state/actions/curriculum";
+import * as curriculumActions from "../../state/actions/curriculumAction";
 import connect from "react-redux/es/connect/connect";
 
 class AddFormation extends Component {
@@ -40,7 +40,7 @@ class AddFormation extends Component {
 
         const indexForm = this.props.index;
 
-        const { course, locale, initials, status, dateEnd, semOrYear, period, reason } = this.props.curriculumData.formation[indexForm];
+        const { course, locale, initials, status, dateEnd, semOrYear, period } = this.props.curriculumData.formation[indexForm];
 
         const makeText = m => {
             if (m && m.year && m.month) return (PICKERLANG.months[m.month-1] + '/' + m.year);
@@ -109,22 +109,6 @@ class AddFormation extends Component {
                                 <MonthBox value={dateEnd.month === 0 ? 'Selecione...' : makeText(dateEnd)}
                                           onClick={this.handleClickMonthBox}/>
                             </Picker>
-                        </div>
-                    }
-                    {
-                        status === 'incompleto' &&
-                        <div className="form-group col-md-6">
-                            <label>Motivo</label>
-                            <select className={"form-control"} defaultValue={reason} onChange={e => this.props.changeReason(e.target.value, indexForm)}>
-                                <option value={''} disabled>Selecione...</option>
-                                {
-                                    OPTIONS_UNIFINISHED.map((tool, index)=>{
-                                        return (
-                                            <option key={index} value={tool.value}>{tool.label}</option>
-                                        )
-                                    })
-                                }
-                            </select>
                         </div>
                     }
                 </div>

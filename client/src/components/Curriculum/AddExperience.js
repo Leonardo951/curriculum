@@ -5,7 +5,7 @@ import Picker from 'react-month-picker';
 import 'react-month-picker/css/month-picker.css';
 import MonthBox from '../../UI/MonthBox';
 import {bindActionCreators} from "redux";
-import * as curriculumActions from "../../state/actions/curriculum";
+import * as curriculumActions from "../../state/actions/curriculumAction";
 import connect from "react-redux/es/connect/connect";
 import { PICKERLANG } from '../../constant/curriculum';
 

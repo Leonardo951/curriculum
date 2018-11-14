@@ -1,6 +1,6 @@
 import { fork } from 'redux-saga/effects';
-import requestAddUser from './auth';
-import requestRegisterCurriculum from './curriculum';
+import requestAddUser from './authMiddleware';
+import requestRegisterCurriculum from './curriculumMiddleware';
 
 export default function* root() {
     yield [fork(requestAddUser)];

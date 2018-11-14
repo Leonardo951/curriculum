@@ -20,20 +20,15 @@ class ReferenceCard extends Component {
                              alt="" style={{width: '60px', display: '-webkit-inline-box'}}/>
                     </div>
                     <div className="reference-author" style={{color: this.props.colorCv}}>
-                        John Doe
+                        { this.props.userName }
+                        { ' ('+ this.props.job +')' }
                     </div>
                     <div className="reference-company">
-                        Envato
+                        { 'Referência conforme trabalho para ' + this.props.company}
                     </div>
                     <div className="reference-content">
                         <p>
-                            Lorem ipsum dolor sit amet, ne usu eius animal, nam accusata
-                            conceptam ea.
-                            Qui ut prima aliquip reprehendunt, eos ex nibh libris
-                            delectus, an has liber
-                            melius constituto. Epicuri mediocrem vis ex. Cu nec choro
-                            molestiae quaerendum,
-                            ei natum lorem dissentias sed, ne his explicari sadipscing.
+                            { this.props.description }
                         </p>
                     </div>
                 </div>

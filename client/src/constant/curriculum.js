@@ -79,14 +79,14 @@ export const OPTIONS_STATUS = [
     {value: 'completo', label: 'Concluído'},
 ];
 
-export  const PICKERLANG = {
+export const PICKERLANG = {
     months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     from: 'Início:', to: 'Fim:',
 };
 
-export const OPTIONS_UNIFINISHED = [
-    {value: 'curso trancado', label: 'Matrícula trancada'},
-    {value: 'desistencia', label: 'Desistência'},
-    {value: 'motivos pessoais', label: 'Motivos pessoais'},
-    {value: 'outro', label: 'Prefiro não informar'},
+export const OPTIONS_SEX = [
+    {value: 'F', label: 'Feminino'},
+    {value: 'M', label: 'Masculino'},
+    {value: 'I', label: 'Outro'},
+    {value: 'NoInformed', label: 'Prefiro não informar'},
 ];

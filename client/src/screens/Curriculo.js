@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import RegisterPersonalData from "../components/Curriculo/RegisterPersonalData";
-import RegisterEducation from "../components/Curriculo/RegisterEducation";
+import RegisterPersonalData from "../components/Curriculum/RegisterPersonalData";
+import RegisterEducation from "../components/Curriculum/RegisterEducation";
 import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
 import scrollToComponent from "react-scroll-to-component";
-import RegisterExperiences from "../components/Curriculo/RegisterExperiences";
-import RegisterOthersData from "../components/Curriculo/RegisterOthersData";
+import RegisterExperiences from "../components/Curriculum/RegisterExperiences";
+import RegisterOthersData from "../components/Curriculum/RegisterOthersData";
 import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import * as colorActions from "../state/actions/cv/colorCv";
 import connect from "react-redux/es/connect/connect";
-import * as curriculumActions from "../state/actions/curriculum";
+import * as curriculumActions from "../state/actions/curriculumAction";
 
 class Curriculo extends Component {
 

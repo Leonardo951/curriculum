@@ -4,6 +4,7 @@ const initial_state = {
     name: '',
     jobMain: '',
     website: '',
+    email: '',
     otherMail: '',
     nationality: '',
     dateBirth: null,
@@ -17,7 +18,7 @@ const initial_state = {
         phoneTwo: '',
         phoneThree: ''
     },
-    sex: 'M',
+    sex: '',
     deficient: false,
     formation: [
         {
@@ -28,7 +29,6 @@ const initial_state = {
             dateEnd: {year: 2018, month: 0},
             semOrYear: '',
             period: '',
-            reason: ''
         },
     ],
     experience: [
@@ -53,7 +53,18 @@ const initial_state = {
         Pinterest: {use: false, link: ''},
         Youtube: {use: false, link: ''},
         Instagram: {use: false, link: ''},
-    }
+    },
+    references: [
+        {
+            approved: false,
+            profilePicture: '',
+            userKey: '',
+            userName: '',
+            job: '',
+            company: '',
+            description: ''
+        },
+    ],
 };
 
 const curriculumData = (state = initial_state, action) => {
@@ -130,14 +141,6 @@ const curriculumData = (state = initial_state, action) => {
                 formation: {
                     [action.index]: {
                         semOrYear: {$set: action.data}
-                    }
-                }
-            });
-        case 'CHANGE_REASON':
-            return update(state, {
-                formation: {
-                    [action.index]: {
-                        reason: {$set: action.data}
                     }
                 }
             });

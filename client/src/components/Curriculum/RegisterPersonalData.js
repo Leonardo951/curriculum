@@ -3,11 +3,11 @@ import { FaPlus, FaMinus, FaCalendarAlt, FaChevronLeft, FaChevronRight } from "r
 import MaskedInput from "react-text-mask";
 import DatePicker from 'react-date-picker';
 import { bindActionCreators } from "redux";
-import * as curriculumActions from '../../state/actions/curriculum';
+import * as curriculumActions from '../../state/actions/curriculumAction';
 import connect from "react-redux/es/connect/connect";
 import Datetime from 'react-datetime';
 import '../../styles/cv/datetime.css';
-import { OPTIONS_CIVIL_STATUS, OPTIONS_STATES_OF_BRAZIL } from "../../constant/curriculum";
+import { OPTIONS_CIVIL_STATUS, OPTIONS_STATES_OF_BRAZIL, OPTIONS_SEX } from "../../constant/curriculum";
 import scrollToComponent from "react-scroll-to-component";
 
 class RegisterPersonalData extends Component {
@@ -87,9 +87,8 @@ class RegisterPersonalData extends Component {
 
     render() {
 
-        const { name, otherMail, nationality, dateBirth, civilStatus, address, zipCode, city, uf, phone } = this.props.curriculumData;
+        const { name, otherMail, nationality, dateBirth, civilStatus, address, zipCode, city, uf, phone, sex } = this.props.curriculumData;
 
-//CAMPO SEXO
         return (
             <div>
                 <fieldset>
@@ -127,12 +126,12 @@ class RegisterPersonalData extends Component {
                                    value={this.props.auth.mail} />
                         </div>
                     }
-                    <div className="form-group">
-                        <label>Nacionalidade</label>
-                        <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeNationality(e.target.value)}}
-                               value={nationality} placeholder={'Nacionalidade'}/>
-                    </div>
-                    <div className="row">
+                    <div className={'row'}>
+                        <div className="col">
+                            <label>Nacionalidade</label>
+                            <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeNationality(e.target.value)}}
+                                   value={nationality} placeholder={'Nacionalidade'}/>
+                        </div>
                         <div className="col">
                             <label>Data de nascimento</label>
                             {/*<Datetime timeFormat={false} value={dateBirth} onChange={this.handleChangeDate} input={true}*/}
@@ -146,6 +145,21 @@ class RegisterPersonalData extends Component {
                                 showLeadingZeros={false}
                                 locale={'pt-br'}
                             />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
+                            <label>Sexo</label>
+                            <select className={"form-control"} defaultValue={sex} onChange={(e)=>{this.props.changeSex(e.target.value)}}>
+                                <option value={''} selected>Selecione...</option>
+                                {
+                                    OPTIONS_SEX.map((tool, index)=>{
+                                        return (
+                                            <option key={index} value={tool.value}>{tool.label}</option>
+                                        )
+                                    })
+                                }
+                            </select>
                         </div>
                         <div className="col">
                             <label>Estado civil</label>

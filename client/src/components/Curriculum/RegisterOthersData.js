@@ -8,6 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import scrollToComponent from "react-scroll-to-component";
+import AddSocialNetworks from "./AddSocialNetworks";
 
 export default class RegisterOthersData extends Component {
 
@@ -34,6 +35,10 @@ export default class RegisterOthersData extends Component {
         }else if(panel === 'panel3' && expanded){
             setTimeout(()=>{
                 scrollToComponent(this.refs.panel3, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
+            }, 100);
+        }else if(panel === 'panel4' && expanded){
+            setTimeout(()=>{
+                scrollToComponent(this.refs.panel4, {offset: 0, align: 'middle', duration: 500, ease:'inCirc'});
             }, 100);
         }
     };
@@ -79,6 +84,19 @@ export default class RegisterOthersData extends Component {
                         <Typography>
 
                             <AddSkills/>
+
+                        </Typography>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+
+                <ExpansionPanel expanded={expanded === 'panel4'} onChange={this.handleChange('panel4')}>
+                    <ExpansionPanelSummary className={'text-uppercase'} expandIcon={<FaAngleDown />}>
+                        <Typography style={{fontSize: '15px'}}> Redes sociais</Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails style={{display: 'block'}} ref={'panel4'}>
+                        <Typography>
+
+                            <AddSocialNetworks/>
 
                         </Typography>
                     </ExpansionPanelDetails>
