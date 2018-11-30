@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import CardQualifications from "../../UI/CardQualifications";
+import { FaInfoCircle, FaCircleNotch, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import connect from "react-redux/es/connect/connect";
 
 class Qualifications extends Component {
     constructor(props){
         super(props);
         this.state = {
+
         }
     }
 
@@ -17,16 +18,16 @@ class Qualifications extends Component {
                     <div className="container-mat">
                         <div className="row-mat">
                             <div className="cole s12 section-title">
-                                <h2>QUALIFICAÇÕES E DIFERENCIAIS</h2>
+                                <h2>Qualificações e Difereciais</h2>
                             </div>
-                            <div className="cole s12 masonry pd-0 mgt-20">
-                                <div className="card-columns">
+                            <div className="cole s12 pd-0 mgt-20">
+                                <ul className="list-group">
                                     {
                                         this.props.curriculumData.qualifications.map((tool, index)=>{
-                                            return <CardQualifications key={index} qualification={tool} />
+                                            return <li className="list-group-item" key={index}>{ tool }</li>
                                         })
                                     }
-                                </div>
+                                </ul>
                             </div>
                         </div>
                     </div>

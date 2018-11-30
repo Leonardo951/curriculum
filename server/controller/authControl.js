@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const { secretRegister } = require('../config/auth');
 
 router.post('/register', async (req, res) =>{
-    const { cpf } = req.body.data;
+    const { cpf } = req.body;
 
     try {
     if(await curriculum.findOne({ cpf }))
@@ -14,13 +14,13 @@ router.post('/register', async (req, res) =>{
 
         // forEach()
 
-        req.body.data.key = Math.random().toString(36).slice(-10);
-        const { key } = req.body.data;
+        req.body.key = Math.random().toString(36).slice(-10);
+        const { key } = req.body;
 
         if(await curriculum.findOne({ key }))
             return res.status(200).send({error: "Tente novamente!"});
 
-        const Curriculum = await curriculum.create(req.body.data);
+        const Curriculum = await curriculum.create(req.body);
 
         const token = jwt.sign({ id: Curriculum.id }, secretRegister, {
             expiresIn: 3600,
@@ -30,6 +30,7 @@ router.post('/register', async (req, res) =>{
 
         return res.status(200).send({ Curriculum, token })
     } catch (err) {
+        console.log(err);
         return res.status(400).send({ error: 'Failed registration: '+err })
     }
 });

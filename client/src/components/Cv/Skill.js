@@ -26,11 +26,20 @@ class Skill extends Component {
                                     <div className="cole l6 s12 skill-data">
                                         {
                                             this.props.curriculumData.skills.map((tool, index)=> {
-                                                return <SkillProgress key={index} skill={tool.text} howMuch={tool.percent} />
+                                                if(index% 2 === 0){
+                                                    return <SkillProgress key={index} skill={tool.text} howMuch={tool.percent} />
+                                                }
                                             })
                                         }
                                     </div>
                                     <div className="cole l6 s12 skill-data skill-data-alt">
+                                        {
+                                            this.props.curriculumData.skills.map((tool, index)=> {
+                                                if(index% 2 !== 0){
+                                                    return <SkillProgress key={index} skill={tool.text} howMuch={tool.percent} />
+                                                }
+                                            })
+                                        }
                                     </div>
                                 </div>
                             </div>

@@ -19,7 +19,9 @@ class RegisterPersonalData extends Component {
             tel1: 'block',
             tel2: 'none',
             tel3: 'none',
-            mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
+            phone1: "",
+            phone2: "",
+            phone3: "",
             otherMail: props.curriculumData.otherMail && true,
             btnMail: true
         };
@@ -48,34 +50,6 @@ class RegisterPersonalData extends Component {
         }
     };
 
-    submitPhone(e){
-        let numberPhone = e.target.value.replace(/[^0-9]/g,'');
-        let obj = this.props.curriculumData.phone;
-        if(e.target.id === 'phone1'){
-            obj.phoneOne = numberPhone;
-        }else if(e.target.id === 'phone2'){
-            obj.phoneTwo = numberPhone;
-        }else{
-            obj.phoneTwo = numberPhone;
-        }
-
-        this.props.changePhone(obj)
-    }
-
-    correctCharsPhone(e){
-        if(e.type === 'focus'){
-            this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]})
-        }else{
-            let numberPhone = e.target.value;
-            numberPhone = numberPhone.replace(/[^0-9]/g,'');
-            if(numberPhone.length > 10){
-                this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/, /\d/]})
-            }else{
-                this.setState({mask: ['(', /[0-9]/, /\d/, ')', ' ', /[0-9]/, /\d/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/, /\d/]})
-            }
-        }
-    };
-
     submitMail = e => {
         if(e.target.value.length > 0){
             this.setState({ btnMail:  false })
@@ -83,6 +57,50 @@ class RegisterPersonalData extends Component {
             this.setState({ btnMail:  true })
         }
         this.props.changeMail(e.target.value)
+    };
+
+    isNumber = n => {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    };
+
+    formatPhone = (phone, how) => {
+        let phoneFormated = "(";
+        let nineNumbers = false;
+        if(this.isNumber(phone.replace(/[^0-9]/g,''))){
+            if(phone.replace(/[^0-9]/g,'').split("").length > 10){
+                nineNumbers = true;
+            }
+            phone.replace(/[^0-9]/g,'').split("").map((val, index)=>{
+                if(index === 0){
+                    phoneFormated = phoneFormated + val;
+                }else if(index === 1){
+                    phoneFormated = phoneFormated + val + ") ";
+                }else if(index === 2 && nineNumbers){
+                    phoneFormated = phoneFormated + val + " ";
+                }else if(index === 6 && nineNumbers){
+                    phoneFormated = phoneFormated + val + "-";
+                }else if(index === 5 && !nineNumbers){
+                    phoneFormated = phoneFormated + val + "-";
+                }else{
+                    phoneFormated = phoneFormated + val;
+                }
+            });
+            let obj = this.props.curriculumData.phone;
+            if(phone.replace(/[^0-9]/g,'').split("").length < 12){
+                if(how === 'phone1'){
+                    obj.phoneOne = phone.replace(/[^0-9]/g,'');
+                    this.setState({ phone1: phoneFormated })
+                }else if(how === 'phone2'){
+                    obj.phoneTwo = phone.replace(/[^0-9]/g,'');
+                    this.setState({ phone2: phoneFormated })
+                }else{
+                    obj.phoneTwo = phone.replace(/[^0-9]/g,'');
+                    this.setState({ phone3: phoneFormated })
+                }
+
+                this.props.changePhone(obj)
+            }
+        }
     };
 
     render() {
@@ -129,7 +147,7 @@ class RegisterPersonalData extends Component {
                     <div className={'row'}>
                         <div className="col">
                             <label>Nacionalidade</label>
-                            <input type={"email"} className={"form-control"} onChange={(e)=>{this.props.changeNationality(e.target.value)}}
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeNationality(e.target.value)}}
                                    value={nationality} placeholder={'Nacionalidade'}/>
                         </div>
                         <div className="col">
@@ -202,25 +220,23 @@ class RegisterPersonalData extends Component {
                     </div>
                     <div className="form-group">
                         <label>CEP</label>
-                        <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeZipCode(e.target.value)}}
-                               value={zipCode} placeholder={'XXXXX-XXX'}/>
+                        <MaskedInput
+                            mask={[/[0-9]/, /\d/, /\d/, /\d/, /\d/, '-', /[0-9]/, /\d/, /\d/]}
+                            className="form-control"
+                            placeholder={"XXXXX-XXX"}
+                            required={true}
+                            guide={true}
+                            id={'phone1'}
+                            value={zipCode}
+                            onChange={(e)=>{this.props.changeZipCode(e.target.value)}}
+                        />
                     </div>
                     <div className="form-row">
                         <div className={'form-group col-md-11'} style={{display: this.state.tel1}}>
                             <div className={'form-group'}>
                                 <label>Telefone ou celular</label>
-                                <MaskedInput
-                                    mask={this.state.mask}
-                                    className="form-control"
-                                    placeholder={"(XX) XXXXX-XXXX"}
-                                    required={true}
-                                    guide={true}
-                                    id={'phone1'}
-                                    value={phone.phoneOne}
-                                    onChange={this.submitPhone.bind(this)}
-                                    onBlur={this.correctCharsPhone.bind(this)}
-                                    onFocus={this.correctCharsPhone.bind(this)}
-                                />
+                                <input type={"text"} className={"form-control"} onChange={(e)=>{this.formatPhone(e.target.value, "phone1")}}
+                                       value={this.state.phone1} placeholder={'(XX) X XXXX-XXXX'}/>
                             </div>
                         </div>
                         <div className={'form-group col-md-1 text-center'} style={{display: this.state.tel1}}>
@@ -232,33 +248,13 @@ class RegisterPersonalData extends Component {
                         </div>
                         <div className="form-group col-md-6" style={{display: this.state.tel2}}>
                             <label htmlFor="phone1">Telefone ou celular</label>
-                            <MaskedInput
-                                mask={this.state.mask}
-                                className="form-control"
-                                placeholder={"(XX) XXXXX-XXXX"}
-                                required={true}
-                                id={'phone1'}
-                                value={phone.phoneOne}
-                                guide={true}
-                                onChange={this.submitPhone.bind(this)}
-                                onBlur={this.correctCharsPhone.bind(this)}
-                                onFocus={this.correctCharsPhone.bind(this)}
-                            />
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.formatPhone(e.target.value, "phone1")}}
+                                   value={this.state.phone1} placeholder={'(XX) X XXXX-XXXX'}/>
                         </div>
                         <div className="form-group col-md-5" style={{display: this.state.tel2}}>
                             <label htmlFor="phone2"><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 2)}/></label>
-                            <MaskedInput
-                                mask={this.state.mask}
-                                className="form-control"
-                                placeholder={"(XX) XXXXX-XXXX"}
-                                required={true}
-                                guide={true}
-                                id={'phone2'}
-                                value={phone.phoneTwo}
-                                onChange={this.submitPhone.bind(this)}
-                                onBlur={this.correctCharsPhone.bind(this)}
-                                onFocus={this.correctCharsPhone.bind(this)}
-                            />
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.formatPhone(e.target.value, "phone2")}}
+                                   value={this.state.phone2} placeholder={'(XX) X XXXX-XXXX'}/>
                         </div>
                         <div className="form-group col-md-1" style={{display: this.state.tel2}}>
                             <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
@@ -269,48 +265,18 @@ class RegisterPersonalData extends Component {
                         </div>
                         <div className="form-group col-md-4" style={{display: this.state.tel3}}>
                             <label>Telefone ou celular</label>
-                            <MaskedInput
-                                mask={this.state.mask}
-                                className="form-control"
-                                placeholder={"(XX) XXXXX-XXXX"}
-                                required={true}
-                                guide={true}
-                                id={'phone1'}
-                                value={phone.phoneOne}
-                                onChange={this.submitPhone.bind(this)}
-                                onBlur={this.correctCharsPhone.bind(this)}
-                                onFocus={this.correctCharsPhone.bind(this)}
-                            />
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.formatPhone(e.target.value, "phone1")}}
+                                   value={this.state.phone1} placeholder={'(XX) X XXXX-XXXX'}/>
                         </div>
                         <div className="form-group col-md-4" style={{display: this.state.tel3}}>
                             <label title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 3)}/></label>
-                            <MaskedInput
-                                mask={this.state.mask}
-                                className="form-control"
-                                placeholder={"(XX) XXXXX-XXXX"}
-                                required={true}
-                                id={'phone2'}
-                                value={phone.phoneTwo}
-                                guide={true}
-                                onChange={this.submitPhone.bind(this)}
-                                onBlur={this.correctCharsPhone.bind(this)}
-                                onFocus={this.correctCharsPhone.bind(this)}
-                            />
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.formatPhone(e.target.value, "phone2")}}
+                                   value={this.state.phone2} placeholder={'(XX) X XXXX-XXXX'}/>
                         </div>
                         <div className="form-group col-md-4" style={{display: this.state.tel3}}>
                             <label title={'Remover'}><FaMinus style={{cursor: 'pointer'}} onClick={this.changeRemoveTel.bind(this, 3)}/></label>
-                            <MaskedInput
-                                mask={this.state.mask}
-                                className="form-control"
-                                placeholder={"(XX) XXXXX-XXXX"}
-                                required={true}
-                                guide={true}
-                                id={'phone3'}
-                                value={phone.phoneThree}
-                                onChange={this.submitPhone.bind(this)}
-                                onBlur={this.correctCharsPhone.bind(this)}
-                                onFocus={this.correctCharsPhone.bind(this)}
-                            />
+                            <input type={"text"} className={"form-control"} onChange={(e)=>{this.formatPhone(e.target.value, "phone3")}}
+                                   value={this.state.phone3} placeholder={'(XX) X XXXX-XXXX'}/>
                         </div>
                     </div>
                 </fieldset>

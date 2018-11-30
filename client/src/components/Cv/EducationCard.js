@@ -12,8 +12,8 @@ class EducationCard extends Component {
     }
 
     formatDate = () => {
-        const mouth = this.props.dateEnd.month;
-        const year = this.props.dateEnd.month;
+        const mouth = this.props.dateEnd.month.toString().length === 1 ? '0'+this.props.dateEnd.month : this.props.dateEnd.month;
+        const year = this.props.dateEnd.year;
         return mouth + '/' + year;
     };
 
@@ -43,24 +43,23 @@ class EducationCard extends Component {
                     <div className="timeline-time" style={{backgroundColor: colorCv}}>
                         {
                             OPTIONS_STATUS.map((tool, index) => {
-                                if(tool.value === status){
+                                if(tool.value === status && index === 1){
                                     return tool.label
-                                }
-                                if(index === 2){
-                                    return ' - ' + this.formatDate()
+                                }else if(tool.value === status){
+                                    return tool.label + ' - ' + this.formatDate()
                                 }
                             })
                         }
                         {
                             OPTIONS_SELECT_SEMESTER_OR_YEAR.year.map((tool, index)=>{
-                                if(tool.value === status){
+                                if(tool.value === semOrYear){
                                     return ' - '+ tool.label
                                 }
                             })
                         }
                         {
                             OPTIONS_SELECT_SEMESTER_OR_YEAR.semester.map((tool, index)=>{
-                                if(tool.value === status){
+                                if(tool.value === semOrYear){
                                     return ' - '+ tool.label
                                 }
                             })

@@ -14,7 +14,7 @@ function* registerCurriculum(action) {
         const res = yield call(setApi, action.data);
         yield put({ type: 'UPDATE_CURRICULUM', payload: { curriculum: res.data.Curriculum } });
         yield put(login(res.data.token));
-        yield put(push("/cv"));
+        yield put(push("/cv?id=" +res.data.Curriculum.key));
     }catch(error){
         yield [console.log(error)];
         yield put({type: 'FAILED_NEW_CURRICULUM', payload: {error: 'Houve um erro inesperado.\n Tente novamente!'}});
@@ -25,9 +25,9 @@ function setApi(data) {
     const token = getToken();
     const options = {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers: { 'authorization': `Bearer ${token}` },
         data: data,
-        url: '/register/curriculum',
+        url: '/curriculum/set',
     };
     return axios(options)
 }

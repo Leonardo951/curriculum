@@ -1,7 +1,17 @@
+const express = require('express');
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const { secretLogged } = require('../config/auth');
+
 module.exports = (req, res, next)=>{
-  const authHeader = req.headers.authorization;
-  const jwt = require('jsonwebtoken');
-  const { secretLogged } = require('../config/auth');
+
+    let authHeader;
+
+    if(req.headers.authorization){
+        authHeader = req.headers.authorization;
+    }else{
+        return res.status(401).send({ error: 'No token provider' });
+    }
 
   if(!authHeader)
       return res.status(401).send({ error: 'No token provider' });
@@ -24,3 +34,5 @@ module.exports = (req, res, next)=>{
       return next();
   })
 };
+
+module.exports = app => app.use('/curriculum', router);

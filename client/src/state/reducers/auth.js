@@ -5,7 +5,6 @@ const initial_state = {
     loading: false,
     failed: false,
     error: '',
-    token: '',
     key: ''
 };
 
@@ -19,7 +18,6 @@ const auth = (state = initial_state, action) => {
                 mail: action.payload.user.mail,
                 password: null,
                 failed: false,
-                token: action.payload.token,
                 loading: false,
                 key: action.payload.user.key,
             };

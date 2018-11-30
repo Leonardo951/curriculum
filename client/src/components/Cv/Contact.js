@@ -7,9 +7,8 @@ class Contact extends Component {
         super(props);
         this.state = {
             ball: false,
-            imgColor: '#ffffff',
-            map: "https://maps.google.com/maps?width=100%&amp;height=450&amp;hl=en&amp;q="+ props.curriculumData.zipCode +"+("+ props.auth.key +")&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
-        }
+            imgColor: '#ffffff'
+        };
     }
 
     hoverBoll(){
@@ -20,6 +19,7 @@ class Contact extends Component {
     };
 
     render() {
+
         return (
             <section id="contact-section" className="contact-section">
                 <div className="container-mat">
@@ -33,9 +33,9 @@ class Contact extends Component {
                                 <div className="cole l5 s12 contact-map" style={{height: '447px'}}>
                                     <div style={{width: '100%'}}>
                                         <iframe width="100%" height="450"
-                                                src={this.state.map}
+                                                src="https://maps.google.com/maps?width=100%&amp;height=450&amp;hl=en&amp;q=71805403+(teste)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
                                                 frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"><a
-                                            href="https://www.maps.ie/create-google-map/">Create Google Maps</a></iframe>
+                                            href="https://www.maps.ie/map-my-route/">Create Google Maps</a></iframe>
                                     </div>
                                     <br/>
                                 </div>
@@ -62,7 +62,6 @@ class Contact extends Component {
                                             <FaCircleNotch id="c-form-spinner"/>
                                         </fieldset>
                                     </form>
-
                                     <div className="c-form-alert hero-height" style={{height: '378px'}}>
                                         <div className="alert-content alert-attention w-block">
                                             <div className="alert-icon"><FaInfoCircle/>
@@ -110,7 +109,6 @@ class Contact extends Component {
 
 const mapStateToProps = state => ({
     colorCv: state.colorCv,
-    auth: state.auth,
     curriculumData: state.curriculumData
 });
 

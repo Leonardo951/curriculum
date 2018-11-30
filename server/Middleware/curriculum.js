@@ -3,8 +3,15 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secretRegister } = require('../config/auth');
 
-router.post('/curriculum', (req, res, next)=>{
-    const authHeader = req.headers.authorization;
+router.post('/set', async (req, res, next) =>{
+
+    let authHeader;
+
+    if(req.headers.authorization){
+        authHeader = req.headers.authorization;
+    }else{
+        return res.status(401).send({ error: 'No token provider' });
+    }
 
     if(!authHeader)
         return res.status(401).send({ error: 'No token provider' });
@@ -29,4 +36,4 @@ router.post('/curriculum', (req, res, next)=>{
     })
 });
 
-module.exports = app => app.use('/register', router);
+module.exports = app => app.use('/curriculum', router);

@@ -4,13 +4,20 @@ import { registerValidator } from '../../services/auth';
 import { push } from 'connected-react-router';
 
 function setApi(data) {
-    return axios.post('/auth/register', {data: data})
+    const options = {
+        method: 'POST',
+        data: data,
+        url: '/auth/register',
+    };
+    return axios(options)
+    // return axios.post('/auth/register', {data: data})
 }
 
 function* registerUser(action) {
     try {
         const data = yield call(setApi, action.data);
         if(data.data.error){
+            yield [console.log(data.data.error)];
             yield put({type: 'FAILED_NEW_REGISTER', payload: {error: data.data.error}});
         }else{
             yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum}});

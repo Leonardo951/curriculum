@@ -1,6 +1,8 @@
 import update from 'immutability-helper';
 
 const initial_state = {
+    isNew: false,
+    keyCurriculum: '',
     name: '',
     jobMain: '',
     website: '',
@@ -227,7 +229,22 @@ const curriculumData = (state = initial_state, action) => {
         case 'UPDATE_CURRICULUM':
             return {
                 ...state,
+                isNew: true,
+                keyCurriculum: action.payload.curriculum.key,
+                email: action.payload.curriculum.email,
+            };
+        case 'NOT_NEW':
+            return {
+                ...state,
+                isNew: false
+            };
+        case 'OPEN_CURRICULUM':
+            return {
+                keyCurriculum: action.payload.curriculum.key,
                 name: action.payload.curriculum.name,
+                jobMain: action.payload.curriculum.jobMain,
+                website: action.payload.curriculum.website,
+                email: action.payload.curriculum.mail,
                 otherMail: action.payload.curriculum.otherMail,
                 nationality: action.payload.curriculum.nationality,
                 dateBirth: action.payload.curriculum.dateBirth,
@@ -235,7 +252,7 @@ const curriculumData = (state = initial_state, action) => {
                 address: action.payload.curriculum.address,
                 city: action.payload.curriculum.city,
                 zipCode: action.payload.curriculum.zipCode,
-                uf: action.payload.curriculum.uf,
+                state: action.payload.curriculum.state,
                 phone: {
                     phoneOne: action.payload.curriculum.phone.phoneOne,
                     phoneTwo: action.payload.curriculum.phone.phoneTwo,
@@ -248,7 +265,17 @@ const curriculumData = (state = initial_state, action) => {
                 qualifications: action.payload.curriculum.qualifications,
                 additionalInfo: action.payload.curriculum.additionalInfo,
                 skills: action.payload.curriculum.skills,
-                socialNetworks: action.payload.curriculum.socialNetworks
+                socialNetworks: {
+                    Facebook: action.payload.curriculum.socialNetworks.Facebook,
+                    GPlus: action.payload.curriculum.socialNetworks.GPlus,
+                    Linkedin: action.payload.curriculum.socialNetworks.Linkedin,
+                    Twitter: action.payload.curriculum.socialNetworks.Twitter,
+                    Github: action.payload.curriculum.socialNetworks.Github,
+                    Pinterest: action.payload.curriculum.socialNetworks.Pinterest,
+                    Youtube: action.payload.curriculum.socialNetworks.Youtube,
+                    Instagram: action.payload.curriculum.socialNetworks.Instagram,
+                },
+                references: action.payload.curriculum.references,
             };
         default:
             return state;

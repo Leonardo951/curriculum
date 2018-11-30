@@ -224,3 +224,16 @@ export function cancelRegister() {
         type: 'CANCEL_REGISTER_CURRICULUM'
     }
 }
+// Entry especific curriculum
+export function getCurriculum(data) {
+    return {
+        type: 'LOADING_GET_CURRICULUM',
+        data
+    }
+}
+// Cancel option of new curriculum
+export function notNew() {
+    return {
+        type: 'NOT_NEW'
+    }
+}

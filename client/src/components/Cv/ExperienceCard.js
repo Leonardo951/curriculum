@@ -26,31 +26,33 @@ class ExperienceCard extends Component {
 
     textMainActivities = ()=> {
         let wordLimit = 15;
-        let text = '';
+        let text;
         this.props.mainAct.map((tool, index)=>{
-            text = text+'; '+ tool;
+            if(index === 0){
+                text = tool;
+            }else{
+                text = text+'; '+ tool;
+            }
         });
         let re = /[\s]+/gm, results = null, count = 0;
         while ((results = re.exec(text)) !== null && ++count < wordLimit) {}
         if (results !== null && count >= wordLimit) {
             let summary = text.substring(0, re.lastIndex - results[0].length);
-            text = summary + '... ';
-            this.setState({ textModify: text })
+            text = summary;
         }
+        this.setState({ textModify: text+"... " })
     };
 
     dateFormat = ()=> {
         const { current, periodWork } = this.props;
-        for(let index = 0; index === periodWork.length; index++){
-            const fromMonth = periodWork.from.month;
-            const fromYear = periodWork.from.year;
-            const toMonth = periodWork.to.month;
-            const toYear = periodWork.to.year;
-            if(current){
-                return fromMonth+"/"+fromYear+" - Atual";
-            }else{
-                return fromMonth+"/"+fromYear+" - "+toMonth+"/"+toYear;
-            }
+        const fromMonth = periodWork.from.month.toString().length === 1 ? '0'+periodWork.from.month : periodWork.from.month;
+        const fromYear = periodWork.from.year;
+        const toMonth = periodWork.to.month.toString().length === 1 ? '0'+periodWork.to.month : periodWork.from.month;
+        const toYear = periodWork.to.year;
+        if(current){
+            return fromMonth+"/"+fromYear+" - Atual";
+        }else{
+            return fromMonth+"/"+fromYear+" - "+toMonth+"/"+toYear;
         }
     };
 
@@ -70,7 +72,7 @@ class ExperienceCard extends Component {
                 <div className="timeline-panel w-block shadow-bg pd-30">
                     <div className="timeline-tag">
                         { company }
-                        { initials !== '' && ' - '+ initials }
+                        { initials && ' - '+ initials }
                     </div>
                     <div className="timeline-title timeline-title-alt">
                         { job }

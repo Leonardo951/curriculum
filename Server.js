@@ -9,9 +9,10 @@ const router = express.Router();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
+require('./server/Middleware/index')(app);
 require('./server/controller/index')(app);
 
-const route = router.get('/', (req, res, next)=>{
+const route = router.get('/', (req, res)=>{
     res.status(200).send({
         connect: "true"
     });

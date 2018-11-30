@@ -5,18 +5,18 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secretLogged } = require('../config/auth');
 
-router.post('/curriculum', async (req, res) =>{
+router.post('/set', async (req, res) =>{
 
-    const { name, otherMail, nationality, dateBirth, civilStatus, address,
-        city, zipCode, uf, phone, sex, deficient, formation, experience,
+    const { name, otherMail, jobMain, website, nationality, dateBirth, civilStatus, address,
+        city, zipCode, state, phone, sex, deficient, formation, experience,
         qualifications, additionalInfo, skills, socialNetworks } = req.body;
 
     try {
         const Curriculum = await curriculum.findOneAndUpdate({ "_id": req.curriculumId }, {
-            $set: { name, otherMail, nationality, dateBirth, civilStatus, address,
-                city, zipCode, uf, phone, sex, deficient, formation, experience,
+            $set: { name, otherMail, website, jobMain, nationality, dateBirth, civilStatus, address,
+                city, zipCode, state, phone, sex, deficient, formation, experience,
                 qualifications, additionalInfo, skills, socialNetworks, dateUpdate: Date.now() }
-        }, { returnNewDocument: true });
+        }, {returnNewDocument: true});
 
         const token = jwt.sign({ id: req.curriculumId }, secretLogged, {
             expiresIn: 28800,
@@ -29,4 +29,16 @@ router.post('/curriculum', async (req, res) =>{
     }
 });
 
-module.exports = app => app.use('/register', router);
+router.post('/get', async (req, res) =>{
+
+    try {
+        const Curriculum = await curriculum.findOne({ "key": req.body.key });
+
+        return res.status(200).send({ Curriculum })
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({ error: 'Curriculum not found: '+err })
+    }
+});
+
+module.exports = app => app.use('/curriculum', router);
