@@ -30,6 +30,7 @@ class ReferencesAdd extends Component {
     };
 
     render() {
+        let tools;
         return (
             <form ref="theDiv" className="c-form" style={{marginTop: this.props.activeTop,
                             transition: 'margin-top 0.8s', borderTop: this.props.activeTop === '40px' ? '1px solid '+this.props.colorCv : '0'}}>
@@ -40,9 +41,12 @@ class ReferencesAdd extends Component {
                         <option selected>Onde atuou com está pessoa?</option>
                         {
                             this.props.curriculumData.experience.map((tool, index)=>{
-                                return (
-                                    <option key={index} value={tool.company}>{tool.company}</option>
-                                )
+                                if(!tools.indexOf(tool)){
+                                    tools.push(tool);
+                                    return (
+                                        <option key={index} value={tool.company}>{tool.company}</option>
+                                    )
+                                }
                             })
                         }
                     </select>

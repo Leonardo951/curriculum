@@ -23,8 +23,10 @@ class RegisterPersonalData extends Component {
             phone2: "",
             phone3: "",
             otherMail: props.curriculumData.otherMail && true,
-            btnMail: true
+            btnMail: true,
+            mailValid: true
         };
+        this.refOtherMail = React.createRef();
     }
 
     handleChangeDate = date => this.props.changeDateBirth(date);
@@ -39,7 +41,8 @@ class RegisterPersonalData extends Component {
 
     otherMail = () => {
         const _new = !this.state.otherMail;
-        this.setState({ otherMail:  _new })
+        this.refOtherMail.focus();
+        this.setState({ otherMail:  _new });
     };
 
     changeRemoveTel(qnt){
@@ -50,13 +53,42 @@ class RegisterPersonalData extends Component {
         }
     };
 
+    testMail(strMail){
+        let usuario = strMail.substring(0, strMail.indexOf("@"));
+        let dominio = strMail.substring(strMail.indexOf("@")+ 1, strMail.length);
+        if ((usuario.length >=1) &&
+            (dominio.length >=3) &&
+            (usuario.search("@")===-1) &&
+            (dominio.search("@")===-1) &&
+            (usuario.search(" ")===-1) &&
+            (dominio.search(" ")===-1) &&
+            (dominio.search(".")!==-1) &&
+            (dominio.indexOf(".") >=1)&&
+            (dominio.lastIndexOf(".") < dominio.length - 1) || strMail === '') {
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    validMail = e =>{
+        if(this.testMail(e.target.value)){
+            this.setState({ mailValid:  true })
+        }else{
+            this.setState({ mailValid:  false })
+        }
+    };
+
     submitMail = e => {
         if(e.target.value.length > 0){
             this.setState({ btnMail:  false })
         }else{
-            this.setState({ btnMail:  true })
+            this.setState({ btnMail:  true });
         }
-        this.props.changeMail(e.target.value)
+        this.props.changeMail(e.target.value);
+        if(!this.state.mailValid){
+            this.validMail(e)
+        }
     };
 
     isNumber = n => {
@@ -112,15 +144,22 @@ class RegisterPersonalData extends Component {
                 <fieldset>
                     <div className="form-group">
                         <label>Nome completo</label>
-                        <input type={"text"} className={"form-control"} onChange={(e)=>{this.props.changeName(e.target.value)}}
-                               value={name} placeholder={'Nome completo'}/>
+                        <input type={"text"} style={{borderColor: '#dc3545'}} className={"form-control is-invalid"}
+                               onChange={(e)=>{this.props.changeName(e.target.value)}} value={name} placeholder={'Nome completo'}/>
+                        <div className="invalid-feedback">
+                            Por favor, insira seu nome completo.
+                        </div>
                     </div>
                     <div className={'row'}>
                         <div className="form-group col-md-11">
                             <label>E-mail</label>
-                            <input type={"email"} disabled={!this.state.otherMail} className={"form-control"}
-                                   value={this.state.otherMail ? otherMail : this.props.auth.mail}
-                                   placeholder={'example@mail.com'} onChange={this.state.otherMail && this.submitMail.bind(this)}/>
+                            <input type={"email"} disabled={!this.state.otherMail} className={!this.state.mailValid ? "form-control is-invalid" : "form-control"}
+                                   value={this.state.otherMail ? otherMail : this.props.auth.mail} style={{borderColor: !this.state.mailValid && '#dc3545'}}
+                                   placeholder={'example@mail.com'} onChange={this.state.otherMail && this.submitMail.bind(this)}
+                                   ref={el => this.refOtherMail = el} onBlur={this.validMail.bind(this)}/>
+                            <div className="invalid-feedback">
+                                Por favor, insira um e-mail válido.
+                            </div>
                         </div>
                         <div className="form-group col-md-1" style={{display: this.state.btnMail ? 'block' : 'none'}}>
                             <label style={{visibility: 'hidden'}}>idmscksdmcsd</label>
