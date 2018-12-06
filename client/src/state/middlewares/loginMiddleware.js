@@ -1,27 +1,27 @@
 import { takeLatest, put, call } from 'redux-saga/effects';
 import axios from 'axios';
-import { registerValidator } from '../../services/auth';
+import { login } from '../../services/auth';
 import { push } from 'connected-react-router';
 
 function setApi(data) {
     const options = {
         method: 'POST',
         data: data,
-        url: '/auth/register',
+        url: '/auth/authenticate',
     };
     return axios(options)
 }
 
-function* registerUser(action) {
+function* authenticateUser(action) {
     try {
         const data = yield call(setApi, action.data);
         if(data.data.error){
             yield [console.log(data.data.error)];
-            yield put({type: 'FAILED_NEW_REGISTER', payload: {error: data.data.error}});
+            yield put({type: 'FAILED_LOGIN', payload: {error: data.data.error}});
         }else{
-            yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum}});
-            yield put(registerValidator(data.data.token));
-            yield put(push("/cV?"+ data.data.Curriculum.key));
+            yield put({type: 'LOGIN_VALID', payload: {user: data.data.user}});
+            yield put(login(data.data.token));
+            yield put(push("/cv?"+data.data.user.key));
         }
 
     }catch(error){
@@ -29,8 +29,8 @@ function* registerUser(action) {
     }
 }
 
-export default function* requestAddUser() {
+export default function* requestLogin() {
     yield [
-        takeLatest('REQUEST_LOADING', registerUser)
+        takeLatest('REQUEST_LOGIN', authenticateUser)
     ];
 }

@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import UserNavbar from './UserNavbar';
 import { Link } from 'react-router-dom';
 import BtnForLogin from "../UI/BtnForLogin";
+import {bindActionCreators} from "redux";
+import * as appActions from "../state/actions/appActions";
+import connect from "react-redux/es/connect/connect";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+    }
+
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -40,11 +50,18 @@ export default class Navbar extends Component {
                             <span className="nav-link disabled">Disabled</span>
                         </li>
                     </ul>
-                    <BtnForLogin/>
-                    {/*<UserNavbar/>*/}
+                    {this.props.app.screen !== 'login' && <BtnForLogin/>}
                 </div>
             </nav>
         );
     }
 }
 
+const mapStateToProps = state => ({
+    app: state.app
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(appActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps())(Navbar);

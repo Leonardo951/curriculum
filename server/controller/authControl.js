@@ -3,7 +3,7 @@ const curriculum = require('../model/curriculum');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const { secretRegister } = require('../config/auth');
+const { secretRegister, secretLogged } = require('../config/auth');
 
 router.post('/register', async (req, res) =>{
     const { cpf } = req.body;
@@ -36,22 +36,48 @@ router.post('/register', async (req, res) =>{
 });
 
 router.post('/authenticate', async (req, res) =>{
-   const { mail, password } = req.body;
-   const user = await curriculum.findOne({ mail }).select('+password');
+   const { mail, pass } = req.body;
 
-   if(!user)
-       return res.status(400).send({ error: 'User not found' });
+   try {
+       const user = await curriculum.findOne({ mail }).select('+password');
 
-   if(!await bcrypt.compare(password, user.password))
-       return res.status(400).send({error: 'Invalid password'});
+       if(!user)
+           return res.status(200).send({ error: 'User not found' });
 
-   user.password = undefined;
+       if(!await bcrypt.compare(pass, user.password))
+           return res.status(200).send({error: 'Invalid password'});
 
-   const token = jwt.sign({ id: user.id }, secret, {
-       expiresIn: 86400,
-    });
+       user.password = undefined;
 
-   res.send({ user, token });
+       const token = jwt.sign({ id: user.id }, secretLogged, {
+           expiresIn: 3600,
+       });
+
+       res.send({ user, token });
+
+   } catch (err) {
+       console.log(err);
+       return res.status(400).send({ error: 'Failed login: '+err })
+   }
+
+});
+
+router.post('/reset/password', async (req, res) =>{
+    const { mail } = req.body;
+
+    try {
+        const user = await curriculum.findOne({ mail });
+
+        if(!user)
+            return res.status(200).send({ error: 'Este e-mail não existe em nosso sistema' });
+            // return res.status(200).send({ error: 'User not found' });
+
+        res.send({ submit: true });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(400).send({ error: 'Failed login: '+err })
+    }
 
 });
 

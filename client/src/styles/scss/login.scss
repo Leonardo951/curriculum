@@ -209,9 +209,9 @@
   color: #7198d6;
   background-color: #dedfe0;
   margin: 0;
-  padding: 5px;
+  padding: 7px;
   box-sizing: border-box;
-  border-radius: 3px;
+  border-radius: 40px;
   cursor: pointer;
 }
 .h3{
@@ -545,4 +545,11 @@
   .form-wrap {
     margin-top: 40px
   }
+}
+.registerNow {
+  cursor: pointer;
+  text-decoration: underline #fff !important;
+}
+.registerNow:hover {
+  color: #0000FF;
 }

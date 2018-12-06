@@ -53,10 +53,10 @@ class RegisterPersonalData extends Component {
         }
     };
 
-    testMail(strMail){
+    validEmail(strMail){
         let usuario = strMail.substring(0, strMail.indexOf("@"));
         let dominio = strMail.substring(strMail.indexOf("@")+ 1, strMail.length);
-        if ((usuario.length >=1) &&
+        if((usuario.length >=1) &&
             (dominio.length >=3) &&
             (usuario.search("@")===-1) &&
             (dominio.search("@")===-1) &&
@@ -72,7 +72,7 @@ class RegisterPersonalData extends Component {
     };
 
     validMail = e =>{
-        if(this.testMail(e.target.value)){
+        if(this.validEmail(e.target.value)){
             this.setState({ mailValid:  true })
         }else{
             this.setState({ mailValid:  false })

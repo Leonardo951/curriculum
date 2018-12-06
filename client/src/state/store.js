@@ -6,6 +6,7 @@ import history from '../screens/history';
 import colorCv from "./reducers/colorCv";
 import auth from './reducers/auth';
 import curriculumData from './reducers/curriculum';
+import app from "./reducers/app";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,7 +18,8 @@ const middleware = [
 const rootReducers = combineReducers({
     colorCv,
     auth,
-    curriculumData
+    curriculumData,
+    app
 });
 
 const store = createStore(connectRouter(history)(rootReducers),
