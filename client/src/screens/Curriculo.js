@@ -5,9 +5,7 @@ import {FaChevronLeft, FaChevronRight} from "react-icons/fa";
 import scrollToComponent from "react-scroll-to-component";
 import RegisterExperiences from "../components/Curriculum/RegisterExperiences";
 import RegisterOthersData from "../components/Curriculum/RegisterOthersData";
-import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
-import * as colorActions from "../state/actions/cv/colorCv";
 import connect from "react-redux/es/connect/connect";
 import * as curriculumActions from "../state/actions/curriculumAction";
 

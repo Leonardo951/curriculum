@@ -137,7 +137,7 @@ class RegisterPersonalData extends Component {
 
     render() {
 
-        const { name, otherMail, nationality, dateBirth, civilStatus, address, zipCode, city, uf, phone, sex } = this.props.curriculumData;
+        const { name, otherMail, nationality, dateBirth, civilStatus, address, zipCode, city, uf, sex } = this.props.curriculumData;
 
         return (
             <div>
@@ -158,7 +158,7 @@ class RegisterPersonalData extends Component {
                                    placeholder={'example@mail.com'} onChange={this.state.otherMail && this.submitMail.bind(this)}
                                    ref={el => this.refOtherMail = el} onBlur={this.validMail.bind(this)}/>
                             <div className="invalid-feedback">
-                                Por favor, insira um e-mail válido.
+                                E-mail inválido!
                             </div>
                         </div>
                         <div className="form-group col-md-1" style={{display: this.state.btnMail ? 'block' : 'none'}}>
@@ -197,7 +197,7 @@ class RegisterPersonalData extends Component {
                                 calendarIcon={<FaCalendarAlt/>}
                                 onChange={this.handleChangeDate}
                                 required={true}
-                                maxDate={new Date()}
+                                maxDate={new Date()-14}
                                 value={dateBirth}
                                 showLeadingZeros={false}
                                 locale={'pt-br'}

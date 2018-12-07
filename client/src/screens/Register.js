@@ -1,113 +1,69 @@
 import React, { Component } from 'react';
-import InputLabel from "../UI/InputLabel";
-import { Link } from 'react-router-dom';
 import connect from "react-redux/es/connect/connect";
 import { bindActionCreators } from "redux";
-import axios from 'axios';
 import * as authActions from '../state/actions/authAction';
+import { cpfMaskInput, cpfValid, mailValid } from "../functions/Validation";
+import ReactNotification from "react-notifications-component";
 
 class Register extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            cpfValid: 'none',
-            mail: 'none',
-            pass: 'none',
-            password: '',
+            cpfValid: true,
+            mailValid: true,
+            passValid: true,
+            pwValid: true,
             cpf: '',
-            email: ''
+            mail: '',
+            password: '',
+            pass: '',
         };
+
+        this.notificationDOMRef = React.createRef();
     }
 
-    TestaCPF(strCPF) {
-        let Soma;
-        let Resto;
-        Soma = 0;
-        strCPF = strCPF.replace(/[^\d]+/g,'');
-        if (strCPF === "00000000000" ||
-            strCPF === "11111111111" ||
-            strCPF === "22222222222" ||
-            strCPF === "33333333333" ||
-            strCPF === "44444444444" ||
-            strCPF === "55555555555" ||
-            strCPF === "66666666666" ||
-            strCPF === "77777777777" ||
-            strCPF === "88888888888" ||
-            strCPF === "99999999999"){
-            this.setState({cpfValid: 'block'});
-            return false;
-        }else if(strCPF.length < 11){
-            this.setState({cpfValid: 'block'});
-            return false;
-        }
-
-        for (let i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11))  Resto = 0;
-        if (Resto !== parseInt(strCPF.substring(9, 10)) ){
-            this.setState({cpfValid: 'block'});
-            return false;
-        }
-
-        Soma = 0;
-        for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
-        Resto = (Soma * 10) % 11;
-
-        if ((Resto === 10) || (Resto === 11))  Resto = 0;
-        if (Resto !== parseInt(strCPF.substring(10, 11) ) ) {
-            this.setState({cpfValid: 'block'});
-            return false;
+    cpfFormat = e =>{
+        const cpf = cpfMaskInput(e.target.value, this.state.cpf);
+        if(cpf.length === 14){
+            this.setState({ cpf, cpfValid: cpfValid(cpf) })
         }else{
-            this.setState({cpfValid: 'none', cpf: strCPF});
-            return true;
+            this.setState({ cpf, cpfValid: true })
         }
-    }
+    };
 
-    testaMail(strMail){
-        let usuario = strMail.substring(0, strMail.indexOf("@"));
-        let dominio = strMail.substring(strMail.indexOf("@")+ 1, strMail.length);
-        if ((usuario.length >=1) &&
-            (dominio.length >=3) &&
-            (usuario.search("@")===-1) &&
-            (dominio.search("@")===-1) &&
-            (usuario.search(" ")===-1) &&
-            (dominio.search(" ")===-1) &&
-            (dominio.search(".")!==-1) &&
-            (dominio.indexOf(".") >=1)&&
-            (dominio.lastIndexOf(".") < dominio.length - 1) || strMail === '')
-        {
-            this.setState({mail: 'none', email: strMail});
-            return true;
-        }else{
-            this.setState({mail: 'block'});
-            return false;
-        }
-    }
+    cpfValid = e =>{
+        this.setState({ cpfValid: cpfValid(e.target.value) })
+    };
 
-    ValidPass(confirm, strPass){
-        if(!confirm) {
-            this.setState({password: strPass});
-            return false;
+    mailValid = e =>{
+        this.setState({ mailValid: mailValid(e.target.value) });
+    };
+
+    validPw = e =>{
+        if(e.target.value.length < 8 && e.target.value.length !== 0){
+            this.setState({ pwValid: false })
         }else{
-            if(this.state.password !== strPass){
-                this.setState({pass: 'block'});
-                return true;
-            }else{
-                this.setState({pass: 'none'});
-                return false;
-            }
+            this.setState({ pwValid: true })
         }
-    }
+    };
+
+    passValid = e =>{
+        if(e.target.value !== this.state.password && e.target.value.length !== 0){
+            this.setState({ passValid: false })
+        }else{
+            this.setState({ passValid: true })
+        }
+    };
 
     saveData = ()=>{
         // verify valid
-        if(this.state.mail === 'none' || this.state.cpfValid === 'none' || this.state.pass === 'block'){
+        const { cpf, mail, pass, password, cpfValid, mailValid, passValid, pwValid } = this.state;
+        if(cpfValid && mailValid && passValid && pwValid && cpf !== '' && mail !== '' && password !== '' && pass !== ''){
             const obj = {
-                cpf: this.state.cpf,
-                mail: this.state.email,
-                password: this.state.password,
+                cpf: cpf.replace(".", "").replace(".", "").replace("-", ""),
+                mail,
+                password,
             };
             this.props.newUser(Object.assign(obj, this.props.curriculumData));
         }
@@ -135,12 +91,24 @@ class Register extends Component {
                                     <h2 className="card-title" style={{fontSize: '35px'}}>
                                         Seus dados ?
                                     </h2>
-                                    <InputLabel label={'CPF'} place={"Somente números"} help={helpCpf}
-                                                viewCpf={this.TestaCPF.bind(this)}/>
-                                    <small style={{color: 'red', display: this.state.cpfValid}}>O CPF digitado não é válido.</small>
-                                    <InputLabel label={'E-mail'} type={'email'} place={"example@mail.com"}
-                                                viewMail={this.testaMail.bind(this)}/>
-                                    <small style={{color: 'red', display: this.state.mail}}>O e-mail digitado não é válido.</small>
+                                    <div className="form-group">
+                                        <label>CPF</label>
+                                        <input type={"text"} style={{borderColor: !this.state.cpfValid && '#dc3545'}} value={this.state.cpf}
+                                               className={!this.state.cpfValid ? "form-control is-invalid" : "form-control"}
+                                               onBlur={this.cpfValid.bind(this)} onChange={this.cpfFormat.bind(this)} placeholder={'Somente números'}/>
+                                        <div className="invalid-feedback">
+                                            CPF inválido!
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>E-mail</label>
+                                        <input type={"email"} style={{borderColor: !this.state.mailValid && '#dc3545'}} value={this.state.mail}
+                                               className={!this.state.mailValid ? "form-control is-invalid" : "form-control"} placeholder={'example@mail.com'}
+                                               onBlur={this.mailValid.bind(this)} onChange={e=>{this.setState({ mail: e.target.value, mailValid: true })}} />
+                                        <div className="invalid-feedback">
+                                            E-mail inválido!
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,22 +116,36 @@ class Register extends Component {
                             <div className="card">
                                 <div className="card-body">
                                     <h2 className="card-title" style={{fontSize: '35px'}}>Proteja sua conta !</h2>
-                                    <InputLabel label={'Senha'} type={'password'} confirm={false} viewSenha={this.ValidPass.bind(this)}/>
-                                    <InputLabel label={'Digite sua senha novamente'} confirm={true} type={'password'} viewSenha={this.ValidPass.bind(this)} />
-                                    <small style={{color: 'red', display: this.state.pass}}>Ops! As senhas são diferentes.</small>
+                                    <div className="form-group">
+                                        <label>Senha</label>
+                                        <input type={"password"} style={{borderColor: !this.state.pwValid && '#dc3545'}} value={this.state.password}
+                                               className={!this.state.pwValid ? "form-control is-invalid" : "form-control"}
+                                               onBlur={this.validPw.bind(this)} onChange={e=>{this.setState({ password: e.target.value, pwValid: true })}} />
+                                        <div className="invalid-feedback">
+                                            Por favor, crie uma senha com no mínimo 8 caracteres.
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Confirme sua senha</label>
+                                        <input type={"password"} style={{borderColor: !this.state.passValid || !this.state.pwValid && '#dc3545'}}
+                                               className={!this.state.passValid ? "form-control is-invalid" : "form-control"} value={this.state.pass}
+                                               onBlur={this.passValid.bind(this)} onChange={e=>{this.setState({ pass: e.target.value, passValid: true })}} />
+                                        <div className="invalid-feedback">
+                                            Ops! As senhas são diferentes.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div style={{marginTop: "1em"}}>
-                        {/*<Link to={'/curriculo'}>*/}
                         <button type="button" className="btn btn-success text-uppercase btn-lg btn-block"
                                 onClick={this.saveData}>
                             Criar meu currículo agora
                         </button>
-                        {/*</Link>*/}
                     </div>
                 </form>
+                <ReactNotification ref={this.notificationDOMRef} />
             </div>
         );
     }

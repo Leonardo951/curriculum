@@ -26,7 +26,6 @@ class Cv extends Component {
     constructor(props){
         super(props);
         this.state = {
-            text: 'http://cvcloud/cv/'+props.auth.key,
             copied: false
         };
     }
@@ -69,7 +68,7 @@ class Cv extends Component {
                         this.props.curriculumData.keyCurriculum === this.props.auth.key &&
                         <h6>
                             <div style={{fontWeight: 'bold', marginRight: '15px'}}>Compartilhe seu currículo: </div>
-                            { this.state.text }
+                            http://cvcloud/cv/{ " "+this.props.curriculumData.keyCurriculum }
                             <CopyToClipboard text={this.state.text} onCopy={this.copytext.bind(this)}>
                                 <FaShareSquare style={{marginLeft: '15px', fontSize: '20px', cursor: 'pointer'}} title={'Copiar'}/>
                             </CopyToClipboard>

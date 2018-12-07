@@ -3,13 +3,10 @@ import axios from 'axios';
 import { registerValidator } from '../../services/auth';
 import { push } from 'connected-react-router';
 
-function setApi(data) {
-    const options = {
-        method: 'POST',
-        data: data,
-        url: '/auth/register',
-    };
-    return axios(options)
+export default function* requestAddUser() {
+    yield [
+        takeLatest('REQUEST_LOADING', registerUser)
+    ];
 }
 
 function* registerUser(action) {
@@ -29,8 +26,11 @@ function* registerUser(action) {
     }
 }
 
-export default function* requestAddUser() {
-    yield [
-        takeLatest('REQUEST_LOADING', registerUser)
-    ];
+function setApi(data) {
+    const options = {
+        method: 'POST',
+        data: data,
+        url: '/auth/register',
+    };
+    return axios(options)
 }

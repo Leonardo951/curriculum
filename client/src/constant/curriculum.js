@@ -79,6 +79,8 @@ export const OPTIONS_STATUS = [
     {value: 'completo', label: 'Concluído'},
 ];
 
+export const INPROGRESS = OPTIONS_STATUS[1].value;
+
 export const PICKERLANG = {
     months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     from: 'Início:', to: 'Fim:',

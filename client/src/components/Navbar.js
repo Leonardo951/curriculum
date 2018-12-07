@@ -18,7 +18,7 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to={'/'}>
-                    <span className="navbar-brand">Resume</span>
+                    <span className="navbar-brand">CV CLOUD</span>
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

@@ -9,7 +9,8 @@ class ExperienceCard extends Component {
             displayFront: 'block',
             displayBack: 'none',
             back: false,
-            textModify: ''
+            textModify: '',
+            canRotate: true
         }
     }
 
@@ -39,8 +40,10 @@ class ExperienceCard extends Component {
         if (results !== null && count >= wordLimit) {
             let summary = text.substring(0, re.lastIndex - results[0].length);
             text = summary;
+            this.setState({ textModify: text+"... " })
+        }else{
+            this.setState({ canRotate: false, textModify: text+"." })
         }
-        this.setState({ textModify: text+"... " })
     };
 
     dateFormat = ()=> {
@@ -80,7 +83,10 @@ class ExperienceCard extends Component {
                     </div>
                     <div className="timeline-desc text-center" style={{display: this.state.displayFront}}>
                         { this.state.textModify }
-                        <strong style={{cursor: 'pointer', color: 'blue'}} onClick={this.mudeDisplay.bind(this)}>Ver mais</strong>
+                        {
+                            this.state.canRotate &&
+                            <strong style={{cursor: 'pointer', color: 'blue'}} onClick={this.mudeDisplay.bind(this)}>Ver mais</strong>
+                        }
                     </div>
                     <div className="timeline-desc text-center" style={{display: this.state.displayBack}}>
                         {
