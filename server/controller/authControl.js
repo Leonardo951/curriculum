@@ -4,21 +4,30 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { secretRegister, secretLogged } = require('../config/auth');
+const { emailIsValid, cpfIsValid } = require('../functions/validation');
 
 router.post('/register', async (req, res) =>{
-    const { cpf } = req.body;
+    const { cpf, mail, password } = req.body;
 
     try {
-    if(await curriculum.findOne({ cpf }))
-        return res.status(200).send({error: "CPF já cadastrado"});
+        if(await curriculum.findOne({ cpf }))
+            return res.status(200).send({error: "CPF já cadastrado"});
 
-        // forEach()
+        if(!cpfIsValid(cpf))
+            return res.status(200).send({error: "O CPF informado não é válido"});
 
-        req.body.key = Math.random().toString(36).slice(-10);
-        const { key } = req.body;
+        if(!emailIsValid(mail))
+            return res.status(200).send({error: "O e-mail informado é inválido"});
 
-        if(await curriculum.findOne({ key }))
-            return res.status(200).send({error: "Tente novamente!"});
+        if(password.length < 8)
+            return res.status(200).send({error: "A senha informada não possui os requisitos necessários"});
+
+        while(true) {
+            req.body.key = Math.random().toString(36).slice(-10);
+            if(!await curriculum.findOne({ key: req.body.key })){
+                break;
+            }
+        }
 
         const Curriculum = await curriculum.create(req.body);
 

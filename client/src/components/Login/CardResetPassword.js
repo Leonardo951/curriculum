@@ -4,9 +4,7 @@ import * as authActions from "../../state/actions/authAction";
 import connect from "react-redux/es/connect/connect";
 import { FaTimes } from "react-icons/fa";
 import ReactNotification from "react-notifications-component";
-import NotificationSuccess from "../../UI/notifications/NotificationSuccess";
-import NotificationError from "../../UI/notifications/NotificationError";
-import NotificationAwesome from "../../UI/notifications/NotificationAwesome";
+import { NotificationSuccess, NotificationAwesome, NotificationError } from "../../functions/Notifications";
 
 class CardResetPassword extends Component {
 
@@ -65,6 +63,7 @@ class CardResetPassword extends Component {
 
     successResetPassword = ()=> {
         this.notificationDOMRef.current.addNotification(NotificationSuccess({
+            useIcon: true,
             title: "Pronto!",
             message: "Seu e-mail para redefinição de senha deve chegar em breve."
         }));
@@ -88,6 +87,7 @@ class CardResetPassword extends Component {
 
     errorResetPassword = ()=> {
         this.notificationDOMRef.current.addNotification(NotificationError({
+            useIcon: true,
             title: "Ops!",
             message: this.props.auth.error
         }));

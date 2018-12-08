@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import * as authActions from '../state/actions/authAction';
 import { cpfMaskInput, cpfValid, mailValid } from "../functions/Validation";
 import ReactNotification from "react-notifications-component";
+import {NotificationError, NotificationWarning} from "../functions/Notifications";
 
 class Register extends Component {
 
@@ -18,6 +19,7 @@ class Register extends Component {
             mail: '',
             password: '',
             pass: '',
+            qntAttempts: 0
         };
 
         this.notificationDOMRef = React.createRef();
@@ -57,16 +59,40 @@ class Register extends Component {
     };
 
     saveData = ()=>{
-        // verify valid
         const { cpf, mail, pass, password, cpfValid, mailValid, passValid, pwValid } = this.state;
         if(cpfValid && mailValid && passValid && pwValid && cpf !== '' && mail !== '' && password !== '' && pass !== ''){
-            const obj = {
+            this.props.newUser({
+                key: '',
                 cpf: cpf.replace(".", "").replace(".", "").replace("-", ""),
                 mail,
                 password,
-            };
-            this.props.newUser(Object.assign(obj, this.props.curriculumData));
+            });
+            this.setState({qntAttempts: 0})
+        }else {
+            if(cpf !== '' && mail !== '' && password !== '' && pass !== '' && this.state.qntAttempts > 3){
+                this.warningRegister('Há campos com dados inválidos')
+            }else if (this.state.qntAttempts > 3) {
+                this.warningRegister('Há campos sem dados')
+            }
+            this.setState({qntAttempts: this.state.qntAttempts + 1})
         }
+    };
+
+    warningRegister = message =>{
+        this.notificationDOMRef.current.addNotification(NotificationWarning({
+            useIcon: true,
+            title: 'Não é possível prosseguir',
+            message
+        }));
+    };
+
+    errorExecuteRegister = () => {
+        this.notificationDOMRef.current.addNotification(NotificationError({
+            useIcon: true,
+            title: 'Houve um erro!',
+            message: this.props.auth.error
+        }));
+        this.props.rebootConfig();
     };
 
     render() {
@@ -146,12 +172,14 @@ class Register extends Component {
                     </div>
                 </form>
                 <ReactNotification ref={this.notificationDOMRef} />
+                { this.props.auth.failed && this.errorExecuteRegister() }
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
+    auth: state.auth,
     curriculumData: state.curriculumData
 });
 

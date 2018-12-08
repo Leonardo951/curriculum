@@ -3,25 +3,28 @@ const isNumber = n => {
 };
 
 export const cpfMaskInput = (cpf, cpfCurrent) => {
-    const cpfJoin = cpf;
     cpf = cpf.split('');
-    if((cpf.length < 15 && isNumber(cpf.join('').replace(".", "").replace(".", "").replace("-", ""))) || cpfJoin === ""){
-        if(cpfCurrent.length < cpf.length){
-            if(cpf.length === 3){
-                cpf.splice(3,0,'.')
-            }else if(cpf.length === 7){
-                cpf.splice(7,0,'.')
-            }else if(cpf.length === 11){
-                cpf.splice(11,0,'-')
-            }
-        }
-        if(cpf.length >= 12 && cpf[11] !== '-'){
-            cpf.splice(11,0,'-')
-        }else if(cpf.length >= 8 && cpf[7] !== '.'){
-            cpf.splice(7,0,'.')
-        }else if(cpf.length >= 4 && cpf[3] !== '.'){
-            cpf.splice(3,0,'.')
-        }
+    if(cpf.length < 15){
+        cpf = cpf.filter((tool, i) => {
+            return isNumber(tool)
+        });
+        if(cpf.length >= 1 && !isNumber(cpf[0])) return cpfCurrent;
+        if(cpf.length >= 2 && !isNumber(cpf[1]))return cpfCurrent;
+        if(cpf.length >= 3 && !isNumber(cpf[2]))return cpfCurrent;
+        if(cpf.length >= 4 && cpf[3] !== '.') cpf.splice(3, 0, '.');
+        if(cpf.length >= 5 && !isNumber(cpf[4])) return cpfCurrent;
+        if(cpf.length >= 6 && !isNumber(cpf[5])) return cpfCurrent;
+        if(cpf.length >= 7 && !isNumber(cpf[6])) return cpfCurrent;
+        if(cpf.length >= 8 && cpf[7] !== '.') cpf.splice(7,0,'.');
+        if(cpf.length >= 9 && !isNumber(cpf[8])) return cpfCurrent;
+        if(cpf.length >= 10 && !isNumber(cpf[9])) return cpfCurrent;
+        if(cpf.length >= 11 && !isNumber(cpf[10])) return cpfCurrent;
+        if(cpf.length >= 12 && cpf[11] !== '-') cpf.splice(11,0,'-');
+        if(cpf.length >= 13 && !isNumber(cpf[12])) return cpfCurrent;
+        if(cpf.length >= 14 && !isNumber(cpf[13])) return cpfCurrent;
+        if(cpf.length === 3 && cpfCurrent.length < cpf.length) cpf.splice(3, 0, '.');
+        if(cpf.length === 7 && cpfCurrent.length < cpf.length) cpf.splice(7,0,'.');
+        if(cpf.length === 11 && cpfCurrent.length < cpf.length) cpf.splice(11,0,'-');
         return cpf.join('')
     }else{
         return cpfCurrent
@@ -45,7 +48,7 @@ export const cpfValid = strCPF => {
             strCPF === "88888888888" ||
             strCPF === "99999999999"){
             return false
-        }else if(strCPF.length < 11) {
+        }else if(strCPF.length > 11) {
             return false
         }
 
@@ -67,6 +70,8 @@ export const cpfValid = strCPF => {
         }else{
             return true
         }
+    }else{
+        return true
     }
 };
 

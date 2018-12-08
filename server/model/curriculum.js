@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs'); //ver mais. serve para encriptar uma senha
 let curriculumSchema = new mongoose.Schema({
     key: { type: String, unique: true, required: true},
     cpf: { type: String, unique: true, required: true},
-    mail: { type: String, unique: true, lowercase: true, required: true},
+    mail: { type: String, lowercase: true, required: true},
     password: { type: String, select: false, required: true},
     dateUpdate: { type: Date, default: Date.now(), required: true},
     name: { type: String, lowercase: true },
