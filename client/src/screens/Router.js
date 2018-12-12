@@ -9,11 +9,13 @@ import Register from "./Register";
 import Curriculo from './Curriculo';
 import Cv from './Cv';
 import Login from "./Login";
+import Loading from "../components/Loading";
 
 const ScreensRoot = () => (
     <ConnectedRouter history={history}>
         <div>
             <Navbar/>
+            <Loading/>
             <Switch>
                 <Route exact path="/" component={ScreenHomePageHome} />
                 <Route exact path="/register" component={Register} />

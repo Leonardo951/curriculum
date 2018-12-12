@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FaCircle } from 'react-icons/fa';
 import connect from "react-redux/es/connect/connect";
-import { OPTIONS_STATUS,OPTIONS_UNIFINISHED, OPTIONS_SELECT_SEMESTER_OR_YEAR } from '../../constant/curriculum';
+import { OPTIONS_STATUS,OPTIONS_UNIFINISHED, OPTIONS_SELECT_SEMESTER_OR_YEAR } from '../../constant/curriculumOptions';
 
 class EducationCard extends Component {
     constructor(props){

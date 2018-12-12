@@ -44,3 +44,20 @@ comands: https://felipetoscano.com.br/primeiros-passos-no-mongodb/
 video.https://www.youtube.com/watch?v=BN_8bCfVp88
 
 https://blog.rocketseat.com.br/reactjs-autenticacao/
+outro curriculo: http://trimatrixlab.com/store/flatrica/index-normal.html
+http://preview.themeforest.net/item/rstill-cvresume/full_screen_preview/18960428
+https://preview.themeforest.net/item/pro-card-material-cv-resume-vcard-template/full_screen_preview/20111046
+http://preview.themeforest.net/item/portobsb-portfolio-vcard-resume-cv-template-blog/full_screen_preview/22951891
+https://preview.themeforest.net/item/patrick-personal-vcard-resume-cv-template/full_screen_preview/22390204
+http://preview.themeforest.net/item/persona-minimal-resumecv-template/full_screen_preview/14814584
+http://preview.themeforest.net/item/ultra-responsive-resume-cv-template/full_screen_preview/20384781
+https://watson-vcard.netlify.com/index-dark-particles2.html
+http://preview.themeforest.net/item/cvitae-responsive-materialized-resume/full_screen_preview/17331257
+http://preview.themeforest.net/item/resumedojo-resume-portfolio-html-premium-theme/full_screen_preview/14894286
+http://preview.themeforest.net/item/difference-cvresume-template/full_screen_preview/15368490
+http://tobiasahlin.com/spinkit/
+
+
+http://www.davidhu.io/react-spinners/
+
+http://projects.wojtekmaj.pl/react-pdf/

@@ -22,7 +22,10 @@ router.post('/set', async (req, res) =>{
             expiresIn: 28800,
         });
 
-        return res.status(200).send({ Curriculum, token })
+        setTimeout(()=>{
+            return res.status(200).send({ Curriculum, token })
+        },5000);
+        
     } catch (err) {
         console.log(err);
         return res.status(400).send({ error: 'Failed registration: '+err })
@@ -34,7 +37,10 @@ router.post('/get', async (req, res) =>{
     try {
         const Curriculum = await curriculum.findOne({ "key": req.body.key });
 
-        return res.status(200).send({ Curriculum })
+
+        setTimeout(()=>{
+            return res.status(200).send({ Curriculum })
+        },5000);
     } catch (err) {
         console.log(err);
         return res.status(400).send({ error: 'Curriculum not found: '+err })

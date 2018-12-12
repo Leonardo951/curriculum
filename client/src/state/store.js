@@ -7,6 +7,7 @@ import colorCv from "./reducers/colorCv";
 import auth from './reducers/auth';
 import curriculumData from './reducers/curriculum';
 import app from "./reducers/app";
+import picker from "./reducers/DatePicker";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -19,7 +20,8 @@ const rootReducers = combineReducers({
     colorCv,
     auth,
     curriculumData,
-    app
+    app,
+    picker
 });
 
 const store = createStore(connectRouter(history)(rootReducers),

@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { FaPlus, FaMinus, FaCalendarAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import MaskedInput from "react-text-mask";
-import DatePicker from 'react-date-picker';
 import { bindActionCreators } from "redux";
 import * as curriculumActions from '../../state/actions/curriculumAction';
 import connect from "react-redux/es/connect/connect";
-import Datetime from 'react-datetime';
 import '../../styles/cv/datetime.css';
-import { OPTIONS_CIVIL_STATUS, OPTIONS_STATES_OF_BRAZIL, OPTIONS_SEX } from "../../constant/curriculum";
-import scrollToComponent from "react-scroll-to-component";
+import { OPTIONS_CIVIL_STATUS, OPTIONS_STATES_OF_BRAZIL, OPTIONS_SEX } from "../../constant/curriculumOptions";
+import DatePicker from "../../UI/DatePicker/DatePicker";
 
 class RegisterPersonalData extends Component {
 
@@ -24,12 +22,11 @@ class RegisterPersonalData extends Component {
             phone3: "",
             otherMail: props.curriculumData.otherMail && true,
             btnMail: true,
-            mailValid: true
+            mailValid: true,
+            value: new Date().toISOString()
         };
         this.refOtherMail = React.createRef();
     }
-
-    handleChangeDate = date => this.props.changeDateBirth(date);
 
     changeAddTels = () => {
         if(this.state.tel1 === 'block'){
@@ -69,6 +66,13 @@ class RegisterPersonalData extends Component {
         }else{
             return false;
         }
+    };
+
+    handleChange = e=> {
+        this.setState({
+            value: e.target.value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
+            // formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
+        });
     };
 
     validMail = e =>{
@@ -191,17 +195,7 @@ class RegisterPersonalData extends Component {
                         </div>
                         <div className="col">
                             <label>Data de nascimento</label>
-                            {/*<Datetime timeFormat={false} value={dateBirth} onChange={this.handleChangeDate} input={true}*/}
-                            {/*required={true} locale="pt-br" disableCloseOnClickOutside={false}/>*/}
-                            <DatePicker
-                                calendarIcon={<FaCalendarAlt/>}
-                                onChange={this.handleChangeDate}
-                                required={true}
-                                maxDate={new Date()-14}
-                                value={dateBirth}
-                                showLeadingZeros={false}
-                                locale={'pt-br'}
-                            />
+                            <DatePicker value={this.state.value} onChange={this.handleChange.bind(this)} />
                         </div>
                     </div>
                     <div className="row">

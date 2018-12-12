@@ -60,43 +60,49 @@ class Cv extends Component {
             display: this.state.copied ? 'block' : 'none'
         };
 
-        return (
-            <div>
-                <div className="site-header top-section top-section-home image-bg parallax-section"
-                     data-image-bg="../../images/capa.jpg">
-                    {
-                        this.props.curriculumData.keyCurriculum === this.props.auth.key &&
-                        <h6>
-                            <div style={{fontWeight: 'bold', marginRight: '15px'}}>Compartilhe seu currículo: </div>
-                            http://cvcloud/cv/{ " "+this.props.curriculumData.keyCurriculum }
-                            <CopyToClipboard text={this.state.text} onCopy={this.copytext.bind(this)}>
-                                <FaShareSquare style={{marginLeft: '15px', fontSize: '20px', cursor: 'pointer'}} title={'Copiar'}/>
-                            </CopyToClipboard>
-                            <div className={'text-center'} style={{position: 'static'}}>
-                                <div style={style}><FaCaretLeft/>copiado</div>
-                            </div>
-                        </h6>
-                    }
-                    <div className="overlay-section"/>
+        if(!this.props.app.loading) {
+            return (
+                <div>
+                    <div className="site-header top-section top-section-home image-bg parallax-section"
+                         data-image-bg="../../images/capa.jpg">
+                        {
+                            this.props.curriculumData.keyCurriculum === this.props.auth.key &&
+                            <h6>
+                                <div style={{fontWeight: 'bold', marginRight: '15px'}}>Compartilhe seu currículo:</div>
+                                http://cvcloud/cv/{" " + this.props.curriculumData.keyCurriculum}
+                                <CopyToClipboard text={this.state.text} onCopy={this.copytext.bind(this)}>
+                                    <FaShareSquare style={{marginLeft: '15px', fontSize: '20px', cursor: 'pointer'}}
+                                                   title={'Copiar'}/>
+                                </CopyToClipboard>
+                                <div className={'text-center'} style={{position: 'static'}}>
+                                    <div style={style}><FaCaretLeft/>copiado</div>
+                                </div>
+                            </h6>
+                        }
+                        <div className="overlay-section"/>
+                    </div>
+                    <About/>
+                    <Education/>
+                    <Experience/>
+                    <Skill/>
+                    <AdditionalInformation/>
+                    <Qualifications/>
+                    <References/>
+                    <Contact/>
+                    <ColorScheme/>
+                    <Footer/>
                 </div>
-                <About />
-                <Education />
-                <Experience />
-                <Skill />
-                <AdditionalInformation />
-                <Qualifications />
-                <References />
-                <Contact />
-                <ColorScheme />
-                <Footer />
-            </div>
-        );
+            )
+        }else {
+            return <div/>
+        }
     }
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
     curriculumData: state.curriculumData,
+    app: state.app
 });
 
 const mapDispatchToProps = dispatch =>

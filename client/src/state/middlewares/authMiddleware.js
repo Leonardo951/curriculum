@@ -18,7 +18,7 @@ function* registerUser(action) {
         }else{
             yield put({type: 'NEW_REGISTER', payload: {user: data.data.Curriculum}});
             yield put(registerValidator(data.data.token));
-            yield put(push("/cV?"+ data.data.Curriculum.key));
+            yield put(push("/curriculo?create="+ data.data.hashCreate));
         }
 
     }catch(error){

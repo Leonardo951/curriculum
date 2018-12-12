@@ -7,7 +7,7 @@ import MonthBox from '../../UI/MonthBox';
 import {bindActionCreators} from "redux";
 import * as curriculumActions from "../../state/actions/curriculumAction";
 import connect from "react-redux/es/connect/connect";
-import { PICKERLANG } from '../../constant/curriculum';
+import { PICKERLANG } from '../../constant/curriculumOptions';
 
 class AddExperience extends Component {
 

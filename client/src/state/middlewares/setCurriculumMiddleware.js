@@ -2,7 +2,7 @@ import { takeLatest, put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import {getToken, login} from '../../services/auth';
 import { push } from 'connected-react-router';
-import {INPROGRESS} from "../../constant/curriculum";
+import {INPROGRESS} from "../../constant/curriculumOptions";
 
 export default function* requestRegisterCurriculum() {
     yield [

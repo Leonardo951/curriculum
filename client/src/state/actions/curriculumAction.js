@@ -17,17 +17,13 @@ export function changeNationality(data) {
         data
     }
 }
-export function changeDateBirth(data) {
-    return {
-        type: 'CHANGE_DATA_BIRTH',
-        data
-    }
-}export function changeCivilStatus(data) {
+export function changeCivilStatus(data) {
     return {
         type: 'CHANGE_CIVIL_STATUS',
         data
     }
-}export function changeAddress(data) {
+}
+export function changeAddress(data) {
     return {
         type: 'CHANGE_ADDRESS',
         data

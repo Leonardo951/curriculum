@@ -1,0 +1,22 @@
+.override {
+  display: block;
+  margin: 2px auto;
+  border-radius: 2px;
+  //border-color: red;
+}
+.centralize{
+  left:50%;
+  top:50%;
+  position: absolute;
+  margin-left:-40px; /* -1/2 width */
+  margin-top:-40px; /* -1/2 height */
+}
+.block-main-loading {
+  height: 91vh;
+  width: auto;
+  background-color: #e6e6e6;
+  opacity: 0.6;
+}
+.centralize > h5 {
+  margin-left: -40%;
+}

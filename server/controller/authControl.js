@@ -31,13 +31,17 @@ router.post('/register', async (req, res) =>{
 
         const Curriculum = await curriculum.create(req.body);
 
+        const hashCreate = await bcrypt.hash(req.body.key, 1);
+
         const token = jwt.sign({ id: Curriculum.id }, secretRegister, {
             expiresIn: 3600,
         });
 
         Curriculum.password = undefined; //Para não mostrar o valor quando voltar.
 
-        return res.status(200).send({ Curriculum, token })
+        setTimeout(()=>{
+            return res.status(200).send({ Curriculum, token, hashCreate })
+        },5000);
     } catch (err) {
         console.log(err);
         return res.status(400).send({ error: 'Failed registration: '+err })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FaDownload, FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaTwitter, FaGithub, FaPinterestP, FaInstagram, FaYoutube } from 'react-icons/fa';
 import { COLORS } from '../../constant/cv';
-import {OPTIONS_CIVIL_STATUS, OPTIONS_SEX, OPTIONS_STATES_OF_BRAZIL} from '../../constant/curriculum';
+import {OPTIONS_CIVIL_STATUS, OPTIONS_SEX, OPTIONS_STATES_OF_BRAZIL} from '../../constant/curriculumOptions';
 import ReactTooltip from 'react-tooltip';
 import connect from "react-redux/es/connect/connect";
 

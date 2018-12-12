@@ -78,7 +78,7 @@ const curriculumData = (state = initial_state, action) => {
             return {...state, otherMail: action.data};
         case 'CHANGE_NATIONALITY':
             return {...state, nationality: action.data};
-        case 'CHANGE_DATA_BIRTH':
+        case 'SAVE_DATE_BIRTH':
             return {...state, dateBirth: action.data};
         case 'CHANGE_CIVIL_STATUS':
             return {...state, civilStatus: action.data};

@@ -4,7 +4,7 @@ import scrollToComponent from "react-scroll-to-component";
 import Picker from 'react-month-picker';
 import 'react-month-picker/css/month-picker.css';
 import MonthBox from '../../UI/MonthBox';
-import { OPTIONS_SELECT_SEMESTER_OR_YEAR, PICKERLANG, OPTIONS_PERIOD, OPTIONS_STATUS } from '../../constant/curriculum';
+import { OPTIONS_SELECT_SEMESTER_OR_YEAR, PICKERLANG, OPTIONS_PERIOD, OPTIONS_STATUS } from '../../constant/curriculumOptions';
 import {bindActionCreators} from "redux";
 import * as curriculumActions from "../../state/actions/curriculumAction";
 import connect from "react-redux/es/connect/connect";
